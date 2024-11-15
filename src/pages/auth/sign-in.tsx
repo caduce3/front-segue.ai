@@ -5,7 +5,6 @@ import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { Helmet } from "react-helmet-async";
 import { useState } from "react";
-// import segueAi from "@/assets/segueai2.png";
 import fundoSgm from "@/assets/fundoSgm2.png";
 
 import { Button } from "@/components/ui/button";
@@ -22,13 +21,13 @@ import { toast } from "sonner";
 import { Link, useNavigate, useSearchParams } from "react-router-dom";
 import { useMutation } from "@tanstack/react-query";
 import { signIn } from "@/api/sign-in";
-import { signInBySector } from "@/services/sign-in-by-sector";
-// import logo from "../../assets/logoTrofeu.svg";
+import { signInByPasta } from "@/services/sign-in-by-pasta";
+import { Lock, Mail } from "lucide-react";
 
 // Define o esquema do formulário com campos de e-mail e senha
 const formSchema = z.object({
   email: z.string().email({ message: "Endereço de e-mail inválido." }),
-  password: z
+  senha: z
     .string()
     .min(6, { message: "A senha deve ter pelo menos 6 caracteres." }),
 });
@@ -40,7 +39,7 @@ export function SignIn() {
     resolver: zodResolver(formSchema),
     defaultValues: {
       email: searchParams.get("email") ?? "",
-      password: "",
+      senha: "",
     },
   });
 
@@ -51,16 +50,16 @@ export function SignIn() {
     mutationFn: signIn,
   });
 
-  async function onSubmit(values: { email: string; password: string }) {
+  async function onSubmit(values: { email: string; senha: string }) {
     setIsSubmitting(true);
     try {
       const token = await authenticate({
         email: values.email,
-        password: values.password,
+        senha: values.senha,
       });
       // Armazena o token no localStorage ou sessionStorage
       localStorage.setItem("authToken", token);
-      const redirectURL = signInBySector(token);
+      const redirectURL = signInByPasta(token);
       toast.success("Sucesso! Você está logado.");
 
       if (typeof redirectURL === "string") {
@@ -82,7 +81,7 @@ export function SignIn() {
       <div className="max-h-[550px]">
         <img
           src={fundoSgm}
-          alt="Trofeu.bet"
+          alt="Segue.ai"
           className="h-full w-full object-cover rounded-l-lg"
         />
       </div>
@@ -94,7 +93,7 @@ export function SignIn() {
           <div>
             <h1 className="text-4xl font-medium">Olá, seguidor!</h1>
             <p className="text-sm text-muted-foreground mt-1 font-semibold">
-              Seja bem-vindo ao painel de login!
+              Entre com sua conta para acessar o sistema
             </p>
           </div>
 
@@ -105,7 +104,14 @@ export function SignIn() {
               <FormItem>
                 <FormLabel>E-mail</FormLabel>
                 <FormControl>
-                  <Input placeholder="seguidor@gmail.com" {...field} />
+                  <div className="relative flex items-center">
+                    <Mail className="left-2 top-2.5 h-4 w-4 text-gray-500 absolute" />
+                    <Input
+                      placeholder="seguidor@gmail.com"
+                      className="pl-8"
+                      {...field}
+                    />
+                  </div>
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -115,12 +121,20 @@ export function SignIn() {
           {/* Campo de Senha */}
           <FormField
             control={form.control}
-            name="password"
+            name="senha"
             render={({ field }) => (
               <FormItem>
                 <FormLabel>Senha</FormLabel>
                 <FormControl>
-                  <Input type="password" placeholder="********" {...field} />
+                  <div className="relative flex items-center">
+                    <Lock className="left-2 top-2.5 h-4 w-4 text-gray-500 absolute" />
+                    <Input
+                      type="senha"
+                      placeholder="********"
+                      {...field}
+                      className="pl-8"
+                    />
+                  </div>
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -129,9 +143,10 @@ export function SignIn() {
 
           <Link
             to="/sign-up"
-            className="text-right text-sm text-muted-foreground underline"
+            className="text-center text-sm text-muted-foreground hover:underline"
           >
-            Cadastre sua Paróquia
+            Não tem um conta?{" "}
+            <span className="text-">Cadastre sua Paróquia</span>
           </Link>
 
           <Button type="submit" className="w-full" disabled={isSubmitting}>
