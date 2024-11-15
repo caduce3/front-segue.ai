@@ -7,7 +7,7 @@ import { useAuthRedirect } from "@/middlewares/authRedirect";
 import { useNavigate } from "react-router-dom";
 import { Skeleton } from "./ui/skeleton";
 import { Dialog, DialogTrigger } from "./ui/dialog";
-import { UserProfileDialog } from "./user-profile-dialog";
+// import { UserProfileDialog } from "./user-profile-dialog";
 import { NavLink } from "./nav-link";
 
 const AccountMenu = () => {
@@ -30,10 +30,10 @@ const AccountMenu = () => {
     };
 
     // Lógica de visibilidade com base no setor do usuário
-    const sector = profileUser?.sector;
+    const pasta = profileUser?.pasta;
 
-    const canViewAllItems = sector === 'DESENVOLVIMENTO' || sector === 'GERENCIAL';
-    const canViewOnlyTrafego = sector === 'TRAFEGO';
+    const canViewAllItems = pasta === 'PAROQUIA' || pasta === 'PADRE';
+    const canViewOnlyFinancas = pasta === 'FINANCAS' ;
 
     return (
         <Dialog>
@@ -45,7 +45,7 @@ const AccountMenu = () => {
                 </DropdownMenuTrigger>
                 <DropdownMenuContent align="end" className="w-56 bg-[#18181B] rounded-xl">
                     <DropdownMenuLabel className="flex flex-col">
-                        <span>{isLoadingProfile ? <Skeleton className="h-4 w-40"/> : profileUser?.name }</span>
+                        <span>{isLoadingProfile ? <Skeleton className="h-4 w-40"/> : profileUser?.nome }</span>
                         <span className="text-xs font-normal text-muted-foreground">{profileUser?.email}</span>
                     </DropdownMenuLabel>
 
@@ -61,32 +61,32 @@ const AccountMenu = () => {
                                 </NavLink>
                             </DropdownMenuItem>
                             <DropdownMenuItem className="cursor-pointer">
-                                <NavLink to="/players" className="flex items-center">
+                                <NavLink to="/financas" className="flex items-center">
                                     <Dices className="mr-2 h-4 w-4"/>
-                                    Jogadores
+                                    Finanças
                                 </NavLink>
                             </DropdownMenuItem>
                             <DropdownMenuItem className="cursor-pointer">
-                                <NavLink to="/users" className="flex items-center">
+                                <NavLink to="/fichas" className="flex items-center">
                                     <Users className="mr-2 h-4 w-4"/>
-                                    Usuários
+                                    Fichas
                                 </NavLink>
                             </DropdownMenuItem>
                             <DropdownMenuItem className="cursor-pointer">
-                                <NavLink to="/trafego" className="flex items-center">
+                                <NavLink to="/pos" className="flex items-center">
                                     <Rocket className="mr-2 h-4 w-4"/>
-                                    Tráfego
+                                    Pós
                                 </NavLink>
                             </DropdownMenuItem>
                         </>
                     )}
 
                     {/* Se o usuário só pode ver o item "Tráfego" */}
-                    {canViewOnlyTrafego && (
+                    {canViewOnlyFinancas && (
                         <DropdownMenuItem className="cursor-pointer">
                             <NavLink to="/trafego" className="flex items-center">
                                 <Rocket className="mr-2 h-4 w-4"/>
-                                Tráfego
+                                Finanças
                             </NavLink>
                         </DropdownMenuItem>
                     )}
@@ -106,7 +106,7 @@ const AccountMenu = () => {
                 </DropdownMenuContent>
             </DropdownMenu>
 
-            <UserProfileDialog />
+            {/* <UserProfileDialog /> */}
         </Dialog>
     );
 }
