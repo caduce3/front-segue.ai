@@ -35,33 +35,17 @@ import { BRAZIL_STATE_CODES } from "@/components/_constants/cep-disponiveis";
 import { CepInput } from "@/components/_formatacao/cep-input";
 
 const signUpSchema = z.object({
-  nome: z
-    .string()
-    .min(4, { message: "Pelo menos 4 caracteres." }),
-  cnpj: z
-    .string()
-    .min(14, { message: "No mínimo 14 dígitos." }),
+  nome: z.string().min(4, { message: "Pelo menos 4 caracteres." }),
+  cnpj: z.string().min(14, { message: "No mínimo 14 dígitos." }),
   email: z.string().email({ message: "Endereço de e-mail inválido." }),
-  senha: z
-    .string()
-    .min(6, { message: "Pelo menos 6 caracteres." }),
-  telefone: z
-    .string()
-    .min(10, {
-      message: "No mínimo 10 dígitos.",
-    }),
-  endereco: z
-    .string()
-    .min(4, { message: "Pelo menos 4 caracteres." }),
-  cidade: z
-    .string()
-    .min(4, { message: "Pelo menos 4 caracteres." }),
-  estado: z
-    .string()
-    .min(2, { message: "Pelo menos 2 caracteres." }),
-  cep: z
-    .string()
-    .min(8, { message: "No mínimo 8 dígitos." }),
+  senha: z.string().min(6, { message: "Pelo menos 6 caracteres." }),
+  telefone: z.string().min(10, {
+    message: "No mínimo 10 dígitos.",
+  }),
+  endereco: z.string().min(4, { message: "Pelo menos 4 caracteres." }),
+  cidade: z.string().min(4, { message: "Pelo menos 4 caracteres." }),
+  estado: z.string().min(2, { message: "Pelo menos 2 caracteres." }),
+  cep: z.string().min(8, { message: "No mínimo 8 dígitos." }),
 });
 
 type SignUpFormValues = z.infer<typeof signUpSchema>;
@@ -80,7 +64,6 @@ export function SignUp() {
       estado: "",
       cep: "",
     },
-    mode: "onSubmit"
   });
 
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -91,7 +74,6 @@ export function SignUp() {
   });
 
   async function onSubmit(values: SignUpFormValues) {
-    console.log("dentro do onSubmit", values);
     setIsSubmitting(true);
     try {
       await registerIgrejaFn({
@@ -121,23 +103,6 @@ export function SignUp() {
     }
   }
 
-  // Adicionando função para debug
-  const handleSubmitWithDebug = form.handleSubmit(
-    (data) => {
-      console.log("Form data:", data);
-      console.log("Form errors:", form.formState.errors);
-      onSubmit(data);
-    },
-    (errors) => {
-      console.log("Validation errors:", errors);
-      // Exibir toast com erros
-      const errorMessages = Object.entries(errors)
-        .map(([field, error]) => `${field}: ${error?.message}`)
-        .join("\n");
-      toast.error(`Erros de validação:\n${errorMessages}`);
-    }
-  );
-
   return (
     <div className="grid grid-cols-[2fr_1fr] rounded-md p-10 w-full max-w-7xl">
       <div>
@@ -149,7 +114,7 @@ export function SignUp() {
       </div>
       <Form {...form}>
         <form
-          onSubmit={handleSubmitWithDebug}
+          onSubmit={form.handleSubmit(onSubmit)}
           className="space-y-1 max-w-[600px] w-[600px] flex flex-col justify-center gap-6 p-10 border h-[700px] max-h-[700px] rounded-r-lg"
         >
           <div>
