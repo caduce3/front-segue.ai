@@ -1,8 +1,15 @@
 import { Separator } from "./ui/separator";
-import { ChartNoAxesCombined, Dices, Rocket, Users } from "lucide-react";
+import {
+  CalendarCheck,
+  ChartNoAxesCombined,
+  Coins,
+  NotepadText,
+  Puzzle,
+  Rocket,
+  RocketIcon
+} from "lucide-react";
 import { NavLink } from "./nav-link";
 import AccountMenu from "./account-menu";
-import logo from "../assets/logoTrofeu.svg";
 import { useQuery } from "@tanstack/react-query";
 import { getProfileUser } from "@/api/get-profile-user";
 
@@ -19,10 +26,11 @@ const Header = () => {
   const canViewOnlyFinancas = pasta === "FINANCAS";
 
   return (
-    <div className="border-b bg-[#18181B]">
+    <div className="border-b ">
       <div className="flex h-16 items-center gap-6 px-6 justify-between">
-        <div className="flex justify-center w-full sm:w-auto">
-          <img src={logo} alt="Trofeu.bet" className="h-6" />
+        <div className="flex items-end">
+          <RocketIcon size={30} className="mr-2 text-[#E2B815]" />
+          <h1 className="text-2xl font-bold">Segue.ai</h1>
         </div>
 
         <div className="hidden sm:flex items-center space-x-4 lg:space-x-6">
@@ -36,17 +44,25 @@ const Header = () => {
                   <ChartNoAxesCombined className="h-4 w-4" />
                   Dashboard
                 </NavLink>
-                <NavLink to="/players">
-                  <Dices className="h-4 w-4" />
+                <NavLink to="/financas">
+                  <Coins className="h-4 w-4" />
                   Finanças
                 </NavLink>
-                <NavLink to="/users">
-                  <Users className="h-4 w-4" />
+                <NavLink to="/fichas">
+                  <NotepadText className="h-4 w-4" />
                   Fichas
                 </NavLink>
-                <NavLink to="/trafego">
+                <NavLink to="/pos">
                   <Rocket className="h-4 w-4" />
                   Pós
+                </NavLink>
+                <NavLink to="/montagem">
+                  <Puzzle className="h-4 w-4" />
+                  Montagem
+                </NavLink>
+                <NavLink to="/assinatura">
+                  <CalendarCheck className="h-4 w-4" />
+                  Assinatura
                 </NavLink>
               </>
             )}

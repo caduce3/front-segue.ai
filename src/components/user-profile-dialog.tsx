@@ -8,7 +8,7 @@ import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { z } from "zod";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import {  updateUserProfile } from "@/api/update-profile-user";
+// import {  updateUserProfile } from "@/api/update-profile-user";
 import { toast } from "sonner";
 
 const userProfileSchema = z.object({
@@ -28,40 +28,40 @@ export function UserProfileDialog() {
     const { register, handleSubmit, formState: {isSubmitting} } = useForm<UserProfileSchema>({
         resolver: zodResolver(userProfileSchema),
         values: {
-            name: profileUser?.name ?? '',
+            name: profileUser?.nome ?? '',
             email: profileUser?.email ?? ''
         }
     })
 
-    const queryClient = useQueryClient()
+    // const queryClient = useQueryClient()
 
-    const { mutateAsync: updateUserProfileFn } = useMutation({
-        mutationFn: updateUserProfile,
-        onSuccess(_, {name, email}) {
-            const cached = queryClient.getQueryData<GetProfileUserResponse>(['profileUser'])
-            if(cached){
-                queryClient.setQueryData(
-                    ['profileUser'], {
-                    ...cached,
-                    name,
-                    email
-                })
-            }
-        }
-    })
+    // const { mutateAsync: updateUserProfileFn } = useMutation({
+    //     mutationFn: updateUserProfile,
+    //     onSuccess(_, {name, email}) {
+    //         const cached = queryClient.getQueryData<GetProfileUserResponse>(['profileUser'])
+    //         if(cached){
+    //             queryClient.setQueryData(
+    //                 ['profileUser'], {
+    //                 ...cached,
+    //                 name,
+    //                 email
+    //             })
+    //         }
+    //     }
+    // })
 
-    async function handleSubmitUserProfile(data: UserProfileSchema) {
-        try {
-            await updateUserProfileFn({ 
-                id: profileUser?.id ?? '',
-                name: data.name,
-                email: data.email
-            });
-            toast.success("Perfil atualizado com sucesso!");
-        } catch {
-            toast.error("Erro ao atualizar este usuário!")
-        }
-    }
+    // async function handleSubmitUserProfile(data: UserProfileSchema) {
+    //     try {
+    //         await updateUserProfileFn({ 
+    //             id: profileUser?.id ?? '',
+    //             name: data.name,
+    //             email: data.email
+    //         });
+    //         toast.success("Perfil atualizado com sucesso!");
+    //     } catch {
+    //         toast.error("Erro ao atualizar este usuário!")
+    //     }
+    // }
 
     return (
         <DialogContent>
@@ -70,7 +70,7 @@ export function UserProfileDialog() {
                 <DialogDescription>Atualize as suas informações de usuário.</DialogDescription>
             </DialogHeader>
 
-            <form onSubmit={handleSubmit(handleSubmitUserProfile)}>
+            <form>
                 <div className="space-y-4 py-4">
                     <div className="grid grid-cols-4 items-center gap-4">
                         <Label className="text-right" htmlFor="name-user">

@@ -129,7 +129,7 @@ export function SignIn() {
                   <div className="relative flex items-center">
                     <Lock className="left-2 top-2.5 h-4 w-4 text-gray-500 absolute" />
                     <Input
-                      type="senha"
+                      type="password"
                       placeholder="********"
                       {...field}
                       className="pl-8"

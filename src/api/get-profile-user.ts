@@ -45,7 +45,7 @@ interface EquipeDirigente {
 }
 
 export interface GetProfileUserResponse {
-  user: Igreja | EquipeDirigente;
+  usuario: Igreja | EquipeDirigente;
 }
 
 export async function getProfileUser() {
@@ -58,8 +58,9 @@ export async function getProfileUser() {
         Authorization: `Bearer ${token}`,
       },
     });
+    console.log(response.data);
 
-    return response.data.user; // Retorna apenas o objeto `user`
+    return response.data.usuario; // Retorna apenas o objeto `user`
   } catch (error) {
     throw new Error("Failed to fetch user profile");
   }
