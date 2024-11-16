@@ -11,8 +11,8 @@ export function App() {
 
   return (
     <HelmetProvider>
-      <ThemeProvider storageKey='trofeubet-theme' defaultTheme='dark'>
-        <Helmet titleTemplate='%s | Trofeu.bet'/>
+      <ThemeProvider storageKey='segueai-theme' defaultTheme='dark'>
+        <Helmet titleTemplate='%s | Segue.ai'/>
         <Toaster richColors/>
         <QueryClientProvider client={queryClient}>
           <RouterProvider router={router} />

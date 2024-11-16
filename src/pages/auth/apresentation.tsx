@@ -33,7 +33,7 @@ const Apresentation = () => {
       </div>
       {/* DIREITA */}
       <div className="relative hidden h-full w-full md:block">
-        <img src={fundoSgm} alt="Trofeu.bet" className="object-cover" />
+        <img src={fundoSgm} alt="Segue.ai" className="object-cover" />
       </div>
     </div>
   );
