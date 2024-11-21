@@ -32,8 +32,8 @@ const AccountMenu = () => {
     // Lógica de visibilidade com base no setor do usuário
     const pasta = profileUser?.pasta;
 
-    const canViewAllItems = pasta === 'PAROQUIA' || pasta === 'PADRE';
-    const canViewOnlyFinancas = pasta === 'FINANCAS' ;
+    const canViewAllItems = pasta === 'PAROQUIA' || pasta === 'PADRE' || pasta === 'FINANCAS';
+    const canViewOnlyFinancas = pasta === 'PAROQUIA' ;
 
     return (
         <Dialog>

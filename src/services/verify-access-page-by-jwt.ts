@@ -2,12 +2,12 @@ import { jwtDecode } from "jwt-decode"
 
 interface MyTokenPayload {
     id: string;
-    sector: string;
+    pasta: string;
 }
 
-type AllowedSectors = "DESENVOLVIMENTO" | "GERENCIAL" | "TRAFEGO" | "RISCO" | "FINANCEIRO" | "AFILIADOS" | "USER";
+type AllowedPastas = "PAROQUIA" | "PADRE" | "FINANCAS" | "POS" | "MONTAGEM" | "FICHAS" | "PALESTRA";
 
-export const verifyAccessByJwt = (token: string, allowedSectors: AllowedSectors[]) => {
+export const verifyAccessByJwt = (token: string, allowedPastas: AllowedPastas[]) => {
 
     if (!token || token == '') {
         return null;
@@ -15,7 +15,7 @@ export const verifyAccessByJwt = (token: string, allowedSectors: AllowedSectors[
 
     const decodToken = jwtDecode<MyTokenPayload>(token);
 
-    if (!allowedSectors.includes(decodToken.sector as AllowedSectors)) {
+    if (!allowedPastas.includes(decodToken.pasta as AllowedPastas)) {
         return false;
     }
 

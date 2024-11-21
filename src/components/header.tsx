@@ -22,8 +22,8 @@ const Header = () => {
 
   const pasta = profileUser?.pasta;
 
-  const canViewAllItems = pasta === "PAROQUIA" || pasta === "PADRE";
-  const canViewOnlyFinancas = pasta === "FINANCAS";
+  const canViewAllItems = pasta === "PAROQUIA" || pasta === "PADRE" || pasta === 'FINANCAS';
+  const canViewOnlyFinancas = pasta === "PAROQUIA";
 
   return (
     <div className="border-b ">

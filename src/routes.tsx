@@ -6,6 +6,7 @@ import { AuthLayout } from './pages/_layouts/auth'
 import { SignUp } from './pages/auth/sign-up'
 import { NotFound } from './pages/404'
 import Apresentation from './pages/auth/apresentation'
+import { Transactions } from './pages/app/transactions/transactions'
 
 export const router = createBrowserRouter([
     {
@@ -14,6 +15,7 @@ export const router = createBrowserRouter([
         errorElement: <NotFound />,
         children: [
             {path: '/', element: <Dashboard />},
+            {path: '/financas', element: <Transactions />}
         ]
     },
     {
