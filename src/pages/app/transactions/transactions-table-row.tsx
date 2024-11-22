@@ -2,17 +2,19 @@ import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { TableCell, TableRow } from "@/components/ui/table";
 import { capitalizeName } from "@/services/formated-captalize-name";
-import { ExternalLink, PencilIcon, Trash2, UserPen } from "lucide-react";
+import { ExternalLink, Trash2 } from "lucide-react";
 import { toast } from "sonner";
 import { queryClient } from "@/lib/react-query";
 import { formatCurrency } from "@/services/formated-currency-brl";
 import {
   OPCOES_METODO_PAGAMENTO_TRANSACAO,
-  OPCOES_TIPO_TRANSACAO,
   OPCPES_CATEGORIA_TRANSACAO,
 } from "@/components/_constants/transactions-traducoes";
-import { Badge } from "@/components/ui/badge";
 import TransactionTypeBadge from "./_components/type-badge";
+import { DeleteConfirmationModal } from "@/components/card-deletar";
+import { deletarTransaction } from "@/api/transactions/deletar-transaction";
+import { getProfileUser } from "@/api/get-profile-user";
+import { useQuery } from "@tanstack/react-query";
 
 export interface TransactionsTableRowProps {
   transactions: {
@@ -49,38 +51,49 @@ export interface TransactionsTableRowProps {
 }
 
 const TransactionsTableRow = ({ transactions }: TransactionsTableRowProps) => {
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  //   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
+  // const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
 
   //   const handleDetailsClick = () => {
   //     setIsModalOpen(true);
   //   };
 
-  //   const handleCloseModal = () => {
-  //     setIsModalOpen(false);
-  //   };
+  // const handleCloseModal = () => {
+  //   setIsModalOpen(false);
+  // };
 
-  //   const handleDeleteClick = () => {
-  //     queryClient.invalidateQueries({
-  //       predicate: (query) => query.queryKey.includes("funcionarios"),
-  //     });
-  //     setIsDeleteModalOpen(true);
-  //   };
+  const { data: profileUser } = useQuery({
+    queryKey: ["profileUser"],
+    queryFn: getProfileUser,
+    staleTime: Infinity,
+  });
 
-  //   const handleCancelDelete = () => {
-  //     setIsDeleteModalOpen(false);
-  //   };
+  let idUserEquipeDirigente = "";
+  if (profileUser && "igrejaId" in profileUser) {
+    idUserEquipeDirigente = profileUser.id;
+  }
 
-  //   const handleConfirmDelete = async () => {
-  //     try {
-  //       await deletarFuncionario({ id: funcionarios.id });
-  //       setIsDeleteModalOpen(false);
-  //       toast.success("Colaborador deletado com sucesso!");
-  //     } catch (error) {
-  //       toast.error("Erro ao deletar colaborador");
-  //       console.error("Erro ao deletar funcionário:", error);
-  //     }
-  //   };
+  const handleDeleteClick = () => {
+    queryClient.invalidateQueries({
+      predicate: (query) => query.queryKey.includes("transactions"),
+    });
+    setIsDeleteModalOpen(true);
+  };
+
+  const handleCancelDelete = () => {
+    setIsDeleteModalOpen(false);
+  };
+
+  const handleConfirmDelete = async () => {
+    try {
+      await deletarTransaction({ id: transactions.id, idUserEquipeDirigente: idUserEquipeDirigente });
+      setIsDeleteModalOpen(false);
+      toast.success("Transação deletada com sucesso!");
+    } catch (error) {
+      toast.error("Erro ao deletar transação");
+      console.error("Erro ao deletar transação:", error);
+    }
+  };
 
   return (
     <>
@@ -126,7 +139,7 @@ const TransactionsTableRow = ({ transactions }: TransactionsTableRowProps) => {
           <Button variant="ghost" size="sm" className="text-[#71717A]">
             <ExternalLink className="h-4 w-4" />
           </Button>
-          <Button variant="ghost" size="sm" className="ml-1 text-[#71717A]">
+          <Button variant="ghost" size="sm" className="ml-1 text-[#71717A]" onClick={handleDeleteClick}>
             <Trash2 className="h-4 w-4" />
           </Button>
         </TableCell>
@@ -138,13 +151,13 @@ const TransactionsTableRow = ({ transactions }: TransactionsTableRowProps) => {
           onClose={handleCloseModal}
           funcionarioId={funcionarios.id}
         />
-      )}
+      )} */}
 
       <DeleteConfirmationModal
         isOpen={isDeleteModalOpen}
         onConfirm={handleConfirmDelete}
         onCancel={handleCancelDelete}
-      /> */}
+      />
     </>
   );
 };
