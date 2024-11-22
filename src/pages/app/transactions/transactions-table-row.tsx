@@ -2,11 +2,15 @@ import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { TableCell, TableRow } from "@/components/ui/table";
 import { capitalizeName } from "@/services/formated-captalize-name";
-import { Trash2, UserPen } from "lucide-react";
+import { ExternalLink, PencilIcon, Trash2, UserPen } from "lucide-react";
 import { toast } from "sonner";
 import { queryClient } from "@/lib/react-query";
 import { formatCurrency } from "@/services/formated-currency-brl";
-import { OPCOES_TIPO_TRANSACAO } from "@/components/_constants/transactions-traducoes";
+import {
+  OPCOES_METODO_PAGAMENTO_TRANSACAO,
+  OPCOES_TIPO_TRANSACAO,
+  OPCPES_CATEGORIA_TRANSACAO,
+} from "@/components/_constants/transactions-traducoes";
 import { Badge } from "@/components/ui/badge";
 import TransactionTypeBadge from "./_components/type-badge";
 
@@ -88,25 +92,42 @@ const TransactionsTableRow = ({ transactions }: TransactionsTableRowProps) => {
           <TransactionTypeBadge transaction={transactions} />
         </TableCell>
         <TableCell className="hidden md:table-cell">
-          {transactions.categoria}
+          {
+            OPCPES_CATEGORIA_TRANSACAO.find(
+              (categoria) => categoria.value === transactions.categoria
+            )?.label || "Categoria não definida" // Fallback caso não encontre
+          }
         </TableCell>
         <TableCell className="hidden sm:table-cell">
-          {capitalizeName(transactions.metodoPagamento)}
+          {
+            OPCOES_METODO_PAGAMENTO_TRANSACAO.find(
+              (metodoPagamento) =>
+                metodoPagamento.value === transactions.metodoPagamento
+            )?.label || "Categoria não definida" // Fallback caso
+          }
         </TableCell>
-        <TableCell className="hidden sm:table-cell">
-          {capitalizeName(transactions.date)}
+        <TableCell className="hidden sm:table-cell text-[#71717A]">
+          {
+            // Verifica se a data é válida antes de tentar formatá-la
+            !isNaN(new Date(transactions.date).getTime())
+              ? new Date(transactions.date).toLocaleDateString("pt-BR", {
+                  day: "2-digit",
+                  month: "long",
+                  year: "numeric",
+                })
+              : "Data inválida"
+          }
         </TableCell>
+
         <TableCell className="hidden sm:table-cell">
           {formatCurrency(transactions.valor)}
         </TableCell>
         <TableCell>
-          <Button variant="outline" size="sm">
-            <UserPen className="h-4 w-4" />
-            <span className="sr-only">Detalhes do usuário</span>
+          <Button variant="ghost" size="sm" className="text-[#71717A]">
+            <ExternalLink className="h-4 w-4" />
           </Button>
-          <Button variant="secondary" size="sm" className="ml-1">
+          <Button variant="ghost" size="sm" className="ml-1 text-[#71717A]">
             <Trash2 className="h-4 w-4" />
-            <span className="sr-only">Deletar usuário</span>
           </Button>
         </TableCell>
       </TableRow>

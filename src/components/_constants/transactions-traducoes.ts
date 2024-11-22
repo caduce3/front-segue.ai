@@ -14,21 +14,21 @@ export const OPCOES_TIPO_TRANSACAO = [
   },
 ];
 
-export const TRANSACTION_CATEGORY_OPTIONS = [
+export const OPCPES_CATEGORIA_TRANSACAO = [
   {
-    value: "FOOD",
+    value: "ALIMENTACAO",
     label: "Alimentação",
   },
   {
-    value: "TRANSPORT",
+    value: "TRANSPORTE",
     label: "Transporte",
   },
   {
-    value: "SPONSORSHIP",
+    value: "PATROCINIO",
     label: "Patrocínio",
   },
   {
-    value: "DONATION",
+    value: "DOACAO",
     label: "Doação",
   },
   {
@@ -36,22 +36,22 @@ export const TRANSACTION_CATEGORY_OPTIONS = [
     label: "Bingo",
   },
   {
-    value: "OTHER",
+    value: "OUTRO",
     label: "Outro",
   },
 ];
 
-export const TRANSACTION_METHOD_PAYMENT = [
+export const OPCOES_METODO_PAGAMENTO_TRANSACAO = [
   {
-    value: "CASH",
+    value: "DINHEIRO",
     label: "Dinheiro",
   },
   {
-    value: "CREDIT_CARD",
+    value: "CARTAO_CREDITO",
     label: "Cartão de Crédito",
   },
   {
-    value: "DEBIT_CARD",
+    value: "CARTAO_DEBITO",
     label: "Cartão de Débito",
   },
   {
@@ -59,15 +59,15 @@ export const TRANSACTION_METHOD_PAYMENT = [
     label: "PIX",
   },
   {
-    value: "BANK_TRANSFER",
+    value: "TRANSAFERENCIA_BANCARIA",
     label: "Transferência Bancária",
   },
   {
-    value: "BANK_SLIP",
+    value: "BOLETO_BANCARIO",
     label: "Boleto Bancário",
   },
   {
-    value: "OTHER",
+    value: "OUTRO",
     label: "Outro",
   },
 ];

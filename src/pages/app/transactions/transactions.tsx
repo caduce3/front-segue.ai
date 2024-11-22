@@ -78,14 +78,14 @@ export function Transactions() {
       ) : (
         <Table className="border mt-5">
           <TableHeader className="bg-[#171618]">
-            <TableRow>
-              <TableHead>Nome</TableHead>
-              <TableHead className="hidden lg:table-cell">Tipo</TableHead>
-              <TableHead className="hidden md:table-cell">Categoria</TableHead>
-              <TableHead className="hidden sm:table-cell">Método</TableHead>
-              <TableHead className="hidden sm:table-cell">Data</TableHead>
-              <TableHead className="hidden sm:table-cell">Valor</TableHead>
-              <TableHead>Detalhes</TableHead>
+            <TableRow >
+              <TableHead className="text-white">Nome</TableHead>
+              <TableHead className="hidden lg:table-cell text-white">Tipo</TableHead>
+              <TableHead className="hidden md:table-cell text-white">Categoria</TableHead>
+              <TableHead className="hidden sm:table-cell text-white">Método</TableHead>
+              <TableHead className="hidden sm:table-cell text-white">Data</TableHead>
+              <TableHead className="hidden sm:table-cell text-white">Valor</TableHead>
+              <TableHead className="text-white">Ações</TableHead>
             </TableRow>
           </TableHeader>
           <TableBody>
