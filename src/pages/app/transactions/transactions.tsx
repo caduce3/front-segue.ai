@@ -69,12 +69,15 @@ export function Transactions() {
 
   return (
     <div className="shadow-lg p-4 w-full">
+      <div className="col-span-12 flex">
+        <h1 className="text-3xl font-bold tracking-tight mr-3">Transações</h1>
+      </div>
       <Helmet title="Finanças" />
       {isLoading ? (
         <TransactionsTableSkeleton />
       ) : (
         <Table className="border mt-5">
-          <TableHeader>
+          <TableHeader className="bg-[#171618]">
             <TableRow>
               <TableHead>Nome</TableHead>
               <TableHead className="hidden lg:table-cell">Tipo</TableHead>

@@ -17,11 +17,12 @@ export function TransactionsTableSkeleton() {
       <TableCaption>Lista de Transações.</TableCaption>
       <TableHeader>
         <TableRow>
-          <TableHead>ID</TableHead>
           <TableHead>Nome</TableHead>
-          <TableHead className="hidden lg:table-cell">Telefone</TableHead>
-          <TableHead className="hidden md:table-cell">E-mail</TableHead>
-          <TableHead className="hidden sm:table-cell">CPF</TableHead>
+          <TableHead>Tipo</TableHead>
+          <TableHead className="hidden lg:table-cell">Categoria</TableHead>
+          <TableHead className="hidden md:table-cell">Método</TableHead>
+          <TableHead className="hidden sm:table-cell">Data</TableHead>
+          <TableHead className="hidden sm:table-cell">Valor</TableHead>
           <TableHead>Detalhes</TableHead>
         </TableRow>
       </TableHeader>

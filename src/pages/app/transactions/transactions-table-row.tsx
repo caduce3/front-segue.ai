@@ -5,6 +5,10 @@ import { capitalizeName } from "@/services/formated-captalize-name";
 import { Trash2, UserPen } from "lucide-react";
 import { toast } from "sonner";
 import { queryClient } from "@/lib/react-query";
+import { formatCurrency } from "@/services/formated-currency-brl";
+import { OPCOES_TIPO_TRANSACAO } from "@/components/_constants/transactions-traducoes";
+import { Badge } from "@/components/ui/badge";
+import TransactionTypeBadge from "./_components/type-badge";
 
 export interface TransactionsTableRowProps {
   transactions: {
@@ -81,13 +85,19 @@ const TransactionsTableRow = ({ transactions }: TransactionsTableRowProps) => {
           {capitalizeName(transactions.nome)}
         </TableCell>
         <TableCell className="hidden lg:table-cell">
-          {transactions.tipo}
+          <TransactionTypeBadge transaction={transactions} />
         </TableCell>
         <TableCell className="hidden md:table-cell">
-          {transactions.tipo}
+          {transactions.categoria}
         </TableCell>
         <TableCell className="hidden sm:table-cell">
-          {capitalizeName(transactions.categoria)}
+          {capitalizeName(transactions.metodoPagamento)}
+        </TableCell>
+        <TableCell className="hidden sm:table-cell">
+          {capitalizeName(transactions.date)}
+        </TableCell>
+        <TableCell className="hidden sm:table-cell">
+          {formatCurrency(transactions.valor)}
         </TableCell>
         <TableCell>
           <Button variant="outline" size="sm">
