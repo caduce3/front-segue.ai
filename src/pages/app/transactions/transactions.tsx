@@ -17,6 +17,7 @@ import {
 } from "@/components/ui/table";
 import TransactionsTableRow from "./transactions-table-row";
 import { Pagination } from "@/components/pagination";
+import CadastrarTransactionDialog from "./_components/dialog-add-transaction";
 
 export function Transactions() {
   const token = useAuthRedirect();
@@ -69,8 +70,9 @@ export function Transactions() {
 
   return (
     <div className="shadow-lg p-4 w-full">
-      <div className="col-span-12 flex">
+      <div className="col-span-12 flex justify-between">
         <h1 className="text-3xl font-bold tracking-tight mr-3">Transações</h1>
+        <CadastrarTransactionDialog />
       </div>
       <Helmet title="Finanças" />
       {isLoading ? (
@@ -78,13 +80,23 @@ export function Transactions() {
       ) : (
         <Table className="border mt-5">
           <TableHeader className="bg-[#171618]">
-            <TableRow >
+            <TableRow>
               <TableHead className="text-white">Nome</TableHead>
-              <TableHead className="hidden lg:table-cell text-white">Tipo</TableHead>
-              <TableHead className="hidden md:table-cell text-white">Categoria</TableHead>
-              <TableHead className="hidden sm:table-cell text-white">Método</TableHead>
-              <TableHead className="hidden sm:table-cell text-white">Data</TableHead>
-              <TableHead className="hidden sm:table-cell text-white">Valor</TableHead>
+              <TableHead className="hidden lg:table-cell text-white">
+                Tipo
+              </TableHead>
+              <TableHead className="hidden md:table-cell text-white">
+                Categoria
+              </TableHead>
+              <TableHead className="hidden sm:table-cell text-white">
+                Método
+              </TableHead>
+              <TableHead className="hidden sm:table-cell text-white">
+                Data
+              </TableHead>
+              <TableHead className="hidden sm:table-cell text-white">
+                Valor
+              </TableHead>
               <TableHead className="text-white">Ações</TableHead>
             </TableRow>
           </TableHeader>

@@ -16,7 +16,7 @@ export const OPCOES_TIPO_TRANSACAO = [
 
 export const OPCPES_CATEGORIA_TRANSACAO = [
   {
-    value: "ALIMENTACAO",
+    value: "COMIDA",
     label: "Alimentação",
   },
   {
@@ -59,7 +59,7 @@ export const OPCOES_METODO_PAGAMENTO_TRANSACAO = [
     label: "PIX",
   },
   {
-    value: "TRANSAFERENCIA_BANCARIA",
+    value: "TRANSFERENCIA_BANCARIA",
     label: "Transferência Bancária",
   },
   {
