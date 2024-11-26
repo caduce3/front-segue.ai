@@ -17,7 +17,7 @@ import {
 } from "@/components/ui/table";
 import TransactionsTableRow from "./transactions-table-row";
 import { Pagination } from "@/components/pagination";
-import CadastrarTransactionDialog from "./_components/dialog-add-transaction";
+import CadastrarTransactionDialog from "./_components/sheet-add-transaction";
 
 export function Transactions() {
   const token = useAuthRedirect();

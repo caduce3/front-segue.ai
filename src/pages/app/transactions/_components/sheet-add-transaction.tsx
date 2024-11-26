@@ -11,7 +11,6 @@ import {
 import { MoneyInput } from "@/components/_formatacao/money-input";
 import { DatePicker2 } from "@/components/date-picker";
 import { Button } from "@/components/ui/button";
-import { DialogClose, DialogFooter } from "@/components/ui/dialog";
 import {
   FormControl,
   FormField,
@@ -29,7 +28,9 @@ import {
 } from "@/components/ui/select";
 import {
   Sheet,
+  SheetClose,
   SheetContent,
+  SheetFooter,
   SheetHeader,
   SheetTitle,
   SheetTrigger,
@@ -317,16 +318,16 @@ const CadastrarTransactionDialog = () => {
               )}
             />
 
-            <DialogFooter className="flex flex-row justify-end">
-              <DialogClose asChild>
+            <SheetFooter className="flex flex-row justify-end">
+              <SheetClose asChild>
                 <Button type="button" className="mb-2 mr-2" variant="outline">
                   Cancelar
                 </Button>
-              </DialogClose>
+              </SheetClose>
               <Button type="submit" className="bg-primary">
                 {isSubmitting ? "Cadastrando" : "Cadastrar"}
               </Button>
-            </DialogFooter>
+            </SheetFooter>
           </form>
         </FormProvider>
       </SheetContent>
