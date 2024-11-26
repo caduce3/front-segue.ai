@@ -8,13 +8,14 @@ import { queryClient } from "@/lib/react-query";
 import { formatCurrency } from "@/services/formated-currency-brl";
 import {
   OPCOES_METODO_PAGAMENTO_TRANSACAO,
-  OPCPES_CATEGORIA_TRANSACAO,
+  OPCOES_CATEGORIA_TRANSACAO,
 } from "@/components/_constants/transactions-traducoes";
 import TransactionTypeBadge from "./_components/type-badge";
 import { DeleteConfirmationModal } from "@/components/card-deletar";
 import { deletarTransaction } from "@/api/transactions/deletar-transaction";
 import { getProfileUser } from "@/api/get-profile-user";
 import { useQuery } from "@tanstack/react-query";
+import EditarTransactionSheet from "./_components/sheet-edit-transaction";
 
 export interface TransactionsTableRowProps {
   transactions: {
@@ -51,16 +52,16 @@ export interface TransactionsTableRowProps {
 }
 
 const TransactionsTableRow = ({ transactions }: TransactionsTableRowProps) => {
-  // const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(false);
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
 
-  //   const handleDetailsClick = () => {
-  //     setIsModalOpen(true);
-  //   };
+  const handleDetailsClick = () => {
+    setIsModalOpen(true);
+  };
 
-  // const handleCloseModal = () => {
-  //   setIsModalOpen(false);
-  // };
+  const handleCloseModal = () => {
+    setIsModalOpen(false);
+  };
 
   const { data: profileUser } = useQuery({
     queryKey: ["profileUser"],
@@ -86,7 +87,10 @@ const TransactionsTableRow = ({ transactions }: TransactionsTableRowProps) => {
 
   const handleConfirmDelete = async () => {
     try {
-      await deletarTransaction({ id: transactions.id, idUserEquipeDirigente: idUserEquipeDirigente });
+      await deletarTransaction({
+        id: transactions.id,
+        idUserEquipeDirigente: idUserEquipeDirigente,
+      });
       setIsDeleteModalOpen(false);
       toast.success("Transação deletada com sucesso!");
     } catch (error) {
@@ -106,7 +110,7 @@ const TransactionsTableRow = ({ transactions }: TransactionsTableRowProps) => {
         </TableCell>
         <TableCell className="hidden md:table-cell">
           {
-            OPCPES_CATEGORIA_TRANSACAO.find(
+            OPCOES_CATEGORIA_TRANSACAO.find(
               (categoria) => categoria.value === transactions.categoria
             )?.label || "Categoria não definida" // Fallback caso não encontre
           }
@@ -136,22 +140,27 @@ const TransactionsTableRow = ({ transactions }: TransactionsTableRowProps) => {
           {formatCurrency(transactions.valor)}
         </TableCell>
         <TableCell>
-          <Button variant="ghost" size="sm" className="text-[#71717A]">
+          <Button variant="ghost" size="sm" className="text-[#71717A]" onClick={handleDetailsClick}>
             <ExternalLink className="h-4 w-4" />
           </Button>
-          <Button variant="ghost" size="sm" className="ml-1 text-[#71717A]" onClick={handleDeleteClick}>
+          <Button
+            variant="ghost"
+            size="sm"
+            className="ml-1 text-[#71717A]"
+            onClick={handleDeleteClick}
+          >
             <Trash2 className="h-4 w-4" />
           </Button>
         </TableCell>
       </TableRow>
 
-      {/* {isModalOpen && (
-        <FuncionarioDetailsDialog
-          isOpen={isModalOpen}
-          onClose={handleCloseModal}
-          funcionarioId={funcionarios.id}
-        />
-      )} */}
+      <EditarTransactionSheet
+        id={transactions.id}
+        igrejaId={transactions.igrejaId}
+        idUserEquipeDirigente={idUserEquipeDirigente}
+        isOpen={isModalOpen}
+        onClose={handleCloseModal}
+      />
 
       <DeleteConfirmationModal
         isOpen={isDeleteModalOpen}

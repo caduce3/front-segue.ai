@@ -6,7 +6,7 @@ import {
 import {
   OPCOES_METODO_PAGAMENTO_TRANSACAO,
   OPCOES_TIPO_TRANSACAO,
-  OPCPES_CATEGORIA_TRANSACAO,
+  OPCOES_CATEGORIA_TRANSACAO,
 } from "@/components/_constants/transactions-traducoes";
 import { MoneyInput } from "@/components/_formatacao/money-input";
 import { DatePicker2 } from "@/components/date-picker";
@@ -265,7 +265,7 @@ const CadastrarTransactionDialog = () => {
                         <SelectValue placeholder="Selecione a categoria" />
                       </SelectTrigger>
                       <SelectContent>
-                        {OPCPES_CATEGORIA_TRANSACAO.map((option) => (
+                        {OPCOES_CATEGORIA_TRANSACAO.map((option) => (
                           <SelectItem key={option.value} value={option.value}>
                             {option.label}
                           </SelectItem>

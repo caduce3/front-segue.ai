@@ -14,7 +14,7 @@ export const OPCOES_TIPO_TRANSACAO = [
   },
 ];
 
-export const OPCPES_CATEGORIA_TRANSACAO = [
+export const OPCOES_CATEGORIA_TRANSACAO = [
   {
     value: "COMIDA",
     label: "Alimentação",
