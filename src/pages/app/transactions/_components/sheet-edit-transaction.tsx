@@ -99,7 +99,7 @@ const EditarTransactionSheet = ({
       }
       return pegarUnicaTransaction({ id, idUserEquipeDirigente, igrejaId });
     },
-    enabled: !!id && !!idUserEquipeDirigente && !!igrejaId,
+    enabled: !!id && !!idUserEquipeDirigente && !!igrejaId && isOpen,
   });
 
   const form = useForm<EditarTransactionSchema>({
@@ -113,7 +113,7 @@ const EditarTransactionSheet = ({
   } = form;
 
   useEffect(() => {
-    if (detalhesTransaction) {
+    if (detalhesTransaction && isOpen) {
       reset({
         nome: detalhesTransaction.transaction.nome,
         tipo: detalhesTransaction.transaction.tipo as
@@ -127,7 +127,7 @@ const EditarTransactionSheet = ({
         descricao: detalhesTransaction.transaction.descricao || undefined,
       });
     }
-  }, [detalhesTransaction, reset]);
+  }, [detalhesTransaction, reset, isOpen]);
 
   const { mutateAsync: atualizarTransactionFn } = useMutation({
     mutationFn: atualizarTransaction,
@@ -280,8 +280,8 @@ const EditarTransactionSheet = ({
                       <Skeleton className="h-[30px] w-[300px]" />
                     ) : (
                       <Select
-                        onValueChange={field.onChange}
-                        defaultValue={field.value}
+                        value={field.value || ""}
+                        onValueChange={(value) => field.onChange(value)}
                       >
                         <SelectTrigger>
                           <SelectValue placeholder="Selecione o tipo de transação" />
@@ -312,8 +312,8 @@ const EditarTransactionSheet = ({
                       <Skeleton className="h-[30px] w-[300px]" />
                     ) : (
                       <Select
-                        onValueChange={field.onChange}
-                        defaultValue={field.value}
+                        value={field.value || ""}
+                        onValueChange={(value) => field.onChange(value)}
                       >
                         <SelectTrigger>
                           <SelectValue placeholder="Selecione a categoria" />
@@ -344,8 +344,8 @@ const EditarTransactionSheet = ({
                       <Skeleton className="h-[30px] w-[300px]" />
                     ) : (
                       <Select
-                        onValueChange={field.onChange}
-                        defaultValue={field.value}
+                        value={field.value || ""}
+                        onValueChange={(value) => field.onChange(value)}
                       >
                         <SelectTrigger>
                           <SelectValue placeholder="Selecione o método de pagamento" />
