@@ -6,6 +6,7 @@ import {
   DialogHeader,
   DialogFooter,
 } from "@/components/ui/dialog";
+import { CircleX } from "lucide-react";
 
 interface DeleteConfirmationModalProps {
   isOpen: boolean;
@@ -29,25 +30,29 @@ export const DeleteConfirmationModal = ({
     <Dialog open={isOpen} onOpenChange={onCancel}>
       <DialogContent>
         <DialogHeader>
-          <h3 className="text-lg font-bold">Confirmar Exclusão</h3>
-          <p>
+          <div className="flex items-center">
+            <CircleX size={24} className="text-red-600 mr-2" />
+            <h3 className="text-lg font-bold">Deseja deletar?</h3>
+          </div>
+          <p className="p-1 text-sm text-[#71717A]">
             Tem certeza de que deseja deletar? Esta ação não pode ser desfeita.
           </p>
         </DialogHeader>
         <DialogFooter>
-          <Button
-            variant="destructive"
-            onClick={handleConfirm}
-            disabled={isProcessing} // Desabilita o botão enquanto processa
-          >
-            Confirmar
-          </Button>
           <Button
             variant="outline"
             onClick={onCancel}
             disabled={isProcessing} // Desabilita o botão enquanto processa
           >
             Cancelar
+          </Button>
+          <Button
+            variant="destructive"
+            onClick={handleConfirm}
+            disabled={isProcessing} // Desabilita o botão enquanto processa
+            className="bg-red-600"
+          >
+            Deletar
           </Button>
         </DialogFooter>
       </DialogContent>
