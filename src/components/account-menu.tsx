@@ -59,7 +59,7 @@ const AccountMenu = () => {
         <DropdownMenuTrigger asChild>
           <Button
             variant="outline"
-            className="flex select-none items-center gap-5 rounded-xl"
+            className="flex select-none items-center gap-5 rounded-xl p-6"
           >
             <div className="flex">
               <Avatar className="mr-2 bg-white text-black h-8 w-8">
