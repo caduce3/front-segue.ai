@@ -1,15 +1,12 @@
 import {
-    CalendarCheck,
+  CalendarCheck,
   ChartNoAxesCombined,
   ChevronDown,
   Coins,
-  Dices,
   LogOut,
   NotepadText,
   Puzzle,
   Rocket,
-  UserRoundPen,
-  Users,
 } from "lucide-react";
 import { Button } from "./ui/button";
 import {
@@ -25,7 +22,7 @@ import { getProfileUser } from "@/api/get-profile-user";
 import { useAuthRedirect } from "@/middlewares/authRedirect";
 import { useNavigate } from "react-router-dom";
 import { Skeleton } from "./ui/skeleton";
-import { Dialog, DialogTrigger } from "./ui/dialog";
+import { Dialog } from "./ui/dialog";
 import { UserProfileDialog } from "./user-profile-dialog";
 import { NavLink } from "./nav-link";
 import { Avatar, AvatarFallback } from "./ui/avatar";
