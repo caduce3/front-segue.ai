@@ -137,9 +137,8 @@ const CadastrarTransactionDialog = () => {
       await cadastrarTransactionFn(payload);
       toast.success("Transação cadastrada com sucesso!");
 
-      queryClient.invalidateQueries({
-        predicate: (query) => query.queryKey.includes("transactions"),
-      });
+      queryClient.invalidateQueries({ queryKey: ["transactions"] });
+      queryClient.invalidateQueries({ queryKey: ["cards-balanco-geral"] });
 
       reset();
       setIsOpen(false);
