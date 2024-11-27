@@ -1,8 +1,12 @@
 import {
+    CalendarCheck,
   ChartNoAxesCombined,
   ChevronDown,
+  Coins,
   Dices,
   LogOut,
+  NotepadText,
+  Puzzle,
   Rocket,
   UserRoundPen,
   Users,
@@ -106,13 +110,13 @@ const AccountMenu = () => {
               </DropdownMenuItem>
               <DropdownMenuItem className="cursor-pointer">
                 <NavLink to="/financas" className="flex items-center">
-                  <Dices className="mr-2 h-4 w-4" />
+                  <Coins className="mr-2 h-4 w-4" />
                   Finanças
                 </NavLink>
               </DropdownMenuItem>
               <DropdownMenuItem className="cursor-pointer">
                 <NavLink to="/fichas" className="flex items-center">
-                  <Users className="mr-2 h-4 w-4" />
+                  <NotepadText className="mr-2 h-4 w-4" />
                   Fichas
                 </NavLink>
               </DropdownMenuItem>
@@ -120,6 +124,18 @@ const AccountMenu = () => {
                 <NavLink to="/pos" className="flex items-center">
                   <Rocket className="mr-2 h-4 w-4" />
                   Pós
+                </NavLink>
+              </DropdownMenuItem>
+              <DropdownMenuItem className="cursor-pointer">
+                <NavLink to="/pos" className="flex items-center">
+                  <Puzzle className="mr-2 h-4 w-4" />
+                  Montagem
+                </NavLink>
+              </DropdownMenuItem>
+              <DropdownMenuItem className="cursor-pointer">
+                <NavLink to="/pos" className="flex items-center">
+                  <CalendarCheck className="mr-2 h-4 w-4" />
+                  Assinatura
                 </NavLink>
               </DropdownMenuItem>
             </>
@@ -134,14 +150,6 @@ const AccountMenu = () => {
               </NavLink>
             </DropdownMenuItem>
           )}
-
-          {/* Perfil e Logout sempre visíveis */}
-          <DialogTrigger asChild>
-            <DropdownMenuItem className="cursor-pointer">
-              <UserRoundPen className="mr-2 h-4 w-4" />
-              <span>Meu perfil</span>
-            </DropdownMenuItem>
-          </DialogTrigger>
 
           <DropdownMenuItem
             className="text-rose-500 dark:text-rose-400 cursor-pointer"
