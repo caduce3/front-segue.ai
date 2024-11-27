@@ -5,6 +5,7 @@ import SummaryCards from "./_components/summary-cards";
 import { getProfileUser } from "@/api/get-profile-user";
 import { useQuery } from "@tanstack/react-query";
 import React from "react";
+import TransactionPieChart from "./_components/transactions-pie-chart";
 
 export function Dashboard() {
   const token = useAuthRedirect();
@@ -46,6 +47,7 @@ export function Dashboard() {
             }}
           />
         </div>
+        
         <div className="grid grid-cols-[2fr,1fr]">
           <SummaryCards
             igrejaId={igrejaId}
@@ -53,9 +55,15 @@ export function Dashboard() {
             dateRange={dateRange}
           />
         </div>
-        {/* <div className="grid grid-cols-3 grid-rows-1 gap-6">
-          <TransactionPieChart />
-        </div> */}
+        <div className="grid grid-cols-[1fr,3fr] gap-6 mt-6">
+          <div className="col-span-1">
+            <TransactionPieChart
+              igrejaId={igrejaId}
+              idUserEquipeDirigente={idUserEquipeDirigente}
+              dateRange={dateRange}
+            />
+          </div>
+        </div>
       </div>
     </>
   );
