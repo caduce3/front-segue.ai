@@ -38,6 +38,7 @@ export function Dashboard() {
     <>
       <Helmet title="Dashboard" />
       <div className="shadow-lg p-4 w-full">
+        {/* Cabeçalho */}
         <div className="col-span-12 flex justify-between mb-5">
           <h1 className="text-3xl font-bold tracking-tight mr-3">Dashboard</h1>
           <DatePickerWithRange
@@ -50,33 +51,39 @@ export function Dashboard() {
           />
         </div>
 
-        <div className="grid grid-cols-[2fr,1fr]">
-          <SummaryCards
-            igrejaId={igrejaId}
-            idUserEquipeDirigente={idUserEquipeDirigente}
-            dateRange={dateRange}
-          />
-        </div>
-        <div className="grid grid-cols-[2fr,1fr] mt-6">
-          <div className="grid grid-cols-3 gap-6">
-            <div className="col-span-1">
-              <TransactionPieChart
-                igrejaId={igrejaId}
-                idUserEquipeDirigente={idUserEquipeDirigente}
-                dateRange={dateRange}
-              />
-            </div>
-            <div className="col-span-2">
-              <GastosPorCategoria
-                igrejaId={igrejaId}
-                idUserEquipeDirigente={idUserEquipeDirigente}
-                dateRange={dateRange}
-              />
+        <div className="grid grid-cols-[2fr,1fr] gap-6 items-stretch">
+          {/* Coluna principal */}
+          <div className="flex flex-col">
+            <SummaryCards
+              igrejaId={igrejaId}
+              idUserEquipeDirigente={idUserEquipeDirigente}
+              dateRange={dateRange}
+            />
+            <div className="grid grid-cols-3 gap-6 mt-6">
+              <div className="col-span-1">
+                <TransactionPieChart
+                  igrejaId={igrejaId}
+                  idUserEquipeDirigente={idUserEquipeDirigente}
+                  dateRange={dateRange}
+                />
+              </div>
+              <div className="col-span-2">
+                <GastosPorCategoria
+                  igrejaId={igrejaId}
+                  idUserEquipeDirigente={idUserEquipeDirigente}
+                  dateRange={dateRange}
+                />
+              </div>
             </div>
           </div>
-        </div>
-        <div>
-          <EquipeDirigente igrejaId={igrejaId} idUserEquipeDirigente={idUserEquipeDirigente} />
+
+          {/* Coluna lateral (Equipe Dirigente) */}
+          <div className="flex flex-col">
+            <EquipeDirigente
+              igrejaId={igrejaId}
+              idUserEquipeDirigente={idUserEquipeDirigente}
+            />
+          </div>
         </div>
       </div>
     </>

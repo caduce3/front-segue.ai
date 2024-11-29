@@ -33,11 +33,13 @@ export function EquipeDirigente({
       {isLoading ? (
         <EquipeDirigenteTableSkeleton />
       ) : (
-        <Card className="border mt-5">
+        <Card>
           <CardHeader>
-            <p className="text-white font-bold text-lg mb-4">
-              Gastos por categoria
-            </p>
+            <div className="flex justify-between">
+              <p className="text-white font-bold text-lg mb-4">
+                Equipe Dirigente
+              </p>
+            </div>
             <hr />
           </CardHeader>
           <CardContent>

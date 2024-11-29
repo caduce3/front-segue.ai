@@ -76,7 +76,7 @@ const EquipeDirigenteTableRow = ({
   return (
     <>
       <TableRow>
-        <TableCell>
+        <TableCell className="w-full">
           <div className="flex">
             <div className="flex items-center mr-4">
               {renderIcon(userEquipeDirigente?.pasta)}
@@ -97,7 +97,7 @@ const EquipeDirigenteTableRow = ({
           </div>
         </TableCell>
 
-        <TableCell>
+        <TableCell className="flex">
           <Button variant="ghost" size="sm" className="text-[#71717A]">
             <UserPen className="h-4 w-4" />
           </Button>
