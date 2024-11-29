@@ -1,10 +1,6 @@
 "use client";
 
-import {
-  PiggyBankIcon,
-  TrendingDownIcon,
-  TrendingUpIcon,
-} from "lucide-react";
+import { PiggyBankIcon, TrendingDownIcon, TrendingUpIcon } from "lucide-react";
 import { Pie, PieChart } from "recharts";
 
 import { Card, CardContent, CardFooter } from "@/components/ui/card";
@@ -119,7 +115,7 @@ const TransactionPieChart = ({
             <CardContent className="flex-1 pb-0">
               <ChartContainer
                 config={chartConfig}
-                className="mx-auto aspect-square max-h-[250px]"
+                className="mx-auto aspect-square max-h-[250px] sm:max-h-[300px] md:max-h-[350px]"
               >
                 <PieChart>
                   <ChartTooltip
@@ -135,15 +131,16 @@ const TransactionPieChart = ({
                 </PieChart>
               </ChartContainer>
             </CardContent>
-            <CardFooter className="flex flex-col gap-2 text-sm w-full">
-              <div className="flex flex-col gap-3 leading-none ">
+
+            <CardFooter className="flex flex-col gap-4 text-sm w-full mt-4">
+              <div className="flex flex-col gap-4 leading-none">
                 {/* Investimentos */}
-                <div className="flex items-center justify-between w-full">
+                <div className="flex items-center justify-between w-full text-center sm:text-left">
                   <div className="flex items-center gap-2 w-full">
                     <div className="bg-[#171618] p-2 rounded-md">
                       <PiggyBankIcon size={18} color="#FFFFFF" />
                     </div>
-                    <span className="text-[#71717A] text-base mr-10">
+                    <span className="text-[#71717A] text-base mr-1">
                       Investimentos
                     </span>
                   </div>
@@ -153,7 +150,7 @@ const TransactionPieChart = ({
                 </div>
 
                 {/* Ganhos */}
-                <div className="flex items-center justify-between w-full">
+                <div className="flex items-center justify-between w-full text-center sm:text-left">
                   <div className="flex items-center gap-2 w-full">
                     <div className="bg-[#171618] p-2 rounded-md">
                       <TrendingUpIcon size={18} color="#22C55E" />
@@ -166,7 +163,7 @@ const TransactionPieChart = ({
                 </div>
 
                 {/* Gastos */}
-                <div className="flex items-center justify-between w-full">
+                <div className="flex items-center justify-between w-full text-center sm:text-left">
                   <div className="flex items-center gap-2 w-full">
                     <div className="bg-[#171618] p-2 rounded-md">
                       <TrendingDownIcon size={18} color="#E93030" />

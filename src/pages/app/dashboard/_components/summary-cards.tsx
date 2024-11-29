@@ -55,7 +55,7 @@ const SummaryCards = ({
           <p className="text-white opacity-70">Saldo</p>
         </CardHeader>
         <CardContent className="flex justify-between">
-          <p className="text-4xl font-bold">
+          <p className="text-2xl sm:text-4xl font-bold">
             {Intl.NumberFormat("pt-BR", {
               style: "currency",
               currency: "BRL",

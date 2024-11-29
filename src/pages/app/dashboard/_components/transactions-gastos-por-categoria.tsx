@@ -42,34 +42,33 @@ const GastosPorCategoria = ({
 
   return (
     <div className="space-y-6">
-      <Card>
-        <CardHeader>
+      <Card className="w-full">
+        <CardHeader className="flex flex-col sm:flex-row sm:items-center sm:justify-between">
           <p className="text-white font-bold text-lg">Gastos por categoria</p>
-          <hr />
+          <hr className="sm:hidden mt-2 sm:mt-0" />
         </CardHeader>
         <CardContent>
           {isLoading ? (
             <p className="text-white opacity-70">Carregando...</p>
           ) : (data?.gastosPorCategoria ?? []).length > 0 ? (
-            <div className="space-y-2">
+            <div className="space-y-4">
               {data?.gastosPorCategoria.slice(0, 4).map((gasto, index) => (
-                <div key={index}>
+                <div key={index} className="space-y-2">
                   <div className="flex justify-between items-center">
                     <p className="text-white opacity-90 mb-2">
-                      <p className="text-white opacity-90 mb-1">
+                      <span className="text-white opacity-90 mb-1">
                         {OPCOES_CATEGORIA_TRANSACAO.find(
                           (categoria) => categoria.value === gasto.categoria
                         )?.label ?? gasto.categoria}
-                      </p>
+                      </span>
                     </p>
-                    <p className="text-white opacity-70 ">
+                    <p className="text-white opacity-70">
                       {gasto.porcentagem.toFixed(2)}%
                     </p>
                   </div>
                   <Progress
                     value={gasto.porcentagem}
                     className="h-2 bg-white bg-opacity-10"
-
                   />
                   <p className="text-white opacity-90 text-sm mt-1">
                     {formatCurrency(gasto.total)}

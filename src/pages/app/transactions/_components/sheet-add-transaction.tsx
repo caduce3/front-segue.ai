@@ -159,9 +159,9 @@ const CadastrarTransactionDialog = () => {
         <Button
           variant="default"
           size="sm"
-          className="flex items-center justify-between w-48 rounded-full font-bold"
+          className="flex items-center justify-between w-40 sm:w-48 rounded-full font-bold"
         >
-          <span className="text-sm font-bold">Adicionar Transação</span>
+          <span className="text-xs sm:text-sm font-bold">Adicionar Transação</span>
           <ArrowUpDown className="h-4 w-4" />
         </Button>
       </SheetTrigger>

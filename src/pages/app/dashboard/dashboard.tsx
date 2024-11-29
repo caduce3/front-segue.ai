@@ -51,7 +51,7 @@ export function Dashboard() {
           />
         </div>
 
-        <div className="grid grid-cols-[2fr,1fr] gap-6 items-stretch">
+        <div className="grid grid-cols-1 md:grid-cols-[2fr,1fr] gap-6 items-stretch">
           {/* Coluna principal */}
           <div className="flex flex-col">
             <SummaryCards
@@ -59,7 +59,7 @@ export function Dashboard() {
               idUserEquipeDirigente={idUserEquipeDirigente}
               dateRange={dateRange}
             />
-            <div className="grid grid-cols-3 gap-6 mt-6">
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 mt-6">
               <div className="col-span-1">
                 <TransactionPieChart
                   igrejaId={igrejaId}
@@ -67,7 +67,7 @@ export function Dashboard() {
                   dateRange={dateRange}
                 />
               </div>
-              <div className="col-span-2">
+              <div className="sm:col-span-2">
                 <GastosPorCategoria
                   igrejaId={igrejaId}
                   idUserEquipeDirigente={idUserEquipeDirigente}
