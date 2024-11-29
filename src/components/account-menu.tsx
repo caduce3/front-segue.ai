@@ -1,12 +1,6 @@
 import {
-  CalendarCheck,
-  ChartNoAxesCombined,
   ChevronDown,
-  Coins,
   LogOut,
-  NotepadText,
-  Puzzle,
-  Rocket,
 } from "lucide-react";
 import { Button } from "./ui/button";
 import {
@@ -24,7 +18,6 @@ import { useNavigate } from "react-router-dom";
 import { Skeleton } from "./ui/skeleton";
 import { Dialog } from "./ui/dialog";
 import { UserProfileDialog } from "./user-profile-dialog";
-import { NavLink } from "./nav-link";
 import { Avatar, AvatarFallback } from "./ui/avatar";
 import { CanViemItemsAccountMenu } from "./can-view-items-account-menu";
 
@@ -49,10 +42,6 @@ const AccountMenu = () => {
 
   // Lógica de visibilidade com base no setor do usuário
   const pasta = profileUser?.pasta;
-
-  const canViewAllItems =
-    pasta === "PAROQUIA" || pasta === "PADRE" || pasta === "FINANCAS";
-  const canViewOnlyFinancas = pasta === "PAROQUIA";
 
   return (
     <Dialog>
