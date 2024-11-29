@@ -1,11 +1,13 @@
-// import { useState } from "react";
+import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { TableCell, TableRow } from "@/components/ui/table";
 import { Trash2, UserPen } from "lucide-react";
-// import { toast } from "sonner"
+import { toast } from "sonner";
 import { OPCOES_TIPO_PASTA } from "@/components/_constants/pastas";
 import { renderIcon } from "@/services/render-icon";
-// import { DeleteConfirmationModal } from "@/components/card-deletar";
+import { DeleteConfirmationModal } from "@/components/card-deletar";
+import { deletarUserEquipeDirigente } from "@/api/equipe-dirigente/deletar-user-equipe-dirigente";
+import { queryClient } from "@/lib/react-query";
 
 export interface EquipeDirigenteTableRowProps {
   userEquipeDirigente: {
@@ -37,41 +39,41 @@ export interface EquipeDirigenteTableRowProps {
 const EquipeDirigenteTableRow = ({
   userEquipeDirigente,
 }: EquipeDirigenteTableRowProps) => {
-  //   const [isModalOpen, setIsModalOpen] = useState(false);
-  //   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
+  // const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
 
   //   const handleDetailsClick = () => {
   //     setIsModalOpen(true);
   //   };
 
-  //   const handleCloseModal = () => {
-  //     setIsModalOpen(false);
-  //   };
+  // const handleCloseModal = () => {
+  //   setIsModalOpen(false);
+  // };
 
-  //   const handleDeleteClick = () => {
-  //     queryClient.invalidateQueries({
-  //       predicate: (query) => query.queryKey.includes("transactions"),
-  //     });
-  //     setIsDeleteModalOpen(true);
-  //   };
+  const handleDeleteClick = () => {
+    queryClient.invalidateQueries({
+      predicate: (query) => query.queryKey.includes("equipe-dirigente"),
+    });
+    setIsDeleteModalOpen(true);
+  };
 
-  //   const handleCancelDelete = () => {
-  //     setIsDeleteModalOpen(false);
-  //   };
+  const handleCancelDelete = () => {
+    setIsDeleteModalOpen(false);
+  };
 
-  //   const handleConfirmDelete = async () => {
-  //     try {
-  //       await deletarTransaction({
-  //         id: transactions.id,
-  //         idUserEquipeDirigente: idUserEquipeDirigente,
-  //       });
-  //       setIsDeleteModalOpen(false);
-  //       toast.success("Transação deletada com sucesso!");
-  //     } catch (error) {
-  //       toast.error("Erro ao deletar transação");
-  //       console.error("Erro ao deletar transação:", error);
-  //     }
-  //   };
+  const handleConfirmDelete = async () => {
+    try {
+      await deletarUserEquipeDirigente({
+        igrejaId: userEquipeDirigente.igrejaId,
+        idUserEquipeDirigente: userEquipeDirigente.id,
+      });
+      setIsDeleteModalOpen(false);
+      toast.success("Usuário da ED deletado com sucesso!");
+    } catch (error) {
+      toast.error("Erro ao deletar transação");
+      console.error("Erro ao deletar usuário da ED:", error);
+    }
+  };
 
   return (
     <>
@@ -87,11 +89,13 @@ const EquipeDirigenteTableRow = ({
                 <p className="text-sm text-gray-400">
                   {
                     OPCOES_TIPO_PASTA.find(
-                      (pasta) => pasta.value === userEquipeDirigente.pasta 
+                      (pasta) => pasta.value === userEquipeDirigente.pasta
                     )?.label || "Pasta não definida" // Fallback caso não encontre
                   }
                 </p>
-                <p className="text-sm text-gray-400">{", "+userEquipeDirigente?.ano}</p>
+                <p className="text-sm text-gray-400">
+                  {", " + userEquipeDirigente?.ano}
+                </p>
               </div>
             </div>
           </div>
@@ -101,7 +105,12 @@ const EquipeDirigenteTableRow = ({
           <Button variant="ghost" size="sm" className="text-[#71717A]">
             <UserPen className="h-4 w-4" />
           </Button>
-          <Button variant="ghost" size="sm" className="ml-1 text-[#71717A]">
+          <Button
+            variant="ghost"
+            size="sm"
+            className="ml-1 text-[#71717A]"
+            onClick={handleDeleteClick}
+          >
             <Trash2 className="h-4 w-4" />
           </Button>
         </TableCell>
@@ -115,11 +124,11 @@ const EquipeDirigenteTableRow = ({
         onClose={handleCloseModal}
       /> */}
 
-      {/* <DeleteConfirmationModal
+      <DeleteConfirmationModal
         isOpen={isDeleteModalOpen}
         onConfirm={handleConfirmDelete}
         onCancel={handleCancelDelete}
-      /> */}
+      />
     </>
   );
 };
