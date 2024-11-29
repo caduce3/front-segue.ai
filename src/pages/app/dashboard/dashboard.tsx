@@ -7,6 +7,7 @@ import { useQuery } from "@tanstack/react-query";
 import React from "react";
 import TransactionPieChart from "./_components/transactions-pie-chart";
 import GastosPorCategoria from "./_components/transactions-gastos-por-categoria";
+import { EquipeDirigente } from "./_components/equipe-dirigente/equipe-dirigente";
 
 export function Dashboard() {
   const token = useAuthRedirect();
@@ -73,6 +74,9 @@ export function Dashboard() {
               />
             </div>
           </div>
+        </div>
+        <div>
+          <EquipeDirigente igrejaId={igrejaId} idUserEquipeDirigente={idUserEquipeDirigente} />
         </div>
       </div>
     </>
