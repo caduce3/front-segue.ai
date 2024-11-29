@@ -70,7 +70,7 @@ const EquipeDirigenteTableRow = ({
       setIsDeleteModalOpen(false);
       toast.success("Usuário da ED deletado com sucesso!");
     } catch (error) {
-      toast.error("Erro ao deletar transação");
+      toast.error("Erro ao deletar usuário da ED");
       console.error("Erro ao deletar usuário da ED:", error);
     }
   };
