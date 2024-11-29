@@ -1,5 +1,6 @@
 import { Separator } from "./ui/separator";
 import {
+  Book,
   CalendarCheck,
   ChartNoAxesCombined,
   Coins,
@@ -59,6 +60,10 @@ const Header = () => {
                 <NavLink to="/montagem">
                   <Puzzle className="h-4 w-4" />
                   Montagem
+                </NavLink>
+                <NavLink to="/palestra">
+                  <Book className="h-4 w-4" />
+                  Palestra
                 </NavLink>
                 <NavLink to="/assinatura">
                   <CalendarCheck className="h-4 w-4" />
