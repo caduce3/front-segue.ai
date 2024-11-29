@@ -1,6 +1,6 @@
 import { api } from "@/lib/axios";
 
-interface Igreja {
+export interface Igreja {
   id: string;
   nome: string;
   cnpj: string;
@@ -23,7 +23,7 @@ interface Igreja {
     | "FICHAS";
 }
 
-interface EquipeDirigente {
+export interface UserEquipeDirigente {
   id: string;
   nome: string;
   email: string;
@@ -45,7 +45,7 @@ interface EquipeDirigente {
 }
 
 export interface GetProfileUserResponse {
-  usuario: Igreja | EquipeDirigente;
+  usuario: Igreja | UserEquipeDirigente;
 }
 
 export async function getProfileUser() {

@@ -8,6 +8,7 @@ import React from "react";
 import TransactionPieChart from "./_components/transactions-pie-chart";
 import GastosPorCategoria from "./_components/transactions-gastos-por-categoria";
 import { EquipeDirigente } from "./_components/equipe-dirigente/equipe-dirigente";
+import { getUserProfileData } from "@/services/acessar-dados-perfil-user";
 
 export function Dashboard() {
   const token = useAuthRedirect();
@@ -22,12 +23,7 @@ export function Dashboard() {
     staleTime: Infinity,
   });
 
-  let igrejaId = "";
-  let idUserEquipeDirigente = "";
-  if (profileUser && "igrejaId" in profileUser) {
-    igrejaId = profileUser.igrejaId;
-    idUserEquipeDirigente = profileUser.id;
-  }
+  const { igrejaId, idUserEquipeDirigente } = profileUser ? getUserProfileData(profileUser) : { igrejaId: "", idUserEquipeDirigente: "" };
 
   const [dateRange, setDateRange] = React.useState<{ from: Date; to: Date }>({
     from: new Date(new Date().getFullYear(), 0, 1),

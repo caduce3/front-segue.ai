@@ -18,6 +18,7 @@ import {
 import TransactionsTableRow from "./transactions-table-row";
 import { Pagination } from "@/components/pagination";
 import CadastrarTransactionDialog from "./_components/sheet-add-transaction";
+import { getUserProfileData } from "@/services/acessar-dados-perfil-user";
 
 export function Transactions() {
   const token = useAuthRedirect();
@@ -28,7 +29,10 @@ export function Transactions() {
   }
 
   useEffect(() => {
-    if (verifyAccessByJwt(token ?? "", ["FINANCAS", "PADRE"]) === false) {
+    if (
+      verifyAccessByJwt(token ?? "", ["FINANCAS", "PADRE", "PAROQUIA"]) ===
+      false
+    ) {
       navigate("/");
       toast.error("Você não tem permissão para acessar essa página");
     }
@@ -43,12 +47,9 @@ export function Transactions() {
     staleTime: Infinity,
   });
 
-  let igrejaId = "";
-  let idUserEquipeDirigente = "";
-  if (profileUser && "igrejaId" in profileUser) {
-    igrejaId = profileUser.igrejaId;
-    idUserEquipeDirigente = profileUser.id;
-  }
+  const { igrejaId, idUserEquipeDirigente } = profileUser
+    ? getUserProfileData(profileUser)
+    : { igrejaId: "", idUserEquipeDirigente: "" };
 
   const { data, isLoading } = useQuery({
     queryKey: ["transactions", page, igrejaId, idUserEquipeDirigente],
