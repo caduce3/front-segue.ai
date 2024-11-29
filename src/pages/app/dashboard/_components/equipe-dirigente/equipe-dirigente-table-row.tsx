@@ -51,9 +51,6 @@ const EquipeDirigenteTableRow = ({
   // };
 
   const handleDeleteClick = () => {
-    queryClient.invalidateQueries({
-      predicate: (query) => query.queryKey.includes("equipe-dirigente"),
-    });
     setIsDeleteModalOpen(true);
   };
 
@@ -68,6 +65,7 @@ const EquipeDirigenteTableRow = ({
         idUserEquipeDirigente: userEquipeDirigente.id,
       });
       setIsDeleteModalOpen(false);
+      queryClient.invalidateQueries({ queryKey: ["equipe-dirigente"] });
       toast.success("Usuário da ED deletado com sucesso!");
     } catch (error) {
       toast.error("Erro ao deletar usuário da ED");
