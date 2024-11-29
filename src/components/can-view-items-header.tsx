@@ -1,11 +1,11 @@
 import {
-  Book,
+  Megaphone,
   CalendarCheck,
   ChartNoAxesCombined,
-  Coins,
+  DollarSign,
   NotepadText,
   Puzzle,
-  Rocket,
+  CirclePlay,
 } from "lucide-react";
 import { NavLink } from "./nav-link";
 
@@ -30,7 +30,7 @@ export function canViewAll(
     | "PADRE"
     | "PAROQUIA"
 ) {
-  const iconClass = "h-4 w-4 mr-2"; // Classe para o ícone com espaçamento
+  const iconClass = "h-4 w-4"; // Classe para o ícone com espaçamento
 
   return (
     <>
@@ -41,7 +41,7 @@ export function canViewAll(
             Dashboard
           </NavLink>
           <NavLink to={`/${pasta.toLowerCase()}`}>
-            <Rocket className={iconClass} />
+            <CirclePlay className={iconClass} />
             {pastaNames[pasta]} {/* Usando o nome formatado */}
           </NavLink>
           <NavLink to="/assinatura">
@@ -56,7 +56,7 @@ export function canViewAll(
             Dashboard
           </NavLink>
           <NavLink to="/financas">
-            <Coins className={iconClass} />
+            <DollarSign className={iconClass} />
             Finanças
           </NavLink>
           <NavLink to="/fichas">
@@ -64,7 +64,7 @@ export function canViewAll(
             Fichas
           </NavLink>
           <NavLink to="/pos">
-            <Rocket className={iconClass} />
+            <CirclePlay className={iconClass} />
             {pastaNames.POS} {/* Usando o nome formatado */}
           </NavLink>
           <NavLink to="/montagem">
@@ -72,7 +72,7 @@ export function canViewAll(
             Montagem
           </NavLink>
           <NavLink to="/palestra">
-            <Book className={iconClass} />
+            <Megaphone className={iconClass} />
             Palestra
           </NavLink>
           <NavLink to="/assinatura">

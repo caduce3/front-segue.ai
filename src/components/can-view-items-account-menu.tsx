@@ -1,11 +1,11 @@
 import {
-  Book,
+  Megaphone,
   CalendarCheck,
   ChartNoAxesCombined,
-  Coins,
+  DollarSign,
   NotepadText,
   Puzzle,
-  Rocket,
+  CirclePlay,
 } from "lucide-react";
 import { NavLink } from "react-router-dom";
 import { DropdownMenuItem } from "./ui/dropdown-menu"; // Importando o DropdownMenuItem
@@ -31,7 +31,7 @@ export function CanViemItemsAccountMenu(
     | "PADRE"
     | "PAROQUIA"
 ) {
-  const iconClass = "h-4 w-4 mr-2"; // Classe para o ícone com espaçamento
+  const iconClass = "h-4 w-4 mr-1"; // Classe para o ícone com espaçamento
 
   return (
     <>
@@ -49,7 +49,7 @@ export function CanViemItemsAccountMenu(
               to={`/${pasta.toLowerCase()}`}
               className="flex items-center"
             >
-              <Rocket className={iconClass} />
+              <CirclePlay className={iconClass} />
               {pastaNames[pasta]} {/* Usando o nome formatado */}
             </NavLink>
           </DropdownMenuItem>
@@ -72,7 +72,7 @@ export function CanViemItemsAccountMenu(
 
           <DropdownMenuItem className="cursor-pointer">
             <NavLink to="/financas" className="flex items-center">
-              <Coins className={iconClass} />
+              <DollarSign className={iconClass} />
               Finanças
             </NavLink>
           </DropdownMenuItem>
@@ -86,7 +86,7 @@ export function CanViemItemsAccountMenu(
 
           <DropdownMenuItem className="cursor-pointer">
             <NavLink to="/pos" className="flex items-center">
-              <Rocket className={iconClass} />
+              <CirclePlay className={iconClass} />
               {pastaNames.POS} {/* Usando o nome formatado */}
             </NavLink>
           </DropdownMenuItem>
@@ -100,7 +100,7 @@ export function CanViemItemsAccountMenu(
 
           <DropdownMenuItem className="cursor-pointer">
             <NavLink to="/palestra" className="flex items-center">
-              <Book className={iconClass} />
+              <Megaphone className={iconClass} />
               Palestra
             </NavLink>
           </DropdownMenuItem>

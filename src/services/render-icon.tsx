@@ -1,4 +1,4 @@
-import { Book, Coins, NotepadText, Puzzle, Rocket, User } from "lucide-react";
+import { Megaphone, DollarSign, NotepadText, Puzzle, CirclePlay, User } from "lucide-react";
 
 export function renderIcon(
   pasta:
@@ -17,7 +17,7 @@ export function renderIcon(
     case "FINANCAS":
       return (
         <div className={containerClass}>
-          <Coins className={iconClass} />
+          <DollarSign className={iconClass} />
         </div>
       );
     case "FICHAS":
@@ -29,7 +29,7 @@ export function renderIcon(
     case "POS":
       return (
         <div className={containerClass}>
-          <Rocket className={iconClass} />
+          <CirclePlay className={iconClass} />
         </div>
       );
     case "MONTAGEM":
@@ -41,7 +41,7 @@ export function renderIcon(
     case "PALESTRA":
       return (
         <div className={containerClass}>
-          <Book className={iconClass} />
+          <Megaphone className={iconClass} />
         </div>
       );
     case "PADRE":
