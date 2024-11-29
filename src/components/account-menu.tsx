@@ -26,6 +26,7 @@ import { Dialog } from "./ui/dialog";
 import { UserProfileDialog } from "./user-profile-dialog";
 import { NavLink } from "./nav-link";
 import { Avatar, AvatarFallback } from "./ui/avatar";
+import { CanViemItemsAccountMenu } from "./can-view-items-account-menu";
 
 const AccountMenu = () => {
   const navigate = useNavigate();
@@ -96,57 +97,7 @@ const AccountMenu = () => {
 
           <DropdownMenuSeparator />
 
-          {/* Se o usuário pode ver todos os itens */}
-          {canViewAllItems && (
-            <>
-              <DropdownMenuItem className="cursor-pointer">
-                <NavLink to="/" className="flex items-center">
-                  <ChartNoAxesCombined className="mr-2 h-4 w-4" />
-                  Dashboard
-                </NavLink>
-              </DropdownMenuItem>
-              <DropdownMenuItem className="cursor-pointer">
-                <NavLink to="/financas" className="flex items-center">
-                  <Coins className="mr-2 h-4 w-4" />
-                  Finanças
-                </NavLink>
-              </DropdownMenuItem>
-              <DropdownMenuItem className="cursor-pointer">
-                <NavLink to="/fichas" className="flex items-center">
-                  <NotepadText className="mr-2 h-4 w-4" />
-                  Fichas
-                </NavLink>
-              </DropdownMenuItem>
-              <DropdownMenuItem className="cursor-pointer">
-                <NavLink to="/pos" className="flex items-center">
-                  <Rocket className="mr-2 h-4 w-4" />
-                  Pós
-                </NavLink>
-              </DropdownMenuItem>
-              <DropdownMenuItem className="cursor-pointer">
-                <NavLink to="/pos" className="flex items-center">
-                  <Puzzle className="mr-2 h-4 w-4" />
-                  Montagem
-                </NavLink>
-              </DropdownMenuItem>
-              <DropdownMenuItem className="cursor-pointer">
-                <NavLink to="/pos" className="flex items-center">
-                  <CalendarCheck className="mr-2 h-4 w-4" />
-                  Assinatura
-                </NavLink>
-              </DropdownMenuItem>
-            </>
-          )}
-
-          {/* Se o usuário só pode ver o item "Tráfego" */}
-          {canViewOnlyFinancas && (
-            <DropdownMenuItem className="cursor-pointer">
-              <NavLink to="/trafego" className="flex items-center">
-                <Rocket className="mr-2 h-4 w-4" />
-                Finanças
-              </NavLink>
-            </DropdownMenuItem>
-          )}
+          {pasta && CanViemItemsAccountMenu(pasta)}
 
           <DropdownMenuItem
             className="text-rose-500 dark:text-rose-400 cursor-pointer"

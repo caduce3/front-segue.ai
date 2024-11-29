@@ -3,7 +3,7 @@ import { RocketIcon } from "lucide-react";
 import AccountMenu from "./account-menu";
 import { useQuery } from "@tanstack/react-query";
 import { getProfileUser } from "@/api/get-profile-user";
-import { canViewAll } from "./can-view-items";
+import { canViewAll } from "./can-view-items-header";
 
 const Header = () => {
   const { data: profileUser } = useQuery({
