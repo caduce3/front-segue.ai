@@ -52,11 +52,11 @@ const GastosPorCategoria = ({
             <p className="text-white opacity-70">Carregando...</p>
           ) : (data?.gastosPorCategoria ?? []).length > 0 ? (
             <div className="space-y-2">
-              {data?.gastosPorCategoria.map((gasto, index) => (
+              {data?.gastosPorCategoria.slice(0, 4).map((gasto, index) => (
                 <div key={index}>
                   <div className="flex justify-between items-center">
                     <p className="text-white opacity-90 mb-2">
-                      <p className="text-white opacity-90 mb-2">
+                      <p className="text-white opacity-90 mb-1">
                         {OPCOES_CATEGORIA_TRANSACAO.find(
                           (categoria) => categoria.value === gasto.categoria
                         )?.label ?? gasto.categoria}
@@ -69,7 +69,7 @@ const GastosPorCategoria = ({
                   <Progress
                     value={gasto.porcentagem}
                     className="h-2 bg-white bg-opacity-10"
-                    
+
                   />
                   <p className="text-white opacity-90 text-sm mt-1">
                     {formatCurrency(gasto.total)}
