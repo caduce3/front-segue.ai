@@ -1,18 +1,9 @@
 import { Separator } from "./ui/separator";
-import {
-  Book,
-  CalendarCheck,
-  ChartNoAxesCombined,
-  Coins,
-  NotepadText,
-  Puzzle,
-  Rocket,
-  RocketIcon
-} from "lucide-react";
-import { NavLink } from "./nav-link";
+import { RocketIcon } from "lucide-react";
 import AccountMenu from "./account-menu";
 import { useQuery } from "@tanstack/react-query";
 import { getProfileUser } from "@/api/get-profile-user";
+import { canViewAll } from "./can-view-items";
 
 const Header = () => {
   const { data: profileUser } = useQuery({
@@ -22,9 +13,6 @@ const Header = () => {
   });
 
   const pasta = profileUser?.pasta;
-
-  const canViewAllItems = pasta === "PAROQUIA" || pasta === "PADRE" || pasta === 'FINANCAS';
-  const canViewOnlyFinancas = pasta === "PAROQUIA";
 
   return (
     <div className="border-b ">
@@ -38,47 +26,7 @@ const Header = () => {
           <Separator orientation="vertical" className="h-6" />
 
           <nav className="flex items-center space-x-4 lg:space-x-6">
-            {/* Se o usuário pode ver todos os itens */}
-            {canViewAllItems && (
-              <>
-                <NavLink to="/">
-                  <ChartNoAxesCombined className="h-4 w-4" />
-                  Dashboard
-                </NavLink>
-                <NavLink to="/financas">
-                  <Coins className="h-4 w-4" />
-                  Finanças
-                </NavLink>
-                <NavLink to="/fichas">
-                  <NotepadText className="h-4 w-4" />
-                  Fichas
-                </NavLink>
-                <NavLink to="/pos">
-                  <Rocket className="h-4 w-4" />
-                  Pós
-                </NavLink>
-                <NavLink to="/montagem">
-                  <Puzzle className="h-4 w-4" />
-                  Montagem
-                </NavLink>
-                <NavLink to="/palestra">
-                  <Book className="h-4 w-4" />
-                  Palestra
-                </NavLink>
-                <NavLink to="/assinatura">
-                  <CalendarCheck className="h-4 w-4" />
-                  Assinatura
-                </NavLink>
-              </>
-            )}
-
-            {/* Se o usuário só pode ver o item "Tráfego" */}
-            {canViewOnlyFinancas && (
-              <NavLink to="/financas">
-                <Rocket className="h-4 w-4" />
-                Finanças
-              </NavLink>
-            )}
+            {pasta && canViewAll(pasta)}
           </nav>
         </div>
 
