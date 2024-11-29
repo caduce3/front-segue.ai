@@ -1,57 +1,35 @@
-import { Button } from "@/components/ui/button";
-import { Skeleton } from "@/components/ui/skeleton";
-import {
-  Table,
-  TableCaption,
-  TableHeader,
-  TableRow,
-  TableHead,
-  TableBody,
-  TableCell,
-} from "@/components/ui/table";
-import { Search } from "lucide-react";
+import { TableRow, TableCell } from "@/components/ui/table";
 
 export function EquipeDirigenteTableSkeleton() {
   return (
-    <Table className="border rounded-md">
-      <TableCaption>Lista de Transações.</TableCaption>
-      <TableHeader>
-        <TableRow>
-          <TableHead>Nome</TableHead>
-          <TableHead>Tipo</TableHead>
-          <TableHead className="hidden lg:table-cell">Categoria</TableHead>
-          <TableHead className="hidden md:table-cell">Método</TableHead>
-          <TableHead className="hidden sm:table-cell">Data</TableHead>
-          <TableHead className="hidden sm:table-cell">Valor</TableHead>
-          <TableHead>Detalhes</TableHead>
-        </TableRow>
-      </TableHeader>
-      <TableBody>
-        {Array.from({ length: 10 }).map((_, index) => (
-          <TableRow key={index}>
-            <TableCell>
-              <Skeleton className="h-3 w-3" />
-            </TableCell>
-            <TableCell>
-              <Skeleton className="h-4 w-40" />
-            </TableCell>
-            <TableCell className="hidden lg:table-cell">
-              <Skeleton className="h-4 w-40" />
-            </TableCell>
-            <TableCell className="hidden md:table-cell">
-              <Skeleton className="h-4 w-40" />
-            </TableCell>
-            <TableCell className="hidden sm:table-cell">
-              <Skeleton className="h-4 w-40" />
-            </TableCell>
-            <TableCell>
-              <Button disabled variant="outline" size="sm">
-                <Search className="h-3 w-3" />
-              </Button>
-            </TableCell>
-          </TableRow>
-        ))}
-      </TableBody>
-    </Table>
+    <TableRow>
+      <TableCell>
+        <div className="flex">
+          {/* Skeleton para o ícone */}
+          <div className="flex items-center mr-4">
+            <div className="bg-gray-300 rounded-lg h-8 w-8 animate-pulse"></div>
+          </div>
+
+          {/* Skeleton para o texto */}
+          <div className="flex flex-col text-left">
+            {/* Nome */}
+            <div className="bg-gray-300 h-4 w-32 rounded animate-pulse mb-2"></div>
+            {/* Pasta e Ano */}
+            <div className="flex">
+              <div className="bg-gray-300 h-3 w-20 rounded animate-pulse"></div>
+              <div className="bg-gray-300 h-3 w-12 rounded animate-pulse ml-2"></div>
+            </div>
+          </div>
+        </div>
+      </TableCell>
+
+      <TableCell>
+        {/* Skeleton para botões */}
+        <div className="flex space-x-2">
+          <div className="bg-gray-300 rounded h-8 w-8 animate-pulse"></div>
+          <div className="bg-gray-300 rounded h-8 w-8 animate-pulse"></div>
+        </div>
+      </TableCell>
+    </TableRow>
   );
 }
