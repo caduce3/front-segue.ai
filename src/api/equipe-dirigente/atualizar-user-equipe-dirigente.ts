@@ -4,19 +4,12 @@ export interface PegarUnicoUserEquipeDirigenteBody {
   id: string;
   igrejaId: string;
   idUserEquipeDirigente: string;
-}
-
-export interface PegarUnicoUserEquipeDirigenteResponse {
-  id: string;
-  nome: string;
-  email: string;
-  telefone: string;
-  ano: string;
-  igrejaId: string;
-  status: "ATIVO" | "INATIVO";
-  createdAt: string;
-  updatedAt: string;
-  pasta:
+  nome?: string;
+  email?: string;
+  telefone?: string;
+  ano?: string;
+  status?: "ATIVO" | "INATIVO";
+  pasta?:
     | "FINANCAS"
     | "PADRE"
     | "PAROQUIA"
@@ -27,18 +20,34 @@ export interface PegarUnicoUserEquipeDirigenteResponse {
     | "FICHAS";
 }
 
-export async function pegarUnicoUserEquipeDirigente({
+export async function atualizarUnicoUserEquipeDirigente({
   id,
   igrejaId,
   idUserEquipeDirigente,
+  nome,
+  email,
+  telefone,
+  ano,
+  status,
+  pasta,
 }: PegarUnicoUserEquipeDirigenteBody) {
   try {
     const token = localStorage.getItem("authToken");
     if (!token) throw new Error("No token found");
 
-    const response = await api.post<PegarUnicoUserEquipeDirigenteResponse>(
-      "/pegar_unico_user_equipe_dirigente",
-      { id, igrejaId, idUserEquipeDirigente },
+    const response = await api.put(
+      "/atualizar_user_equipe_dirigente",
+      {
+        id,
+        igrejaId,
+        idUserEquipeDirigente,
+        nome,
+        email,
+        telefone,
+        ano,
+        status,
+        pasta,
+      },
       {
         headers: {
           Authorization: `Bearer ${token}`,
@@ -48,7 +57,9 @@ export async function pegarUnicoUserEquipeDirigente({
     return response.data;
   } catch (error: any) {
     if (error.response) {
-      throw new Error(error.response.data?.message || "Erro de autenticação");
+      throw new Error(
+        error.response.data?.message || "Erro ao atualizar usuário da ED."
+      );
     } else {
       throw new Error("Erro ao conectar com o servidor");
     }
