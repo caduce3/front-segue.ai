@@ -5,6 +5,7 @@ import { pegarEquipeDirigente } from "@/api/equipe-dirigente/pegar-equipe-dirige
 import { EquipeDirigenteTableSkeleton } from "./equipe-dirigente-table-skeleton";
 import EquipeDirigenteTableRow from "./equipe-dirigente-table-row";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
+import CadastrarEquipeDirigenteSheet from "./equipe-dirigente-cadastrar-sheet";
 
 interface TableEquipeDirigenteProps {
   igrejaId: string;
@@ -39,6 +40,7 @@ export function EquipeDirigente({
               <p className="text-white font-bold text-lg mb-4">
                 Equipe Dirigente
               </p>
+              <CadastrarEquipeDirigenteSheet igrejaId={igrejaId} />
             </div>
             <hr />
           </CardHeader>
