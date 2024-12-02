@@ -8,6 +8,7 @@ import { renderIcon } from "@/services/render-icon";
 import { DeleteConfirmationModal } from "@/components/card-deletar";
 import { deletarUserEquipeDirigente } from "@/api/equipe-dirigente/deletar-user-equipe-dirigente";
 import { queryClient } from "@/lib/react-query";
+import EditarUnicoUserEquipeDirigenteSheet from "./sheet-editar-user-equipe-dirigente";
 
 export interface EquipeDirigenteTableRowProps {
   userEquipeDirigente: {
@@ -34,16 +35,16 @@ export interface EquipeDirigenteTableRowProps {
 const EquipeDirigenteTableRow = ({
   userEquipeDirigente,
 }: EquipeDirigenteTableRowProps) => {
-  // const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(false);
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
 
-  //   const handleDetailsClick = () => {
-  //     setIsModalOpen(true);
-  //   };
+    const handleDetailsClick = () => {
+      setIsModalOpen(true);
+    };
 
-  // const handleCloseModal = () => {
-  //   setIsModalOpen(false);
-  // };
+  const handleCloseModal = () => {
+    setIsModalOpen(false);
+  };
 
   const handleDeleteClick = () => {
     setIsDeleteModalOpen(true);
@@ -95,7 +96,7 @@ const EquipeDirigenteTableRow = ({
         </TableCell>
 
         <TableCell className="flex">
-          <Button variant="ghost" size="sm" className="text-[#71717A]">
+          <Button variant="ghost" size="sm" className="text-[#71717A]" onClick={handleDetailsClick}>
             <UserPen className="h-4 w-4" />
           </Button>
           <Button
@@ -109,13 +110,13 @@ const EquipeDirigenteTableRow = ({
         </TableCell>
       </TableRow>
 
-      {/* <EditarTransactionSheet
-        id={transactions.id}
-        igrejaId={transactions.igrejaId}
-        idUserEquipeDirigente={idUserEquipeDirigente}
+      <EditarUnicoUserEquipeDirigenteSheet
+        id={userEquipeDirigente.id}
+        igrejaId={userEquipeDirigente.igrejaId}
+        idUserEquipeDirigente={userEquipeDirigente.id}
         isOpen={isModalOpen}
         onClose={handleCloseModal}
-      /> */}
+      />
 
       <DeleteConfirmationModal
         isOpen={isDeleteModalOpen}

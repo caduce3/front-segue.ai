@@ -1,15 +1,10 @@
-import { atualizarTransaction } from "@/api/transactions/atualizar-transaction";
+import { atualizarUnicoUserEquipeDirigente } from "@/api/equipe-dirigente/atualizar-user-equipe-dirigente";
 import {
-  pegarUnicaTransaction,
-  PegarUnicaTransactionResponse,
-} from "@/api/transactions/pegar-unica-transaction";
-import {
-  OPCOES_METODO_PAGAMENTO_TRANSACAO,
-  OPCOES_TIPO_TRANSACAO,
-  OPCOES_CATEGORIA_TRANSACAO,
-} from "@/components/_constants/transactions-traducoes";
-import { MoneyInput } from "@/components/_formatacao/money-input";
-import { DatePicker2 } from "@/components/date-picker";
+  pegarUnicoUserEquipeDirigente,
+  PegarUnicoUserEquipeDirigenteResponse,
+} from "@/api/equipe-dirigente/pegar-unico-user-equipe-dirigente";
+import { OPCOES_TIPO_PASTA } from "@/components/_constants/pastas";
+import { PhoneInput } from "@/components/_formatacao/telefone-input";
 import { Button } from "@/components/ui/button";
 import {
   FormControl,
@@ -43,39 +38,33 @@ import { FormProvider, useForm } from "react-hook-form";
 import { toast } from "sonner";
 import { z } from "zod";
 
-const editarTransactionSchema = z.object({
+const editarUnicoUserEquipeDirigenteSchema = z.object({
   nome: z.string().trim().min(1, { message: "Nome é obrigatório" }),
-  tipo: z.enum(["DEPOSITO", "DESPESA", "INVESTIMENTO"], {
-    message: "Tipo inválido",
+  email: z.string().email({
+    message: "Email inválido",
   }),
-  valor: z
-    .number({ required_error: "O valor é obrigatório" })
-    .positive({ message: "O valor deve ser positivo" }),
-  categoria: z.enum(
-    ["PATROCINIO", "TRANSPORTE", "DOACAO", "COMIDA", "BINGO", "OUTRO"],
+  status: z.enum(["ATIVO", "INATIVO"], {
+    message: "Status inválido",
+  }),
+  telefone: z.string().min(1, {
+    message: "Telefone é obrigatório",
+  }),
+  ano: z.string().min(1, {
+    message: "Ano é obrigatório",
+  }),
+  pasta: z.enum(
+    ["PALESTRA", "FINANCAS", "MONTAGEM", "FICHAS", "PADRE", "POS", "PAROQUIA"],
     {
-      message: "Categoria inválida",
+      message: "Pasta inválida",
     }
   ),
-  metodoPagamento: z.enum(
-    [
-      "PIX",
-      "DINHEIRO",
-      "CARTAO_CREDITO",
-      "CARTAO_DEBITO",
-      "TRANSFERENCIA_BANCARIA",
-      "BOLETO_BANCARIO",
-      "OUTRO",
-    ],
-    { message: "Método de pagamento inválido" }
-  ),
-  date: z.date({ required_error: "A data é obrigatória" }),
-  descricao: z.string().optional(),
 });
 
-type EditarTransactionSchema = z.infer<typeof editarTransactionSchema>;
+type EditarUnicoUserEquipeDirigenteSchema = z.infer<
+  typeof editarUnicoUserEquipeDirigenteSchema
+>;
 
-interface EditarTransactionSheetProps {
+interface EditarUnicoUserEquipeDirigenteSheetProps {
   id: string;
   idUserEquipeDirigente: string;
   igrejaId: string;
@@ -83,27 +72,36 @@ interface EditarTransactionSheetProps {
   onClose: () => void;
 }
 
-const EditarTransactionSheet = ({
+const EditarUnicoUserEquipeDirigenteSheet = ({
   id,
   idUserEquipeDirigente,
   igrejaId,
   isOpen,
   onClose,
-}: EditarTransactionSheetProps) => {
-  const { data: detalhesTransaction, isLoading } = useQuery({
-    queryKey: ["detalhesTransaction", id, idUserEquipeDirigente, igrejaId],
+}: EditarUnicoUserEquipeDirigenteSheetProps) => {
+  const { data: detalhesUnicoUserEquipeDirigente, isLoading } = useQuery({
+    queryKey: [
+      "detalhesUnicoUserEquipeDirigente",
+      id,
+      idUserEquipeDirigente,
+      igrejaId,
+    ],
     queryFn: async () => {
       if (!id || !idUserEquipeDirigente || !igrejaId) {
-        toast.error("Transação não encontrada.");
-        return Promise.reject("ID da transação não encontrado.");
+        toast.error("Usuário da ED não encontrado.");
+        return Promise.reject("ID do usuário da ED não encontrado.");
       }
-      return pegarUnicaTransaction({ id, idUserEquipeDirigente, igrejaId });
+      return pegarUnicoUserEquipeDirigente({
+        id,
+        idUserEquipeDirigente,
+        igrejaId,
+      });
     },
     enabled: !!id && !!idUserEquipeDirigente && !!igrejaId && isOpen,
   });
 
-  const form = useForm<EditarTransactionSchema>({
-    resolver: zodResolver(editarTransactionSchema),
+  const form = useForm<EditarUnicoUserEquipeDirigenteSchema>({
+    resolver: zodResolver(editarUnicoUserEquipeDirigenteSchema),
   });
 
   const {
@@ -113,78 +111,61 @@ const EditarTransactionSheet = ({
   } = form;
 
   useEffect(() => {
-    if (detalhesTransaction && isOpen) {
+    if (detalhesUnicoUserEquipeDirigente && isOpen) {
       reset({
-        nome: detalhesTransaction.transaction.nome,
-        tipo: detalhesTransaction.transaction.tipo as
-          | "DEPOSITO"
-          | "DESPESA"
-          | "INVESTIMENTO",
-        valor: detalhesTransaction.transaction.valor,
-        categoria: detalhesTransaction.transaction.categoria,
-        metodoPagamento: detalhesTransaction.transaction.metodoPagamento,
-        date: new Date(detalhesTransaction.transaction.date),
-        descricao: detalhesTransaction.transaction.descricao || undefined,
+        nome: detalhesUnicoUserEquipeDirigente.nome,
+        email: detalhesUnicoUserEquipeDirigente.email,
+        status: detalhesUnicoUserEquipeDirigente.status,
+        telefone: detalhesUnicoUserEquipeDirigente.telefone,
+        ano: detalhesUnicoUserEquipeDirigente.ano,
+        pasta: detalhesUnicoUserEquipeDirigente.pasta,
       });
     }
-  }, [detalhesTransaction, reset, isOpen]);
+  }, [detalhesUnicoUserEquipeDirigente, reset, isOpen]);
 
-  const { mutateAsync: atualizarTransactionFn } = useMutation({
-    mutationFn: atualizarTransaction,
-    onSuccess(
-      _,
-      {
-        id,
-        idUserEquipeDirigente,
-        igrejaId,
-        metodoPagamento,
-        tipo,
-        categoria,
-        date,
-        descricao,
-        nome,
-        valor,
-      }
-    ) {
-      const cached = queryClient.getQueryData<PegarUnicaTransactionResponse>([
-        "detalhesTransaction",
-      ]);
+  const { mutateAsync: atualizarUnicoUserEquipeDirigenteFn } = useMutation({
+    mutationFn: atualizarUnicoUserEquipeDirigente,
+    onSuccess(_, { id, idUserEquipeDirigente, igrejaId }) {
+      const cached =
+        queryClient.getQueryData<PegarUnicoUserEquipeDirigenteResponse>([
+          "detalhesUnicoUserEquipeDirigente",
+        ]);
       if (cached) {
         queryClient.setQueryData(
-          ["detalhesTransaction", id, idUserEquipeDirigente, igrejaId],
+          [
+            "detalhesUnicoUserEquipeDirigente",
+            id,
+            idUserEquipeDirigente,
+            igrejaId,
+          ],
           {
-            transaction: {
-              ...cached.transaction,
-              metodoPagamento,
-              tipo,
-              categoria,
-              date,
-              descricao,
-              nome,
-              valor,
+            userEquipeDirigente: {
+              ...cached,
             },
           }
         );
       }
       queryClient.invalidateQueries({
-        predicate: (query) => query.queryKey.includes("transactions"),
+        predicate: (query) => query.queryKey.includes("equipe-dirigente"),
       });
     },
   });
 
-  async function handleSubmitTransactionsEdit(data: EditarTransactionSchema) {
+  async function handleSubmitUnicoUserEquipeDirigenteEdit(
+    data: EditarUnicoUserEquipeDirigenteSchema
+  ) {
     try {
-      await atualizarTransactionFn({
+      await atualizarUnicoUserEquipeDirigenteFn({
         id,
         igrejaId,
         idUserEquipeDirigente,
         ...data,
       });
-      toast.success("Transação atualizada com sucesso!");
+      toast.success("Usuário da ED atualizado com sucesso!");
       onClose();
     } catch (error: any) {
       // Verifique se a estrutura do erro é a esperada
-      let errorMessage = "Erro desconhecido ao atualizar transação.";
+      let errorMessage = "Erro desconhecido ao atualizar usuário da ED.";
       if (error?.response?.data?.message) {
         errorMessage = error.response.data.message;
       } else if (error?.message) {
@@ -200,11 +181,11 @@ const EditarTransactionSheet = ({
     <Sheet open={isOpen} onOpenChange={onClose}>
       <SheetContent side="right" className="overflow-y-auto">
         <SheetHeader>
-          <SheetTitle>Editar Transação</SheetTitle>
+          <SheetTitle>Editar usuário da ED</SheetTitle>
         </SheetHeader>
         <FormProvider {...form}>
           <form
-            onSubmit={handleSubmit(handleSubmitTransactionsEdit)}
+            onSubmit={handleSubmit(handleSubmitUnicoUserEquipeDirigenteEdit)}
             className="space-y-8"
           >
             <FormField
@@ -227,15 +208,15 @@ const EditarTransactionSheet = ({
 
             <FormField
               control={form.control}
-              name="descricao"
+              name="email"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Descrição</FormLabel>
+                  <FormLabel>E-mail</FormLabel>
                   <FormControl>
                     {isLoading ? (
                       <Skeleton className="h-[30px] w-[300px]" />
                     ) : (
-                      <Input placeholder="Anotações..." {...field} />
+                      <Input placeholder="Email..." {...field} />
                     )}
                   </FormControl>
                   <FormMessage />
@@ -245,22 +226,18 @@ const EditarTransactionSheet = ({
 
             <FormField
               control={form.control}
-              name="valor"
+              name="telefone"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Valor</FormLabel>
+                  <FormLabel>Telefone</FormLabel>
                   <FormControl>
                     {isLoading ? (
                       <Skeleton className="h-[30px] w-[300px]" />
                     ) : (
-                      <MoneyInput
-                        placeholder="Digite o valor..."
-                        value={field.value}
-                        onValueChange={({ floatValue }) =>
-                          field.onChange(floatValue)
-                        }
-                        onBlur={field.onBlur}
-                        disabled={field.disabled}
+                      <PhoneInput
+                        {...field}
+                        placeholder="(00) 00000-0000"
+                        format="(00) 0000-0000"
                       />
                     )}
                   </FormControl>
@@ -271,29 +248,15 @@ const EditarTransactionSheet = ({
 
             <FormField
               control={form.control}
-              name="tipo"
+              name="ano"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Tipo</FormLabel>
+                  <FormLabel>Ano</FormLabel>
                   <FormControl>
                     {isLoading ? (
                       <Skeleton className="h-[30px] w-[300px]" />
                     ) : (
-                      <Select
-                        value={field.value || ""}
-                        onValueChange={(value) => field.onChange(value)}
-                      >
-                        <SelectTrigger>
-                          <SelectValue placeholder="Selecione o tipo de transação" />
-                        </SelectTrigger>
-                        <SelectContent>
-                          {OPCOES_TIPO_TRANSACAO.map((option) => (
-                            <SelectItem key={option.value} value={option.value}>
-                              {option.label}
-                            </SelectItem>
-                          ))}
-                        </SelectContent>
-                      </Select>
+                      <Input placeholder="Ano..." {...field} />
                     )}
                   </FormControl>
                   <FormMessage />
@@ -303,10 +266,10 @@ const EditarTransactionSheet = ({
 
             <FormField
               control={form.control}
-              name="categoria"
+              name="status"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Categoria</FormLabel>
+                  <FormLabel>Status</FormLabel>
                   <FormControl>
                     {isLoading ? (
                       <Skeleton className="h-[30px] w-[300px]" />
@@ -319,11 +282,13 @@ const EditarTransactionSheet = ({
                           <SelectValue placeholder="Selecione a categoria" />
                         </SelectTrigger>
                         <SelectContent>
-                          {OPCOES_CATEGORIA_TRANSACAO.map((option) => (
-                            <SelectItem key={option.value} value={option.value}>
-                              {option.label}
-                            </SelectItem>
-                          ))}
+                          {/* Adicionando as opções ATIVO e INATIVO */}
+                          <SelectItem key="ATIVO" value="ATIVO">
+                            ATIVO
+                          </SelectItem>
+                          <SelectItem key="INATIVO" value="INATIVO">
+                            INATIVO
+                          </SelectItem>
                         </SelectContent>
                       </Select>
                     )}
@@ -335,10 +300,10 @@ const EditarTransactionSheet = ({
 
             <FormField
               control={form.control}
-              name="metodoPagamento"
+              name="pasta"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Método de pagamento</FormLabel>
+                  <FormLabel>Pasta</FormLabel>
                   <FormControl>
                     {isLoading ? (
                       <Skeleton className="h-[30px] w-[300px]" />
@@ -348,10 +313,10 @@ const EditarTransactionSheet = ({
                         onValueChange={(value) => field.onChange(value)}
                       >
                         <SelectTrigger>
-                          <SelectValue placeholder="Selecione o método de pagamento" />
+                          <SelectValue placeholder="Selecione a pasta" />
                         </SelectTrigger>
                         <SelectContent>
-                          {OPCOES_METODO_PAGAMENTO_TRANSACAO.map((option) => (
+                          {OPCOES_TIPO_PASTA.map((option) => (
                             <SelectItem key={option.value} value={option.value}>
                               {option.label}
                             </SelectItem>
@@ -360,26 +325,6 @@ const EditarTransactionSheet = ({
                       </Select>
                     )}
                   </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-
-            <FormField
-              control={form.control}
-              name="date"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Data</FormLabel>
-                  {isLoading ? (
-                    <Skeleton className="h-[30px] w-[300px]" />
-                  ) : (
-                    <DatePicker2
-                      value={field.value}
-                      onChange={field.onChange}
-                    />
-                  )}
-
                   <FormMessage />
                 </FormItem>
               )}
@@ -402,4 +347,4 @@ const EditarTransactionSheet = ({
   );
 };
 
-export default EditarTransactionSheet;
+export default EditarUnicoUserEquipeDirigenteSheet;
