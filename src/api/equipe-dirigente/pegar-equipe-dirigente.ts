@@ -28,11 +28,6 @@ export interface PegarEquipeDirigenteResponse {
       | "MONTAGEM"
       | "PALESTRA"
       | "FICHAS";
-    igreja: {
-      id: string;
-      nome: string;
-      email: string;
-    };
   }[];
 }
 

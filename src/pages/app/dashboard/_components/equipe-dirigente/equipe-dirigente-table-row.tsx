@@ -28,11 +28,6 @@ export interface EquipeDirigenteTableRowProps {
       | "MONTAGEM"
       | "PALESTRA"
       | "FICHAS";
-    igreja: {
-      id: string;
-      nome: string;
-      email: string;
-    };
   };
 }
 
