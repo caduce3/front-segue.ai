@@ -36,6 +36,7 @@ import {
   SheetTrigger,
 } from "@/components/ui/sheet";
 import { queryClient } from "@/lib/react-query";
+import { getUserProfileData } from "@/services/acessar-dados-perfil-user";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useMutation, useQuery } from "@tanstack/react-query";
 import { ArrowUpDown } from "lucide-react";
@@ -108,12 +109,7 @@ const CadastrarTransactionDialog = () => {
     staleTime: Infinity,
   });
 
-  let idUserEquipeDirigente = "";
-  let igrejaId = "";
-  if (profileUser && "igrejaId" in profileUser) {
-    idUserEquipeDirigente = profileUser.id;
-    igrejaId = profileUser.igrejaId;
-  }
+  const { igrejaId, idUserEquipeDirigente } = profileUser ? getUserProfileData(profileUser) : { igrejaId: "", idUserEquipeDirigente: ""};
 
   const { reset } = form;
 
@@ -160,6 +156,7 @@ const CadastrarTransactionDialog = () => {
           variant="default"
           size="sm"
           className="flex items-center justify-between w-40 sm:w-48 rounded-full font-bold"
+          disabled={profileUser?.pasta !== "FINANCAS" }
         >
           <span className="text-xs sm:text-sm font-bold">Adicionar Transação</span>
           <ArrowUpDown className="h-4 w-4" />
