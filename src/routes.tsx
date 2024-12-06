@@ -7,6 +7,7 @@ import { SignUp } from './pages/auth/sign-up'
 import { NotFound } from './pages/404'
 import Apresentation from './pages/auth/apresentation'
 import { Transactions } from './pages/app/transactions/transactions'
+import { Fichas } from './pages/app/fichas/fichas'
 
 export const router = createBrowserRouter([
     {
@@ -15,7 +16,8 @@ export const router = createBrowserRouter([
         errorElement: <NotFound />,
         children: [
             {path: '/', element: <Dashboard />},
-            {path: '/financas', element: <Transactions />}
+            {path: '/financas', element: <Transactions />},
+            {path: '/fichas', element: <Fichas />}
         ]
     },
     {
