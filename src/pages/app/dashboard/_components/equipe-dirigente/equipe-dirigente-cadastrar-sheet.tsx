@@ -40,6 +40,15 @@ import { z } from "zod";
 
 interface cadastrarEquipeDirigenteProps {
   igrejaId: string;
+  pastaUserLogado:
+    | "FINANCAS"
+    | "PADRE"
+    | "PAROQUIA"
+    | "FINANCAS"
+    | "POS"
+    | "MONTAGEM"
+    | "PALESTRA"
+    | "FICHAS";
 }
 
 const cadastrarEquipeDirigenteSchema = z.object({
@@ -72,6 +81,7 @@ type CadastrarEquipeDirigenteFormValues = z.infer<
 
 const CadastrarEquipeDirigenteSheet = ({
   igrejaId,
+  pastaUserLogado,
 }: cadastrarEquipeDirigenteProps) => {
   const form = useForm<CadastrarEquipeDirigenteFormValues>({
     resolver: zodResolver(cadastrarEquipeDirigenteSchema),
@@ -128,6 +138,9 @@ const CadastrarEquipeDirigenteSheet = ({
           variant="default"
           size="sm"
           className="flex items-center justify-between w-36 sm:w-36 rounded-full font-bold"
+          disabled={
+            pastaUserLogado !== "PADRE" && pastaUserLogado !== "PAROQUIA"
+          }
         >
           <span className="text-xs sm:text-sm font-bold">Cadastrar ED</span>
           <UserRoundPlus className="h-4 w-4" />

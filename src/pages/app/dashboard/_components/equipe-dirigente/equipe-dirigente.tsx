@@ -50,7 +50,7 @@ export function EquipeDirigente({
               <p className="text-white font-bold text-lg mb-4">
                 Equipe Dirigente
               </p>
-              <CadastrarEquipeDirigenteSheet igrejaId={igrejaId} />
+              <CadastrarEquipeDirigenteSheet igrejaId={igrejaId}  pastaUserLogado={pastaUserLogado} />
             </div>
             <hr />
           </CardHeader>
