@@ -10,11 +10,21 @@ import CadastrarEquipeDirigenteSheet from "./equipe-dirigente-cadastrar-sheet";
 interface TableEquipeDirigenteProps {
   igrejaId: string;
   idUserEquipeDirigente: string;
+  pastaUserLogado:
+    | "FINANCAS"
+    | "PADRE"
+    | "PAROQUIA"
+    | "FINANCAS"
+    | "POS"
+    | "MONTAGEM"
+    | "PALESTRA"
+    | "FICHAS";
 }
 
 export function EquipeDirigente({
   igrejaId,
   idUserEquipeDirigente,
+  pastaUserLogado,
 }: TableEquipeDirigenteProps) {
   const [searchParams] = useSearchParams();
   const page = searchParams.get("page") ?? 1;
@@ -52,6 +62,7 @@ export function EquipeDirigente({
                     <EquipeDirigenteTableRow
                       key={equipeDirigente.id}
                       userEquipeDirigente={equipeDirigente}
+                      pastaUserLogado={pastaUserLogado}
                     />
                   );
                 })}

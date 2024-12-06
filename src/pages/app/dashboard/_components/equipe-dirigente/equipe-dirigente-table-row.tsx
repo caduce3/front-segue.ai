@@ -30,17 +30,27 @@ export interface EquipeDirigenteTableRowProps {
       | "PALESTRA"
       | "FICHAS";
   };
+  pastaUserLogado:
+    | "FINANCAS"
+    | "PADRE"
+    | "PAROQUIA"
+    | "FINANCAS"
+    | "POS"
+    | "MONTAGEM"
+    | "PALESTRA"
+    | "FICHAS";
 }
 
 const EquipeDirigenteTableRow = ({
   userEquipeDirigente,
+  pastaUserLogado,
 }: EquipeDirigenteTableRowProps) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
 
-    const handleDetailsClick = () => {
-      setIsModalOpen(true);
-    };
+  const handleDetailsClick = () => {
+    setIsModalOpen(true);
+  };
 
   const handleCloseModal = () => {
     setIsModalOpen(false);
@@ -96,7 +106,15 @@ const EquipeDirigenteTableRow = ({
         </TableCell>
 
         <TableCell className="flex">
-          <Button variant="ghost" size="sm" className="text-[#71717A]" onClick={handleDetailsClick}>
+          <Button
+            variant="ghost"
+            size="sm"
+            className="text-[#71717A]"
+            onClick={handleDetailsClick}
+            disabled={
+              pastaUserLogado !== "PADRE" && pastaUserLogado !== "PAROQUIA"
+            }
+          >
             <UserPen className="h-4 w-4" />
           </Button>
           <Button
@@ -104,6 +122,9 @@ const EquipeDirigenteTableRow = ({
             size="sm"
             className="ml-1 text-[#71717A]"
             onClick={handleDeleteClick}
+            disabled={
+              pastaUserLogado !== "PADRE" && pastaUserLogado !== "PAROQUIA"
+            }
           >
             <Trash2 className="h-4 w-4" />
           </Button>

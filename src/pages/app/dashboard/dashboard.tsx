@@ -23,7 +23,8 @@ export function Dashboard() {
     staleTime: Infinity,
   });
 
-  const { igrejaId, idUserEquipeDirigente } = profileUser ? getUserProfileData(profileUser) : { igrejaId: "", idUserEquipeDirigente: "" };
+  const { igrejaId, idUserEquipeDirigente } = profileUser ? getUserProfileData(profileUser) : { igrejaId: "", idUserEquipeDirigente: ""};
+  const pastaUserLogado = profileUser?.pasta
 
   const [dateRange, setDateRange] = React.useState<{ from: Date; to: Date }>({
     from: new Date(new Date().getFullYear(), 0, 1),
@@ -75,10 +76,13 @@ export function Dashboard() {
 
           {/* Coluna lateral (Equipe Dirigente) */}
           <div className="flex flex-col">
-            <EquipeDirigente
-              igrejaId={igrejaId}
-              idUserEquipeDirigente={idUserEquipeDirigente}
-            />
+            {pastaUserLogado && (
+              <EquipeDirigente
+                igrejaId={igrejaId}
+                idUserEquipeDirigente={idUserEquipeDirigente}
+                pastaUserLogado={pastaUserLogado}
+              />
+            )}
           </div>
         </div>
       </div>
