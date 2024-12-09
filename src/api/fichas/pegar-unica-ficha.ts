@@ -7,66 +7,68 @@ export interface PegarUnicaFichaBody {
 }
 
 export interface PegarUnicaFichaResponse {
-  id: string;
-  nomePastaFichas: string;
-  dataRecebimento: string;
-  nomeJovem: string;
-  email: string;
-  telefone: string;
-  endereco: string;
-  dataNascimento: string;
-  naturalidade: string;
-  filiacaoPai: string;
-  filiacaoMae: string;
-  escolaridade: string;
-  religiao: string;
-  igrejaFrequenta: string;
-  sacramentos: string;
-  pastoral: string;
-  nomeConvidadoPor: string;
-  telefoneConvidadoPor: string;
-  enderecoConvidadoPor: string;
-  observacoes: string;
-  anoEncontro: string;
-  corCirculoOrigem:
-    | "VERMELHO"
-    | "AZUL"
-    | "AMARELO"
-    | "VERDE"
-    | "LARANJA"
-    | "ROSA";
-  createdAt: string;
-  updatedAt: string;
-  igrejaId: string;
-  FichaEquipe: {
+  ficha: {
     id: string;
-    equipe:
-      | "ANIMACAO"
-      | "VIGILIA_PAROQUIAL"
-      | "LITURGIA"
-      | "CANTO"
-      | "ESTACIONAMENTO"
-      | "TAXI"
-      | "LANCHE"
-      | "COZINHA"
-      | "SALA"
-      | "FAXINA"
-      | "ED_PALESTRA"
-      | "ED_POS"
-      | "ED_MONTAGEM"
-      | "ED_FINANCAS"
-      | "ED_FICHAS"
-      | "CIRCULO"
-      | "GRAFICA"
-      | "MINI_MERCADO";
-    ano: string;
-    funcao: "COORDENADOR" | "EQUIPISTA" | "ED";
-    avaliacao: "NEGATIVO" | "POSITIVO" | "NORMAL";
+    nomePastaFichas: string;
+    dataRecebimento: string;
+    nomeJovem: string;
+    email: string;
+    telefone: string;
+    endereco: string;
+    dataNascimento: string;
+    naturalidade: string;
+    filiacaoPai: string;
+    filiacaoMae: string;
+    escolaridade: string;
+    religiao: string;
+    igrejaFrequenta: string;
+    sacramentos: string;
+    pastoral: string;
+    nomeConvidadoPor: string;
+    telefoneConvidadoPor: string;
+    enderecoConvidadoPor: string;
     observacoes: string;
+    anoEncontro: string;
+    corCirculoOrigem:
+      | "VERMELHO"
+      | "AZUL"
+      | "AMARELO"
+      | "VERDE"
+      | "LARANJA"
+      | "ROSA";
     createdAt: string;
     updatedAt: string;
-    fichaId: string;
-  }[];
+    igrejaId: string;
+    FichaEquipe: {
+      id: string;
+      equipe:
+        | "ANIMACAO"
+        | "VIGILIA_PAROQUIAL"
+        | "LITURGIA"
+        | "CANTO"
+        | "ESTACIONAMENTO"
+        | "TAXI"
+        | "LANCHE"
+        | "COZINHA"
+        | "SALA"
+        | "FAXINA"
+        | "ED_PALESTRA"
+        | "ED_POS"
+        | "ED_MONTAGEM"
+        | "ED_FINANCAS"
+        | "ED_FICHAS"
+        | "CIRCULO"
+        | "GRAFICA"
+        | "MINI_MERCADO";
+      ano: string;
+      funcao: "COORDENADOR" | "EQUIPISTA" | "ED";
+      avaliacao: "NEGATIVO" | "POSITIVO" | "NORMAL";
+      observacoes: string;
+      createdAt: string;
+      updatedAt: string;
+      fichaId: string;
+    }[];
+  };
 }
 
 export async function pegarUnicaFicha({
@@ -87,6 +89,8 @@ export async function pegarUnicaFicha({
         },
       }
     );
+
+    console.log(response.data)
     return response.data;
   } catch (error: any) {
     if (error.response) {
