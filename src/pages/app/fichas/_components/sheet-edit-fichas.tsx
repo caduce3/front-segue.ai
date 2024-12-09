@@ -294,501 +294,528 @@ const EditarFichaSheet = ({
   return (
     <Sheet open={isOpen} onOpenChange={onClose}>
       {/* className="overflow-y-auto" */}
-      <SheetContent side="right" className="overflow-y-auto">
+      <SheetContent
+        side="bottom"
+        className="overflow-y-auto max-h-[calc(100vh-100px)]"
+      >
         <SheetHeader>
-          <SheetTitle>Editar Ficha</SheetTitle>
+          <SheetTitle className="mb-5">Informações / Editar Ficha</SheetTitle>
         </SheetHeader>
         <FormProvider {...form}>
           <form
             onSubmit={handleSubmit(handleSubmitFichaEdit)}
-            className="space-y-8"
+            className="space-y-8 w-full"
           >
-            <FormField
-              control={form.control}
-              name="nomePastaFichas"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Jovem/Casal Fichas</FormLabel>
-                  <FormControl>
-                    {isLoading ? (
-                      <Skeleton className="h-[30px] w-[300px]" />
-                    ) : (
-                      <Input
-                        placeholder="Digite o nome do jovem ou casal fichas..."
-                        {...field}
-                      />
-                    )}
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
+            <div className="flex flex-col md:flex-row">
+              <FormField
+                control={form.control}
+                name="nomePastaFichas"
+                render={({ field }) => (
+                  <FormItem className="w-full p-2">
+                    <FormLabel>Jovem/Casal Fichas</FormLabel>
+                    <FormControl>
+                      {isLoading ? (
+                        <Skeleton className="h-[30px] w-[300px]" />
+                      ) : (
+                        <Input
+                          placeholder="Digite o nome do jovem ou casal fichas..."
+                          {...field}
+                        />
+                      )}
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={form.control}
+                name="dataRecebimento"
+                render={({ field }) => (
+                  <FormItem className="w-full p-2">
+                    <FormLabel>Data Recebimento</FormLabel>
+                    <FormControl>
+                      {isLoading ? (
+                        <Skeleton className="h-[30px] w-[300px]" />
+                      ) : (
+                        <DatePicker2
+                          value={field.value}
+                          onChange={field.onChange}
+                        />
+                      )}
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
 
-            <FormField
-              control={form.control}
-              name="dataRecebimento"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Data Recebimento</FormLabel>
-                  <FormControl>
-                    {isLoading ? (
-                      <Skeleton className="h-[30px] w-[300px]" />
-                    ) : (
-                      <DatePicker2
-                        value={field.value}
-                        onChange={field.onChange}
-                      />
-                    )}
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
+              <FormField
+                control={form.control}
+                name="nomeJovem"
+                render={({ field }) => (
+                  <FormItem className="w-full p-2">
+                    <FormLabel>Nome</FormLabel>
+                    <FormControl>
+                      {isLoading ? (
+                        <Skeleton className="h-[30px] w-[300px]" />
+                      ) : (
+                        <Input placeholder="Digite o nome..." {...field} />
+                      )}
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+            </div>
 
-            <FormField
-              control={form.control}
-              name="nomeJovem"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Nome</FormLabel>
-                  <FormControl>
-                    {isLoading ? (
-                      <Skeleton className="h-[30px] w-[300px]" />
-                    ) : (
-                      <Input placeholder="Digite o nome..." {...field} />
-                    )}
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
+            <div className="flex flex-col md:flex-row">
+              <FormField
+                control={form.control}
+                name="email"
+                render={({ field }) => (
+                  <FormItem className="w-full p-2">
+                    <FormLabel>E-mail</FormLabel>
+                    <FormControl>
+                      {isLoading ? (
+                        <Skeleton className="h-[30px] w-[300px]" />
+                      ) : (
+                        <Input placeholder="Digite o e-mail..." {...field} />
+                      )}
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
 
-            <FormField
-              control={form.control}
-              name="email"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>E-mail</FormLabel>
-                  <FormControl>
-                    {isLoading ? (
-                      <Skeleton className="h-[30px] w-[300px]" />
-                    ) : (
-                      <Input placeholder="Digite o e-mail..." {...field} />
-                    )}
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
+              <FormField
+                control={form.control}
+                name="telefone"
+                render={({ field }) => (
+                  <FormItem className="w-full p-2">
+                    <FormLabel>Telefone</FormLabel>
+                    <FormControl>
+                      {isLoading ? (
+                        <Skeleton className="h-[30px] w-[300px]" />
+                      ) : (
+                        <PhoneInput
+                          {...field}
+                          placeholder="(00) 00000-0000"
+                          format="(00) 0000-0000"
+                        />
+                      )}
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
 
-            <FormField
-              control={form.control}
-              name="telefone"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Telefone</FormLabel>
-                  <FormControl>
-                    {isLoading ? (
-                      <Skeleton className="h-[30px] w-[300px]" />
-                    ) : (
-                      <PhoneInput
-                        {...field}
-                        placeholder="(00) 00000-0000"
-                        format="(00) 0000-0000"
-                      />
-                    )}
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
+              <FormField
+                control={form.control}
+                name="endereco"
+                render={({ field }) => (
+                  <FormItem className="w-full p-2">
+                    <FormLabel>Endereço</FormLabel>
+                    <FormControl>
+                      {isLoading ? (
+                        <Skeleton className="h-[30px] w-[300px]" />
+                      ) : (
+                        <Input placeholder="Digite o e-mail..." {...field} />
+                      )}
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+            </div>
 
-            <FormField
-              control={form.control}
-              name="endereco"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Endereço</FormLabel>
-                  <FormControl>
-                    {isLoading ? (
-                      <Skeleton className="h-[30px] w-[300px]" />
-                    ) : (
-                      <Input placeholder="Digite o e-mail..." {...field} />
-                    )}
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
+            <div className="flex flex-col md:flex-row">
+              <FormField
+                control={form.control}
+                name="dataNascimento"
+                render={({ field }) => (
+                  <FormItem className="w-full p-2">
+                    <FormLabel>Data de nascimento</FormLabel>
+                    <FormControl>
+                      {isLoading ? (
+                        <Skeleton className="h-[30px] w-[300px]" />
+                      ) : (
+                        <DatePicker2
+                          value={field.value}
+                          onChange={field.onChange}
+                        />
+                      )}
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
 
-            <FormField
-              control={form.control}
-              name="dataNascimento"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Data de nascimento</FormLabel>
-                  <FormControl>
-                    {isLoading ? (
-                      <Skeleton className="h-[30px] w-[300px]" />
-                    ) : (
-                      <DatePicker2
-                        value={field.value}
-                        onChange={field.onChange}
-                      />
-                    )}
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
+              <FormField
+                control={form.control}
+                name="naturalidade"
+                render={({ field }) => (
+                  <FormItem className="w-full p-2">
+                    <FormLabel>Naturalidade</FormLabel>
+                    <FormControl>
+                      {isLoading ? (
+                        <Skeleton className="h-[30px] w-[300px]" />
+                      ) : (
+                        <Input
+                          placeholder="Digite a naturalidade..."
+                          {...field}
+                        />
+                      )}
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
 
-            <FormField
-              control={form.control}
-              name="naturalidade"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Naturalidade</FormLabel>
-                  <FormControl>
-                    {isLoading ? (
-                      <Skeleton className="h-[30px] w-[300px]" />
-                    ) : (
-                      <Input
-                        placeholder="Digite a naturalidade..."
-                        {...field}
-                      />
-                    )}
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
+              <FormField
+                control={form.control}
+                name="filiacaoPai"
+                render={({ field }) => (
+                  <FormItem className="w-full p-2">
+                    <FormLabel>Filiação (Pai)</FormLabel>
+                    <FormControl>
+                      {isLoading ? (
+                        <Skeleton className="h-[30px] w-[300px]" />
+                      ) : (
+                        <Input
+                          placeholder="Digite a filiação (Pai)..."
+                          {...field}
+                          value={field.value ?? ""}
+                        />
+                      )}
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+            </div>
 
-            <FormField
-              control={form.control}
-              name="filiacaoPai"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Filiação (Pai)</FormLabel>
-                  <FormControl>
-                    {isLoading ? (
-                      <Skeleton className="h-[30px] w-[300px]" />
-                    ) : (
-                      <Input
-                        placeholder="Digite a filiação (Pai)..."
-                        {...field}
-                        value={field.value ?? ""}
-                      />
-                    )}
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
+            <div className="flex flex-col md:flex-row">
+              <FormField
+                control={form.control}
+                name="filiacaoMae"
+                render={({ field }) => (
+                  <FormItem className="w-full p-2">
+                    <FormLabel>Filiação (Mãe)</FormLabel>
+                    <FormControl>
+                      {isLoading ? (
+                        <Skeleton className="h-[30px] w-[300px]" />
+                      ) : (
+                        <Input
+                          placeholder="Digite a filiação (Mãe)..."
+                          {...field}
+                          value={field.value ?? ""}
+                        />
+                      )}
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={form.control}
+                name="escolaridade"
+                render={({ field }) => (
+                  <FormItem className="w-full p-2">
+                    <FormLabel>Escolaridade</FormLabel>
+                    <FormControl>
+                      {isLoading ? (
+                        <Skeleton className="h-[30px] w-[300px]" />
+                      ) : (
+                        <Select
+                          value={field.value || ""}
+                          onValueChange={(value) => field.onChange(value)}
+                        >
+                          <SelectTrigger>
+                            <SelectValue placeholder="Selecione o nível de escolaridade" />
+                          </SelectTrigger>
+                          <SelectContent>
+                            {OPCOES_ESCOLARIDADE.map((option) => (
+                              <SelectItem
+                                key={option.value}
+                                value={option.value}
+                              >
+                                {option.label}
+                              </SelectItem>
+                            ))}
+                          </SelectContent>
+                        </Select>
+                      )}
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
 
-            <FormField
-              control={form.control}
-              name="filiacaoMae"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Filiação (Mãe)</FormLabel>
-                  <FormControl>
-                    {isLoading ? (
-                      <Skeleton className="h-[30px] w-[300px]" />
-                    ) : (
-                      <Input
-                        placeholder="Digite a filiação (Mãe)..."
-                        {...field}
-                        value={field.value ?? ""}
-                      />
-                    )}
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
+              <FormField
+                control={form.control}
+                name="religiao"
+                render={({ field }) => (
+                  <FormItem className="w-full p-2">
+                    <FormLabel>Religião</FormLabel>
+                    <FormControl>
+                      {isLoading ? (
+                        <Skeleton className="h-[30px] w-[300px]" />
+                      ) : (
+                        <Input
+                          placeholder="Digite a religião..."
+                          {...field}
+                          value={field.value ?? ""}
+                        />
+                      )}
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+            </div>
 
-            <FormField
-              control={form.control}
-              name="escolaridade"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Escolaridade</FormLabel>
-                  <FormControl>
-                    {isLoading ? (
-                      <Skeleton className="h-[30px] w-[300px]" />
-                    ) : (
-                      <Select
-                        value={field.value || ""}
-                        onValueChange={(value) => field.onChange(value)}
-                      >
-                        <SelectTrigger>
-                          <SelectValue placeholder="Selecione o nível de escolaridade" />
-                        </SelectTrigger>
-                        <SelectContent>
-                          {OPCOES_ESCOLARIDADE.map((option) => (
-                            <SelectItem key={option.value} value={option.value}>
-                              {option.label}
-                            </SelectItem>
-                          ))}
-                        </SelectContent>
-                      </Select>
-                    )}
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
+            <div className="flex flex-col md:flex-row">
+              <FormField
+                control={form.control}
+                name="igrejaFrequenta"
+                render={({ field }) => (
+                  <FormItem className="w-full p-2">
+                    <FormLabel>Igreja que frequenta</FormLabel>
+                    <FormControl>
+                      {isLoading ? (
+                        <Skeleton className="h-[30px] w-[300px]" />
+                      ) : (
+                        <Input
+                          placeholder="Digite a igreja que frequenta..."
+                          {...field}
+                          value={field.value ?? ""}
+                        />
+                      )}
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
 
-            <FormField
-              control={form.control}
-              name="religiao"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Religião</FormLabel>
-                  <FormControl>
-                    {isLoading ? (
-                      <Skeleton className="h-[30px] w-[300px]" />
-                    ) : (
-                      <Input
-                        placeholder="Digite a religião..."
-                        {...field}
-                        value={field.value ?? ""}
-                      />
-                    )}
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
+              <FormField
+                control={form.control}
+                name="sacramentos"
+                render={({ field }) => (
+                  <FormItem className="w-full p-2">
+                    <FormLabel>Sacramentos</FormLabel>
+                    <FormControl>
+                      {isLoading ? (
+                        <Skeleton className="h-[30px] w-[300px]" />
+                      ) : (
+                        <Select
+                          value={field.value || ""}
+                          onValueChange={(value) => field.onChange(value)}
+                        >
+                          <SelectTrigger>
+                            <SelectValue placeholder="Selecione o nível de escolaridade" />
+                          </SelectTrigger>
+                          <SelectContent>
+                            {OPCOES_SACRAMENTOS.map((option) => (
+                              <SelectItem
+                                key={option.value}
+                                value={option.value}
+                              >
+                                {option.label}
+                              </SelectItem>
+                            ))}
+                          </SelectContent>
+                        </Select>
+                      )}
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
 
-            <FormField
-              control={form.control}
-              name="igrejaFrequenta"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Igreja que frequenta</FormLabel>
-                  <FormControl>
-                    {isLoading ? (
-                      <Skeleton className="h-[30px] w-[300px]" />
-                    ) : (
-                      <Input
-                        placeholder="Digite a igreja que frequenta..."
-                        {...field}
-                        value={field.value ?? ""}
-                      />
-                    )}
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
+              <FormField
+                control={form.control}
+                name="pastoral"
+                render={({ field }) => (
+                  <FormItem className="w-full p-2">
+                    <FormLabel>Pastoral</FormLabel>
+                    <FormControl>
+                      {isLoading ? (
+                        <Skeleton className="h-[30px] w-[300px]" />
+                      ) : (
+                        <Select
+                          value={field.value || ""}
+                          onValueChange={(value) => field.onChange(value)}
+                        >
+                          <SelectTrigger>
+                            <SelectValue placeholder="Selecione a pastoral..." />
+                          </SelectTrigger>
+                          <SelectContent>
+                            {OPCOES_PASTORAL.map((option) => (
+                              <SelectItem
+                                key={option.value}
+                                value={option.value}
+                              >
+                                {option.label}
+                              </SelectItem>
+                            ))}
+                          </SelectContent>
+                        </Select>
+                      )}
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+            </div>
 
-            <FormField
-              control={form.control}
-              name="sacramentos"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Sacramentos</FormLabel>
-                  <FormControl>
-                    {isLoading ? (
-                      <Skeleton className="h-[30px] w-[300px]" />
-                    ) : (
-                      <Select
-                        value={field.value || ""}
-                        onValueChange={(value) => field.onChange(value)}
-                      >
-                        <SelectTrigger>
-                          <SelectValue placeholder="Selecione o nível de escolaridade" />
-                        </SelectTrigger>
-                        <SelectContent>
-                          {OPCOES_SACRAMENTOS.map((option) => (
-                            <SelectItem key={option.value} value={option.value}>
-                              {option.label}
-                            </SelectItem>
-                          ))}
-                        </SelectContent>
-                      </Select>
-                    )}
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
+            <div className="flex flex-col md:flex-row">
+              <FormField
+                control={form.control}
+                name="nomeConvidadoPor"
+                render={({ field }) => (
+                  <FormItem className="w-full p-2">
+                    <FormLabel>Quem convidou para o encontro?</FormLabel>
+                    <FormControl>
+                      {isLoading ? (
+                        <Skeleton className="h-[30px] w-[300px]" />
+                      ) : (
+                        <Input
+                          placeholder="Digite quem convidou para o encontro..."
+                          {...field}
+                          value={field.value ?? ""}
+                        />
+                      )}
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
 
-            <FormField
-              control={form.control}
-              name="pastoral"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Pastoral</FormLabel>
-                  <FormControl>
-                    {isLoading ? (
-                      <Skeleton className="h-[30px] w-[300px]" />
-                    ) : (
-                      <Select
-                        value={field.value || ""}
-                        onValueChange={(value) => field.onChange(value)}
-                      >
-                        <SelectTrigger>
-                          <SelectValue placeholder="Selecione a pastoral..." />
-                        </SelectTrigger>
-                        <SelectContent>
-                          {OPCOES_PASTORAL.map((option) => (
-                            <SelectItem key={option.value} value={option.value}>
-                              {option.label}
-                            </SelectItem>
-                          ))}
-                        </SelectContent>
-                      </Select>
-                    )}
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
+              <FormField
+                control={form.control}
+                name="telefoneConvidadoPor"
+                render={({ field }) => (
+                  <FormItem className="w-full p-2">
+                    <FormLabel>Telefone de quem convidou</FormLabel>
+                    <FormControl>
+                      {isLoading ? (
+                        <Skeleton className="h-[30px] w-[300px]" />
+                      ) : (
+                        <PhoneInput
+                          {...field}
+                          placeholder="(00) 00000-0000"
+                          format="(00) 0000-0000"
+                        />
+                      )}
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
 
-            <FormField
-              control={form.control}
-              name="nomeConvidadoPor"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Quem convidou para o encontro?</FormLabel>
-                  <FormControl>
-                    {isLoading ? (
-                      <Skeleton className="h-[30px] w-[300px]" />
-                    ) : (
-                      <Input
-                        placeholder="Digite quem convidou para o encontro..."
-                        {...field}
-                        value={field.value ?? ""}
-                      />
-                    )}
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
+              <FormField
+                control={form.control}
+                name="enderecoConvidadoPor"
+                render={({ field }) => (
+                  <FormItem className="w-full p-2">
+                    <FormLabel>
+                      Endereço de quem convidou para o encontro
+                    </FormLabel>
+                    <FormControl>
+                      {isLoading ? (
+                        <Skeleton className="h-[30px] w-[300px]" />
+                      ) : (
+                        <Input
+                          placeholder="Digite o endereço de quem convidou para o encontro..."
+                          {...field}
+                          value={field.value ?? ""}
+                        />
+                      )}
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+            </div>
 
-            <FormField
-              control={form.control}
-              name="telefoneConvidadoPor"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Telefone de quem convidou</FormLabel>
-                  <FormControl>
-                    {isLoading ? (
-                      <Skeleton className="h-[30px] w-[300px]" />
-                    ) : (
-                      <PhoneInput
-                        {...field}
-                        placeholder="(00) 00000-0000"
-                        format="(00) 0000-0000"
-                      />
-                    )}
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
+            <div className="flex flex-col md:flex-row">
+              <FormField
+                control={form.control}
+                name="observacoes"
+                render={({ field }) => (
+                  <FormItem className="w-full p-2">
+                    <FormLabel>Observações</FormLabel>
+                    <FormControl>
+                      {isLoading ? (
+                        <Skeleton className="h-[30px] w-[300px]" />
+                      ) : (
+                        <Input
+                          placeholder="Digite as observações..."
+                          {...field}
+                          value={field.value ?? ""}
+                        />
+                      )}
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
 
-            <FormField
-              control={form.control}
-              name="enderecoConvidadoPor"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>
-                    Endereço de quem convidou para o encontro
-                  </FormLabel>
-                  <FormControl>
-                    {isLoading ? (
-                      <Skeleton className="h-[30px] w-[300px]" />
-                    ) : (
-                      <Input
-                        placeholder="Digite o endereço de quem convidou para o encontro..."
-                        {...field}
-                        value={field.value ?? ""}
-                      />
-                    )}
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
+              <FormField
+                control={form.control}
+                name="anoEncontro"
+                render={({ field }) => (
+                  <FormItem className="w-full p-2">
+                    <FormLabel>Ano do encontro</FormLabel>
+                    <FormControl>
+                      {isLoading ? (
+                        <Skeleton className="h-[30px] w-[300px]" />
+                      ) : (
+                        <Input
+                          placeholder="Digite o ano do encontro..."
+                          {...field}
+                        />
+                      )}
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
 
-            <FormField
-              control={form.control}
-              name="observacoes"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Observações</FormLabel>
-                  <FormControl>
-                    {isLoading ? (
-                      <Skeleton className="h-[30px] w-[300px]" />
-                    ) : (
-                      <Input
-                        placeholder="Digite as observações..."
-                        {...field}
-                        value={field.value ?? ""}
-                      />
-                    )}
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-
-            <FormField
-              control={form.control}
-              name="anoEncontro"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Ano do encontro</FormLabel>
-                  <FormControl>
-                    {isLoading ? (
-                      <Skeleton className="h-[30px] w-[300px]" />
-                    ) : (
-                      <Input
-                        placeholder="Digite o ano do encontro..."
-                        {...field}
-                      />
-                    )}
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-
-            <FormField
-              control={form.control}
-              name="corCirculoOrigem"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Cor do círculo de origem</FormLabel>
-                  <FormControl>
-                    {isLoading ? (
-                      <Skeleton className="h-[30px] w-[300px]" />
-                    ) : (
-                      <Select
-                        value={field.value || ""}
-                        onValueChange={(value) => field.onChange(value)}
-                      >
-                        <SelectTrigger>
-                          <SelectValue placeholder="Selecione a cor do círculo de origem" />
-                        </SelectTrigger>
-                        <SelectContent>
-                          {OPCOES_CORES_CIRCULOS.map((option) => (
-                            <SelectItem key={option.value} value={option.value}>
-                              {option.label}
-                            </SelectItem>
-                          ))}
-                        </SelectContent>
-                      </Select>
-                    )}
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
+              <FormField
+                control={form.control}
+                name="corCirculoOrigem"
+                render={({ field }) => (
+                  <FormItem className="w-full p-2">
+                    <FormLabel>Cor do círculo de origem</FormLabel>
+                    <FormControl>
+                      {isLoading ? (
+                        <Skeleton className="h-[30px] w-[300px]" />
+                      ) : (
+                        <Select
+                          value={field.value || ""}
+                          onValueChange={(value) => field.onChange(value)}
+                        >
+                          <SelectTrigger>
+                            <SelectValue placeholder="Selecione a cor do círculo de origem" />
+                          </SelectTrigger>
+                          <SelectContent>
+                            {OPCOES_CORES_CIRCULOS.map((option) => (
+                              <SelectItem
+                                key={option.value}
+                                value={option.value}
+                              >
+                                {option.label}
+                              </SelectItem>
+                            ))}
+                          </SelectContent>
+                        </Select>
+                      )}
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+            </div>
 
             <SheetFooter>
               <SheetClose asChild>
