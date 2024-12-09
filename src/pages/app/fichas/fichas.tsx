@@ -17,7 +17,7 @@ import { Pagination } from "@/components/pagination";
 import { getUserProfileData } from "@/services/acessar-dados-perfil-user";
 import { pegarFichas } from "@/api/fichas/pegar-fichas";
 import FichasTableRow from "./fichas-table-row";
-import { TransactionsTableSkeleton } from "../transactions/transactions-table-skeleton";
+import { FichasTableSkeleton } from "./fichas-table-skeleton";
 
 export function Fichas() {
   const token = useAuthRedirect();
@@ -75,7 +75,7 @@ export function Fichas() {
       </div>
       <Helmet title="Fichas" />
       {isLoading ? (
-        <TransactionsTableSkeleton />
+        <FichasTableSkeleton />
       ) : (
         <Table className="border mt-5">
           <TableHeader className="bg-[#171618]">
