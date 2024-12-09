@@ -47,12 +47,17 @@ import { z } from "zod";
 const editarFichaSchema = z.object({
   nomePastaFichas: z.string().trim().min(1, { message: "Nome é obrigatório" }),
   dataRecebimento: z.date(),
-  nomeJovem: z.string(),
-  email: z.string().email(),
-  telefone: z.string(),
-  endereco: z.string(),
+  nomeJovem: z
+    .string()
+    .trim()
+    .min(1, { message: "Nome do jovem é obrigatório" }),
+  email: z.string().email({ message: "E-mail é obrigatório" }),
+  telefone: z.string().min(10, {
+    message: "No mínimo 10 dígitos.",
+  }),
+  endereco: z.string().min(8, { message: "No mínimo 10 dígitos." }),
   dataNascimento: z.date(),
-  naturalidade: z.string(),
+  naturalidade: z.string().min(4, { message: "No mínimo 4 dígitos." }),
   filiacaoPai: z.string().nullable().optional(),
   filiacaoMae: z.string().nullable().optional(),
   escolaridade: z.enum(
@@ -98,7 +103,7 @@ const editarFichaSchema = z.object({
   telefoneConvidadoPor: z.string().nullable().optional(),
   enderecoConvidadoPor: z.string().nullable().optional(),
   observacoes: z.string().nullable().optional(),
-  anoEncontro: z.string(),
+  anoEncontro: z.string().min(4, { message: "No mínimo 4 dígitos" }),
   corCirculoOrigem: z.enum(
     ["VERMELHO", "AZUL", "AMARELO", "VERDE", "LARANJA", "ROSA"],
     {
