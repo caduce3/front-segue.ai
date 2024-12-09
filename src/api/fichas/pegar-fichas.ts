@@ -31,11 +31,31 @@ export interface PegarFichasResponse {
     naturalidade: string;
     filiacaoPai: string;
     filiacaoMae: string;
-    escolaridade: string;
+    escolaridade:
+      | "DOUTORADO"
+      | "ENSINO_FUNDAMENTAL"
+      | "ENSINO_FUNDAMENTAL_INCOMPLETO"
+      | "ENSINO_MEDIO"
+      | "ENSINO_MEDIO_INCOMPLETO"
+      | "ENSINO_SUPERIOR_COMPLETO"
+      | "ENSINO_SUPERIOR_INCOMPLETO"
+      | "MESTRADO"
+      | "POS_DOUTORADO"
+      | "POS_GRADUACAO";
     religiao: string;
     igrejaFrequenta: string;
-    sacramentos: string;
-    pastoral: string;
+    sacramentos: "BATISMO" | "CRISMA" | "EUCARISTIA" | "NENHUM";
+    pastoral:
+      | "POVO_DA_RUA"
+      | "CARIDADE"
+      | "CATEQUESE"
+      | "COMUNICACAO"
+      | "FAMILIA"
+      | "JOVENS"
+      | "LITURGIA"
+      | "MUSICA"
+      | "SAUDE"
+      | "OUTRO";
     nomeConvidadoPor: string;
     telefoneConvidadoPor: string;
     enderecoConvidadoPor: string;
