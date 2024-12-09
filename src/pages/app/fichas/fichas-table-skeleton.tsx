@@ -35,16 +35,16 @@ export function FichasTableSkeleton() {
             <TableCell>
               <Skeleton className="h-4 w-40" />
             </TableCell>
-            <TableCell className="hidden lg:table-cell">
+            <TableCell className="hidden md:table-cell">
               <Skeleton className="h-4 w-40" />
             </TableCell>
             <TableCell className="hidden md:table-cell">
               <Skeleton className="h-4 w-40" />
             </TableCell>
-            <TableCell className="hidden sm:table-cell">
+            <TableCell className="hidden xl:table-cell">
               <Skeleton className="h-4 w-40" />
             </TableCell>
-            <TableCell className="hidden sm:table-cell">
+            <TableCell className="hidden md:table-cell">
               <Skeleton className="h-4 w-40" />
             </TableCell>
             <TableCell>
