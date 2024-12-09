@@ -8,7 +8,7 @@ type InputProps = React.ComponentProps<"input">;
 export const DataInput = forwardRef(
   (
     props: PatternFormatProps<InputProps>,
-    ref: React.ForwardedRef<HTMLInputElement>,
+    ref: React.ForwardedRef<HTMLInputElement>
   ) => {
     return (
       <PatternFormat
@@ -20,7 +20,7 @@ export const DataInput = forwardRef(
         getInputRef={ref}
       />
     );
-  },
+  }
 );
 
 DataInput.displayName = "DataInput";
