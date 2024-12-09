@@ -5,6 +5,10 @@ import { Trash2, UserPen } from "lucide-react";
 import FichasTypeBadgeCirculos from "./_components/type-badge-circulos";
 import EditarFichaSheet from "./_components/sheet-edit-fichas";
 import { useState } from "react";
+import { DeleteConfirmationModal } from "@/components/card-deletar";
+import { queryClient } from "@/lib/react-query";
+import { toast } from "sonner";
+import { deletarFicha } from "@/api/fichas/deletar-ficha";
 
 export interface FichasTableRowProps {
   fichas: {
@@ -70,7 +74,7 @@ const FichasTableRow = ({
   idUserEquipeDirigente,
 }: FichasTableRowProps) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
-  //   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
+  const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
 
   const handleDetailsClick = () => {
     setIsModalOpen(true);
@@ -80,30 +84,28 @@ const FichasTableRow = ({
     setIsModalOpen(false);
   };
 
-  //   const handleDeleteClick = () => {
-  //     queryClient.invalidateQueries({
-  //       predicate: (query) => query.queryKey.includes("transactions"),
-  //     });
-  //     setIsDeleteModalOpen(true);
-  //   };
+  const handleDeleteClick = () => {
+    setIsDeleteModalOpen(true);
+  };
 
-  //   const handleCancelDelete = () => {
-  //     setIsDeleteModalOpen(false);
-  //   };
+  const handleCancelDelete = () => {
+    setIsDeleteModalOpen(false);
+  };
 
-  //   const handleConfirmDelete = async () => {
-  //     try {
-  //       await deletarTransaction({
-  //         id: transactions.id,
-  //         idUserEquipeDirigente: idUserEquipeDirigente,
-  //       });
-  //       setIsDeleteModalOpen(false);
-  //       toast.success("Transação deletada com sucesso!");
-  //     } catch (error) {
-  //       toast.error("Erro ao deletar transação");
-  //       console.error("Erro ao deletar transação:", error);
-  //     }
-  //   };
+  const handleConfirmDelete = async () => {
+    try {
+      await deletarFicha({
+        id: fichas.id,
+        idUserEquipeDirigente: idUserEquipeDirigente,
+      });
+      setIsDeleteModalOpen(false);
+      queryClient.invalidateQueries({ queryKey: ["fichas"] });
+      toast.success("Ficha deletada com sucesso!");
+    } catch (error) {
+      toast.error("Erro ao deletar ficha");
+      console.error("Erro ao deletar ficha:", error);
+    }
+  };
 
   return (
     <>
@@ -135,7 +137,12 @@ const FichasTableRow = ({
           >
             <UserPen className="h-4 w-4" />
           </Button>
-          <Button variant="ghost" size="sm" className="text-[#71717A]">
+          <Button
+            variant="ghost"
+            size="sm"
+            className="text-[#71717A]"
+            onClick={handleDeleteClick}
+          >
             <Trash2 className="h-4 w-4" />
           </Button>
         </TableCell>
@@ -149,11 +156,11 @@ const FichasTableRow = ({
         onClose={handleCloseModal}
       />
 
-      {/* <DeleteConfirmationModal
+      <DeleteConfirmationModal
         isOpen={isDeleteModalOpen}
         onConfirm={handleConfirmDelete}
         onCancel={handleCancelDelete}
-      /> */}
+      />
     </>
   );
 };
