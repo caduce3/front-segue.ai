@@ -1,14 +1,15 @@
-import { atualizarTransaction } from "@/api/transactions/atualizar-transaction";
+import { atualizarFicha } from "@/api/fichas/atualizar-ficha";
 import {
-  pegarUnicaTransaction,
-  PegarUnicaTransactionResponse,
-} from "@/api/transactions/pegar-unica-transaction";
+  pegarUnicaFicha,
+  PegarUnicaFichaResponse,
+} from "@/api/fichas/pegar-unica-ficha";
 import {
-  OPCOES_METODO_PAGAMENTO_TRANSACAO,
-  OPCOES_TIPO_TRANSACAO,
-  OPCOES_CATEGORIA_TRANSACAO,
-} from "@/components/_constants/transactions-traducoes";
-import { MoneyInput } from "@/components/_formatacao/money-input";
+  OPCOES_CORES_CIRCULOS,
+  OPCOES_ESCOLARIDADE,
+  OPCOES_PASTORAL,
+  OPCOES_SACRAMENTOS,
+} from "@/components/_constants/fichas-traducoes";
+import { PhoneInput } from "@/components/_formatacao/telefone-input";
 import { DatePicker2 } from "@/components/date-picker";
 import { Button } from "@/components/ui/button";
 import {
@@ -43,39 +44,72 @@ import { FormProvider, useForm } from "react-hook-form";
 import { toast } from "sonner";
 import { z } from "zod";
 
-const editarTransactionSchema = z.object({
-  nome: z.string().trim().min(1, { message: "Nome é obrigatório" }),
-  tipo: z.enum(["DEPOSITO", "DESPESA", "INVESTIMENTO"], {
-    message: "Tipo inválido",
-  }),
-  valor: z
-    .number({ required_error: "O valor é obrigatório" })
-    .positive({ message: "O valor deve ser positivo" }),
-  categoria: z.enum(
-    ["PATROCINIO", "TRANSPORTE", "DOACAO", "COMIDA", "BINGO", "OUTRO"],
+const editarFichaSchema = z.object({
+  nomePastaFichas: z.string().trim().min(1, { message: "Nome é obrigatório" }),
+  dataRecebimento: z.date(),
+  nomeJovem: z.string(),
+  email: z.string().email(),
+  telefone: z.string(),
+  endereco: z.string(),
+  dataNascimento: z.date(),
+  naturalidade: z.string(),
+  filiacaoPai: z.string().nullable().optional(),
+  filiacaoMae: z.string().nullable().optional(),
+  escolaridade: z.enum(
+    [
+      "DOUTORADO",
+      "ENSINO_FUNDAMENTAL",
+      "ENSINO_FUNDAMENTAL_INCOMPLETO",
+      "ENSINO_MEDIO",
+      "ENSINO_MEDIO_INCOMPLETO",
+      "ENSINO_SUPERIOR_COMPLETO",
+      "ENSINO_SUPERIOR_INCOMPLETO",
+      "MESTRADO",
+      "POS_DOUTORADO",
+      "POS_GRADUACAO",
+    ],
     {
-      message: "Categoria inválida",
+      message: "Escolaridade inválida",
     }
   ),
-  metodoPagamento: z.enum(
+  religiao: z.string().nullable().optional(),
+  igrejaFrequenta: z.string().nullable().optional(),
+  sacramentos: z.enum(["BATISMO", "CRISMA", "EUCARISTIA", "NENHUM"], {
+    message: "Sacramento inválido",
+  }),
+  pastoral: z.enum(
     [
-      "PIX",
-      "DINHEIRO",
-      "CARTAO_CREDITO",
-      "CARTAO_DEBITO",
-      "TRANSFERENCIA_BANCARIA",
-      "BOLETO_BANCARIO",
+      "POVO_DA_RUA",
+      "CARIDADE",
+      "CATEQUESE",
+      "COMUNICACAO",
+      "FAMILIA",
+      "JOVENS",
+      "LITURGIA",
+      "MUSICA",
+      "SAUDE",
       "OUTRO",
     ],
-    { message: "Método de pagamento inválido" }
+    {
+      message: "Sacramento inválido",
+    }
   ),
-  date: z.date({ required_error: "A data é obrigatória" }),
-  descricao: z.string().optional(),
+  nomeConvidadoPor: z.string().nullable().optional(),
+  telefoneConvidadoPor: z.string().nullable().optional(),
+  enderecoConvidadoPor: z.string().nullable().optional(),
+  observacoes: z.string().nullable().optional(),
+  anoEncontro: z.string(),
+  corCirculoOrigem: z.enum(
+    ["VERMELHO", "AZUL", "AMARELO", "VERDE", "LARANJA", "ROSA"],
+    {
+      message: "Sacramento inválido",
+    }
+  ),
 });
 
-type EditarTransactionSchema = z.infer<typeof editarTransactionSchema>;
+type EditarFichaSchema = z.infer<typeof editarFichaSchema>;
 
-interface EditarTransactionSheetProps {
+interface EditarFichaSheetProps {
   id: string;
   idUserEquipeDirigente: string;
   igrejaId: string;
@@ -83,27 +117,27 @@ interface EditarTransactionSheetProps {
   onClose: () => void;
 }
 
-const EditarTransactionSheet = ({
+const EditarFichaSheet = ({
   id,
   idUserEquipeDirigente,
   igrejaId,
   isOpen,
   onClose,
-}: EditarTransactionSheetProps) => {
-  const { data: detalhesTransaction, isLoading } = useQuery({
-    queryKey: ["detalhesTransaction", id, idUserEquipeDirigente, igrejaId],
+}: EditarFichaSheetProps) => {
+  const { data: detalhesFicha, isLoading } = useQuery({
+    queryKey: ["detalhesFicha", id, idUserEquipeDirigente, igrejaId],
     queryFn: async () => {
       if (!id || !idUserEquipeDirigente || !igrejaId) {
-        toast.error("Transação não encontrada.");
-        return Promise.reject("ID da transação não encontrado.");
+        toast.error("Ficha não encontrada.");
+        return Promise.reject("ID da ficha não encontrado.");
       }
-      return pegarUnicaTransaction({ id, idUserEquipeDirigente, igrejaId });
+      return pegarUnicaFicha({ id, idUserEquipeDirigente, igrejaId });
     },
     enabled: !!id && !!idUserEquipeDirigente && !!igrejaId && isOpen,
   });
 
-  const form = useForm<EditarTransactionSchema>({
-    resolver: zodResolver(editarTransactionSchema),
+  const form = useForm<EditarFichaSchema>({
+    resolver: zodResolver(editarFichaSchema),
   });
 
   const {
@@ -113,78 +147,139 @@ const EditarTransactionSheet = ({
   } = form;
 
   useEffect(() => {
-    if (detalhesTransaction && isOpen) {
+    if (detalhesFicha && isOpen) {
       reset({
-        nome: detalhesTransaction.transaction.nome,
-        tipo: detalhesTransaction.transaction.tipo as
-          | "DEPOSITO"
-          | "DESPESA"
-          | "INVESTIMENTO",
-        valor: detalhesTransaction.transaction.valor,
-        categoria: detalhesTransaction.transaction.categoria,
-        metodoPagamento: detalhesTransaction.transaction.metodoPagamento,
-        date: new Date(detalhesTransaction.transaction.date),
-        descricao: detalhesTransaction.transaction.descricao || undefined,
+        nomePastaFichas: detalhesFicha.ficha.nomePastaFichas,
+        dataRecebimento: new Date(detalhesFicha.ficha.dataRecebimento),
+        nomeJovem: detalhesFicha.ficha.nomeJovem,
+        email: detalhesFicha.ficha.email,
+        telefone: detalhesFicha.ficha.telefone,
+        endereco: detalhesFicha.ficha.endereco,
+        dataNascimento: new Date(detalhesFicha.ficha.dataNascimento),
+        naturalidade: detalhesFicha.ficha.naturalidade,
+        filiacaoPai: detalhesFicha.ficha.filiacaoPai,
+        filiacaoMae: detalhesFicha.ficha.filiacaoMae,
+        escolaridade: detalhesFicha.ficha
+          .escolaridade as EditarFichaSchema["escolaridade"],
+        religiao: detalhesFicha.ficha.religiao,
+        igrejaFrequenta: detalhesFicha.ficha.igrejaFrequenta,
+        sacramentos: detalhesFicha.ficha
+          .sacramentos as EditarFichaSchema["sacramentos"],
+        pastoral: detalhesFicha.ficha.pastoral as EditarFichaSchema["pastoral"],
+        nomeConvidadoPor: detalhesFicha.ficha.nomeConvidadoPor,
+        telefoneConvidadoPor: detalhesFicha.ficha.telefoneConvidadoPor,
+        enderecoConvidadoPor: detalhesFicha.ficha.enderecoConvidadoPor,
+        observacoes: detalhesFicha.ficha.observacoes,
+        anoEncontro: detalhesFicha.ficha.anoEncontro,
+        corCirculoOrigem: detalhesFicha.ficha.corCirculoOrigem,
       });
     }
-  }, [detalhesTransaction, reset, isOpen]);
+  }, [detalhesFicha, reset, isOpen]);
 
-  const { mutateAsync: atualizarTransactionFn } = useMutation({
-    mutationFn: atualizarTransaction,
+  const { mutateAsync: atualizarFichaFn } = useMutation({
+    mutationFn: atualizarFicha,
     onSuccess(
       _,
       {
         id,
         idUserEquipeDirigente,
         igrejaId,
-        metodoPagamento,
-        tipo,
-        categoria,
-        date,
-        descricao,
-        nome,
-        valor,
+        nomePastaFichas,
+        dataRecebimento,
+        nomeJovem,
+        email,
+        telefone,
+        endereco,
+        dataNascimento,
+        naturalidade,
+        filiacaoPai,
+        filiacaoMae,
+        escolaridade,
+        religiao,
+        igrejaFrequenta,
+        sacramentos,
+        pastoral,
+        nomeConvidadoPor,
+        telefoneConvidadoPor,
+        enderecoConvidadoPor,
+        observacoes,
+        anoEncontro,
+        corCirculoOrigem,
       }
     ) {
-      const cached = queryClient.getQueryData<PegarUnicaTransactionResponse>([
-        "detalhesTransaction",
+      const cached = queryClient.getQueryData<PegarUnicaFichaResponse>([
+        "detalhesFicha",
       ]);
       if (cached) {
         queryClient.setQueryData(
-          ["detalhesTransaction", id, idUserEquipeDirigente, igrejaId],
+          ["detalhesFicha", id, idUserEquipeDirigente, igrejaId],
           {
-            transaction: {
-              ...cached.transaction,
-              metodoPagamento,
-              tipo,
-              categoria,
-              date,
-              descricao,
-              nome,
-              valor,
+            ficha: {
+              ...cached.ficha,
+              nomePastaFichas,
+              dataRecebimento,
+              nomeJovem,
+              email,
+              telefone,
+              endereco,
+              dataNascimento,
+              naturalidade,
+              filiacaoPai,
+              filiacaoMae,
+              escolaridade,
+              religiao,
+              igrejaFrequenta,
+              sacramentos,
+              pastoral,
+              nomeConvidadoPor,
+              telefoneConvidadoPor,
+              enderecoConvidadoPor,
+              observacoes,
+              anoEncontro,
+              corCirculoOrigem,
             },
           }
         );
       }
       queryClient.invalidateQueries({
-        predicate: (query) => query.queryKey.includes("transactions"),
+        predicate: (query) => query.queryKey.includes("fichas"),
       });
     },
   });
 
-  async function handleSubmitTransactionsEdit(data: EditarTransactionSchema) {
+  async function handleSubmitFichaEdit(data: EditarFichaSchema) {
     try {
-      await atualizarTransactionFn({
+      await atualizarFichaFn({
         id,
         igrejaId,
         idUserEquipeDirigente,
-        ...data,
+        nomePastaFichas: data.nomePastaFichas,
+        dataRecebimento: data.dataRecebimento,
+        nomeJovem: data.nomeJovem,
+        email: data.email,
+        telefone: data.telefone,
+        endereco: data.endereco,
+        dataNascimento: data.dataNascimento,
+        naturalidade: data.naturalidade,
+        filiacaoPai: data.filiacaoPai ?? undefined,
+        filiacaoMae: data.filiacaoMae ?? undefined,
+        escolaridade: data.escolaridade,
+        religiao: data.religiao ?? undefined,
+        igrejaFrequenta: data.igrejaFrequenta ?? undefined,
+        sacramentos: data.sacramentos,
+        pastoral: data.pastoral,
+        nomeConvidadoPor: data.nomeConvidadoPor ?? undefined,
+        telefoneConvidadoPor: data.telefoneConvidadoPor ?? undefined,
+        enderecoConvidadoPor: data.enderecoConvidadoPor ?? undefined,
+        observacoes: data.observacoes ?? undefined,
+        anoEncontro: data.anoEncontro,
+        corCirculoOrigem: data.corCirculoOrigem,
       });
-      toast.success("Transação atualizada com sucesso!");
+      toast.success("Ficha atualizada com sucesso!");
       onClose();
     } catch (error: any) {
       // Verifique se a estrutura do erro é a esperada
-      let errorMessage = "Erro desconhecido ao atualizar transação.";
+      let errorMessage = "Erro desconhecido ao atualizar ficha.";
       if (error?.response?.data?.message) {
         errorMessage = error.response.data.message;
       } else if (error?.message) {
@@ -198,18 +293,61 @@ const EditarTransactionSheet = ({
 
   return (
     <Sheet open={isOpen} onOpenChange={onClose}>
+      {/* className="overflow-y-auto" */}
       <SheetContent side="right" className="overflow-y-auto">
         <SheetHeader>
-          <SheetTitle>Editar Transação</SheetTitle>
+          <SheetTitle>Editar Ficha</SheetTitle>
         </SheetHeader>
         <FormProvider {...form}>
           <form
-            onSubmit={handleSubmit(handleSubmitTransactionsEdit)}
+            onSubmit={handleSubmit(handleSubmitFichaEdit)}
             className="space-y-8"
           >
             <FormField
               control={form.control}
-              name="nome"
+              name="nomePastaFichas"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Jovem/Casal Fichas</FormLabel>
+                  <FormControl>
+                    {isLoading ? (
+                      <Skeleton className="h-[30px] w-[300px]" />
+                    ) : (
+                      <Input
+                        placeholder="Digite o nome do jovem ou casal fichas..."
+                        {...field}
+                      />
+                    )}
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+
+            <FormField
+              control={form.control}
+              name="dataRecebimento"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Data Recebimento</FormLabel>
+                  <FormControl>
+                    {isLoading ? (
+                      <Skeleton className="h-[30px] w-[300px]" />
+                    ) : (
+                      <DatePicker2
+                        value={field.value}
+                        onChange={field.onChange}
+                      />
+                    )}
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+
+            <FormField
+              control={form.control}
+              name="nomeJovem"
               render={({ field }) => (
                 <FormItem>
                   <FormLabel>Nome</FormLabel>
@@ -227,15 +365,15 @@ const EditarTransactionSheet = ({
 
             <FormField
               control={form.control}
-              name="descricao"
+              name="email"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Descrição</FormLabel>
+                  <FormLabel>E-mail</FormLabel>
                   <FormControl>
                     {isLoading ? (
                       <Skeleton className="h-[30px] w-[300px]" />
                     ) : (
-                      <Input placeholder="Anotações..." {...field} />
+                      <Input placeholder="Digite o e-mail..." {...field} />
                     )}
                   </FormControl>
                   <FormMessage />
@@ -245,22 +383,18 @@ const EditarTransactionSheet = ({
 
             <FormField
               control={form.control}
-              name="valor"
+              name="telefone"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Valor</FormLabel>
+                  <FormLabel>Telefone</FormLabel>
                   <FormControl>
                     {isLoading ? (
                       <Skeleton className="h-[30px] w-[300px]" />
                     ) : (
-                      <MoneyInput
-                        placeholder="Digite o valor..."
-                        value={field.value}
-                        onValueChange={({ floatValue }) =>
-                          field.onChange(floatValue)
-                        }
-                        onBlur={field.onBlur}
-                        disabled={field.disabled}
+                      <PhoneInput
+                        {...field}
+                        placeholder="(00) 00000-0000"
+                        format="(00) 0000-0000"
                       />
                     )}
                   </FormControl>
@@ -271,10 +405,114 @@ const EditarTransactionSheet = ({
 
             <FormField
               control={form.control}
-              name="tipo"
+              name="endereco"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Tipo</FormLabel>
+                  <FormLabel>Endereço</FormLabel>
+                  <FormControl>
+                    {isLoading ? (
+                      <Skeleton className="h-[30px] w-[300px]" />
+                    ) : (
+                      <Input placeholder="Digite o e-mail..." {...field} />
+                    )}
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+
+            <FormField
+              control={form.control}
+              name="dataNascimento"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Data de nascimento</FormLabel>
+                  <FormControl>
+                    {isLoading ? (
+                      <Skeleton className="h-[30px] w-[300px]" />
+                    ) : (
+                      <DatePicker2
+                        value={field.value}
+                        onChange={field.onChange}
+                      />
+                    )}
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+
+            <FormField
+              control={form.control}
+              name="naturalidade"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Naturalidade</FormLabel>
+                  <FormControl>
+                    {isLoading ? (
+                      <Skeleton className="h-[30px] w-[300px]" />
+                    ) : (
+                      <Input
+                        placeholder="Digite a naturalidade..."
+                        {...field}
+                      />
+                    )}
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+
+            <FormField
+              control={form.control}
+              name="filiacaoPai"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Filiação (Pai)</FormLabel>
+                  <FormControl>
+                    {isLoading ? (
+                      <Skeleton className="h-[30px] w-[300px]" />
+                    ) : (
+                      <Input
+                        placeholder="Digite a filiação (Pai)..."
+                        {...field}
+                        value={field.value ?? ""}
+                      />
+                    )}
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+
+            <FormField
+              control={form.control}
+              name="filiacaoMae"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Filiação (Mãe)</FormLabel>
+                  <FormControl>
+                    {isLoading ? (
+                      <Skeleton className="h-[30px] w-[300px]" />
+                    ) : (
+                      <Input
+                        placeholder="Digite a filiação (Mãe)..."
+                        {...field}
+                        value={field.value ?? ""}
+                      />
+                    )}
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+
+            <FormField
+              control={form.control}
+              name="escolaridade"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Escolaridade</FormLabel>
                   <FormControl>
                     {isLoading ? (
                       <Skeleton className="h-[30px] w-[300px]" />
@@ -284,10 +522,10 @@ const EditarTransactionSheet = ({
                         onValueChange={(value) => field.onChange(value)}
                       >
                         <SelectTrigger>
-                          <SelectValue placeholder="Selecione o tipo de transação" />
+                          <SelectValue placeholder="Selecione o nível de escolaridade" />
                         </SelectTrigger>
                         <SelectContent>
-                          {OPCOES_TIPO_TRANSACAO.map((option) => (
+                          {OPCOES_ESCOLARIDADE.map((option) => (
                             <SelectItem key={option.value} value={option.value}>
                               {option.label}
                             </SelectItem>
@@ -303,10 +541,54 @@ const EditarTransactionSheet = ({
 
             <FormField
               control={form.control}
-              name="categoria"
+              name="religiao"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Categoria</FormLabel>
+                  <FormLabel>Religião</FormLabel>
+                  <FormControl>
+                    {isLoading ? (
+                      <Skeleton className="h-[30px] w-[300px]" />
+                    ) : (
+                      <Input
+                        placeholder="Digite a religião..."
+                        {...field}
+                        value={field.value ?? ""}
+                      />
+                    )}
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+
+            <FormField
+              control={form.control}
+              name="igrejaFrequenta"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Igreja que frequenta</FormLabel>
+                  <FormControl>
+                    {isLoading ? (
+                      <Skeleton className="h-[30px] w-[300px]" />
+                    ) : (
+                      <Input
+                        placeholder="Digite a igreja que frequenta..."
+                        {...field}
+                        value={field.value ?? ""}
+                      />
+                    )}
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+
+            <FormField
+              control={form.control}
+              name="sacramentos"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Sacramentos</FormLabel>
                   <FormControl>
                     {isLoading ? (
                       <Skeleton className="h-[30px] w-[300px]" />
@@ -316,10 +598,10 @@ const EditarTransactionSheet = ({
                         onValueChange={(value) => field.onChange(value)}
                       >
                         <SelectTrigger>
-                          <SelectValue placeholder="Selecione a categoria" />
+                          <SelectValue placeholder="Selecione o nível de escolaridade" />
                         </SelectTrigger>
                         <SelectContent>
-                          {OPCOES_CATEGORIA_TRANSACAO.map((option) => (
+                          {OPCOES_SACRAMENTOS.map((option) => (
                             <SelectItem key={option.value} value={option.value}>
                               {option.label}
                             </SelectItem>
@@ -335,10 +617,10 @@ const EditarTransactionSheet = ({
 
             <FormField
               control={form.control}
-              name="metodoPagamento"
+              name="pastoral"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Método de pagamento</FormLabel>
+                  <FormLabel>Pastoral</FormLabel>
                   <FormControl>
                     {isLoading ? (
                       <Skeleton className="h-[30px] w-[300px]" />
@@ -348,10 +630,10 @@ const EditarTransactionSheet = ({
                         onValueChange={(value) => field.onChange(value)}
                       >
                         <SelectTrigger>
-                          <SelectValue placeholder="Selecione o método de pagamento" />
+                          <SelectValue placeholder="Selecione a pastoral..." />
                         </SelectTrigger>
                         <SelectContent>
-                          {OPCOES_METODO_PAGAMENTO_TRANSACAO.map((option) => (
+                          {OPCOES_PASTORAL.map((option) => (
                             <SelectItem key={option.value} value={option.value}>
                               {option.label}
                             </SelectItem>
@@ -367,19 +649,142 @@ const EditarTransactionSheet = ({
 
             <FormField
               control={form.control}
-              name="date"
+              name="nomeConvidadoPor"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Data</FormLabel>
-                  {isLoading ? (
-                    <Skeleton className="h-[30px] w-[300px]" />
-                  ) : (
-                    <DatePicker2
-                      value={field.value}
-                      onChange={field.onChange}
-                    />
-                  )}
+                  <FormLabel>Quem convidou para o encontro?</FormLabel>
+                  <FormControl>
+                    {isLoading ? (
+                      <Skeleton className="h-[30px] w-[300px]" />
+                    ) : (
+                      <Input
+                        placeholder="Digite quem convidou para o encontro..."
+                        {...field}
+                        value={field.value ?? ""}
+                      />
+                    )}
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
 
+            <FormField
+              control={form.control}
+              name="telefoneConvidadoPor"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Telefone de quem convidou</FormLabel>
+                  <FormControl>
+                    {isLoading ? (
+                      <Skeleton className="h-[30px] w-[300px]" />
+                    ) : (
+                      <PhoneInput
+                        {...field}
+                        placeholder="(00) 00000-0000"
+                        format="(00) 0000-0000"
+                      />
+                    )}
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+
+            <FormField
+              control={form.control}
+              name="enderecoConvidadoPor"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>
+                    Endereço de quem convidou para o encontro
+                  </FormLabel>
+                  <FormControl>
+                    {isLoading ? (
+                      <Skeleton className="h-[30px] w-[300px]" />
+                    ) : (
+                      <Input
+                        placeholder="Digite o endereço de quem convidou para o encontro..."
+                        {...field}
+                        value={field.value ?? ""}
+                      />
+                    )}
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+
+            <FormField
+              control={form.control}
+              name="observacoes"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Observações</FormLabel>
+                  <FormControl>
+                    {isLoading ? (
+                      <Skeleton className="h-[30px] w-[300px]" />
+                    ) : (
+                      <Input
+                        placeholder="Digite as observações..."
+                        {...field}
+                        value={field.value ?? ""}
+                      />
+                    )}
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+
+            <FormField
+              control={form.control}
+              name="anoEncontro"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Ano do encontro</FormLabel>
+                  <FormControl>
+                    {isLoading ? (
+                      <Skeleton className="h-[30px] w-[300px]" />
+                    ) : (
+                      <Input
+                        placeholder="Digite o ano do encontro..."
+                        {...field}
+                      />
+                    )}
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+
+            <FormField
+              control={form.control}
+              name="corCirculoOrigem"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Cor do círculo de origem</FormLabel>
+                  <FormControl>
+                    {isLoading ? (
+                      <Skeleton className="h-[30px] w-[300px]" />
+                    ) : (
+                      <Select
+                        value={field.value || ""}
+                        onValueChange={(value) => field.onChange(value)}
+                      >
+                        <SelectTrigger>
+                          <SelectValue placeholder="Selecione a cor do círculo de origem" />
+                        </SelectTrigger>
+                        <SelectContent>
+                          {OPCOES_CORES_CIRCULOS.map((option) => (
+                            <SelectItem key={option.value} value={option.value}>
+                              {option.label}
+                            </SelectItem>
+                          ))}
+                        </SelectContent>
+                      </Select>
+                    )}
+                  </FormControl>
                   <FormMessage />
                 </FormItem>
               )}
@@ -402,4 +807,4 @@ const EditarTransactionSheet = ({
   );
 };
 
-export default EditarTransactionSheet;
+export default EditarFichaSheet;

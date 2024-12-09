@@ -1,8 +1,10 @@
 import { Button } from "@/components/ui/button";
 import { TableCell, TableRow } from "@/components/ui/table";
 import { capitalizeName } from "@/services/formated-captalize-name";
-import { ExternalLink, Trash2 } from "lucide-react";
+import { Trash2, UserPen } from "lucide-react";
 import FichasTypeBadgeCirculos from "./_components/type-badge-circulos";
+import EditarFichaSheet from "./_components/sheet-edit-fichas";
+import { useState } from "react";
 
 export interface FichasTableRowProps {
   fichas: {
@@ -60,19 +62,23 @@ export interface FichasTableRowProps {
       fichaId: string;
     }[];
   };
+  idUserEquipeDirigente: string;
 }
 
-const FichasTableRow = ({ fichas }: FichasTableRowProps) => {
-  //   const [isModalOpen, setIsModalOpen] = useState(false);
+const FichasTableRow = ({
+  fichas,
+  idUserEquipeDirigente,
+}: FichasTableRowProps) => {
+  const [isModalOpen, setIsModalOpen] = useState(false);
   //   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
 
-  //   const handleDetailsClick = () => {
-  //     setIsModalOpen(true);
-  //   };
+  const handleDetailsClick = () => {
+    setIsModalOpen(true);
+  };
 
-  //   const handleCloseModal = () => {
-  //     setIsModalOpen(false);
-  //   };
+  const handleCloseModal = () => {
+    setIsModalOpen(false);
+  };
 
   //   const handleDeleteClick = () => {
   //     queryClient.invalidateQueries({
@@ -121,8 +127,13 @@ const FichasTableRow = ({ fichas }: FichasTableRowProps) => {
         </TableCell>
 
         <TableCell className="flex justify-end space-x-2">
-          <Button variant="ghost" size="sm" className="text-[#71717A]">
-            <ExternalLink className="h-4 w-4" />
+          <Button
+            variant="ghost"
+            size="sm"
+            className="text-[#71717A]"
+            onClick={handleDetailsClick}
+          >
+            <UserPen className="h-4 w-4" />
           </Button>
           <Button variant="ghost" size="sm" className="text-[#71717A]">
             <Trash2 className="h-4 w-4" />
@@ -130,13 +141,13 @@ const FichasTableRow = ({ fichas }: FichasTableRowProps) => {
         </TableCell>
       </TableRow>
 
-      {/* <EditarTransactionSheet
-        id={transactions.id}
-        igrejaId={transactions.igrejaId}
+      <EditarFichaSheet
+        id={fichas.id}
+        igrejaId={fichas.igrejaId}
         idUserEquipeDirigente={idUserEquipeDirigente}
         isOpen={isModalOpen}
         onClose={handleCloseModal}
-      /> */}
+      />
 
       {/* <DeleteConfirmationModal
         isOpen={isDeleteModalOpen}

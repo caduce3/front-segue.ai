@@ -98,13 +98,21 @@ export function Fichas() {
                 Círculo de Origem
               </TableHead>
 
-              <TableHead className="text-white text-center pr-4">Ações</TableHead>
+              <TableHead className="text-white text-center pr-4">
+                Ações
+              </TableHead>
             </TableRow>
           </TableHeader>
           <TableBody>
             {data &&
               data.fichasList.map((fichas) => {
-                return <FichasTableRow key={fichas.id} fichas={fichas} />;
+                return (
+                  <FichasTableRow
+                    key={fichas.id}
+                    fichas={fichas}
+                    idUserEquipeDirigente={profileUser?.id ?? ""}
+                  />
+                );
               })}
           </TableBody>
         </Table>

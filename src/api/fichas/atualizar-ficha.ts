@@ -5,11 +5,12 @@ export interface AtualizarFichaBody {
   igrejaId: string;
   idUserEquipeDirigente: string;
   nomePastaFichas?: string;
-  dataRecebimento?: string;
+  dataRecebimento?: Date;
   nomeJovem?: string;
   email?: string;
   telefone?: string;
   endereco?: string;
+  dataNascimento?: Date;
   naturalidade?: string;
   filiacaoPai?: string;
   filiacaoMae?: string;
@@ -43,7 +44,7 @@ export interface AtualizarFichaBody {
   enderecoConvidadoPor?: string;
   observacoes?: string;
   anoEncontro?: string;
-  corCirculoOrigem?: string;
+  corCirculoOrigem?: "VERMELHO" | "AZUL" | "AMARELO" | "VERDE" | "LARANJA" | "ROSA";
 }
 
 export async function atualizarFicha({
