@@ -44,7 +44,13 @@ export interface AtualizarFichaBody {
   enderecoConvidadoPor?: string;
   observacoes?: string;
   anoEncontro?: string;
-  corCirculoOrigem?: "VERMELHO" | "AZUL" | "AMARELO" | "VERDE" | "LARANJA" | "ROSA";
+  corCirculoOrigem?:
+    | "VERMELHO"
+    | "AZUL"
+    | "AMARELO"
+    | "VERDE"
+    | "LARANJA"
+    | "ROSA";
 }
 
 export async function atualizarFicha({
@@ -57,6 +63,7 @@ export async function atualizarFicha({
   email,
   telefone,
   endereco,
+  dataNascimento,
   naturalidade,
   filiacaoPai,
   filiacaoMae,
@@ -88,6 +95,7 @@ export async function atualizarFicha({
         email,
         telefone,
         endereco,
+        dataNascimento,
         naturalidade,
         filiacaoPai,
         filiacaoMae,

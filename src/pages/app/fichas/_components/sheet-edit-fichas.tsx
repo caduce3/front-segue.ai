@@ -11,7 +11,6 @@ import {
 } from "@/components/_constants/fichas-traducoes";
 import { DataInput } from "@/components/_formatacao/data-input";
 import { PhoneInput } from "@/components/_formatacao/telefone-input";
-import { DatePicker2 } from "@/components/date-picker";
 import { Button } from "@/components/ui/button";
 import {
   FormControl,
@@ -156,9 +155,7 @@ const EditarFichaSheet = ({
     if (detalhesFicha && isOpen) {
       reset({
         nomePastaFichas: detalhesFicha.ficha.nomePastaFichas,
-        dataRecebimento: new Date(
-          detalhesFicha.ficha.dataRecebimento
-        ),
+        dataRecebimento: new Date(detalhesFicha.ficha.dataRecebimento),
         nomeJovem: detalhesFicha.ficha.nomeJovem,
         email: detalhesFicha.ficha.email,
         telefone: detalhesFicha.ficha.telefone,
@@ -461,9 +458,24 @@ const EditarFichaSheet = ({
                       {isLoading ? (
                         <Skeleton className="h-[30px] w-[300px]" />
                       ) : (
-                        <DatePicker2
-                          value={field.value}
-                          onChange={field.onChange}
+                        <DataInput
+                          placeholder="Digite a data de nascimento..."
+                          value={
+                            field.value
+                              ? new Date(field.value).toLocaleDateString(
+                                  "pt-BR"
+                                )
+                              : "" // Certificando-se de que é uma string
+                          }
+                          onChange={(event) => {
+                            const value = event.target.value;
+                            const [day, month, year] = value
+                              .split("/")
+                              .map(Number);
+                            const newDate = new Date(year, month - 1, day); // Convertendo para um objeto Date
+                            field.onChange(newDate); // Chama o field.onChange com o objeto Date
+                          }}
+                          format="##/##/####"
                         />
                       )}
                     </FormControl>
