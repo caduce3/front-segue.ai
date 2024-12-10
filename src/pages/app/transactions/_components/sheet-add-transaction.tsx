@@ -8,8 +8,8 @@ import {
   OPCOES_TIPO_TRANSACAO,
   OPCOES_CATEGORIA_TRANSACAO,
 } from "@/components/_constants/transactions-traducoes";
+import { DataInput } from "@/components/_formatacao/data-input";
 import { MoneyInput } from "@/components/_formatacao/money-input";
-import { DatePicker2 } from "@/components/date-picker";
 import { Button } from "@/components/ui/button";
 import {
   FormControl,
@@ -109,7 +109,9 @@ const CadastrarTransactionDialog = () => {
     staleTime: Infinity,
   });
 
-  const { igrejaId, idUserEquipeDirigente } = profileUser ? getUserProfileData(profileUser) : { igrejaId: "", idUserEquipeDirigente: ""};
+  const { igrejaId, idUserEquipeDirigente } = profileUser
+    ? getUserProfileData(profileUser)
+    : { igrejaId: "", idUserEquipeDirigente: "" };
 
   const { reset } = form;
 
@@ -156,9 +158,11 @@ const CadastrarTransactionDialog = () => {
           variant="default"
           size="sm"
           className="flex items-center justify-between w-40 sm:w-48 rounded-full font-bold"
-          disabled={profileUser?.pasta !== "FINANCAS" }
+          disabled={profileUser?.pasta !== "FINANCAS"}
         >
-          <span className="text-xs sm:text-sm font-bold">Adicionar Transação</span>
+          <span className="text-xs sm:text-sm font-bold">
+            Adicionar Transação
+          </span>
           <ArrowUpDown className="h-4 w-4" />
         </Button>
       </SheetTrigger>
@@ -308,7 +312,23 @@ const CadastrarTransactionDialog = () => {
               render={({ field }) => (
                 <FormItem>
                   <FormLabel>Data</FormLabel>
-                  <DatePicker2 value={field.value} onChange={field.onChange} />
+                  <FormControl>
+                    <DataInput
+                      placeholder="Digite a data..."
+                      value={
+                        field.value
+                          ? new Date(field.value).toLocaleDateString("pt-BR")
+                          : "" // Certificando-se de que é uma string
+                      }
+                      onChange={(event) => {
+                        const value = event.target.value;
+                        const [day, month, year] = value.split("/").map(Number);
+                        const newDate = new Date(year, month - 1, day); // Convertendo para um objeto Date
+                        field.onChange(newDate); // Chama o field.onChange com o objeto Date
+                      }}
+                      format="##/##/####"
+                    />
+                  </FormControl>
                   <FormMessage />
                 </FormItem>
               )}

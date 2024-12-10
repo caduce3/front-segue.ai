@@ -8,8 +8,8 @@ import {
   OPCOES_TIPO_TRANSACAO,
   OPCOES_CATEGORIA_TRANSACAO,
 } from "@/components/_constants/transactions-traducoes";
+import { DataInput } from "@/components/_formatacao/data-input";
 import { MoneyInput } from "@/components/_formatacao/money-input";
-import { DatePicker2 } from "@/components/date-picker";
 import { Button } from "@/components/ui/button";
 import {
   FormControl,
@@ -370,15 +370,23 @@ const EditarTransactionSheet = ({
               name="date"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Data</FormLabel>
-                  {isLoading ? (
-                    <Skeleton className="h-[30px] w-[300px]" />
-                  ) : (
-                    <DatePicker2
-                      value={field.value}
-                      onChange={field.onChange}
+                  <FormControl>
+                    <DataInput
+                      placeholder="Digite a data..."
+                      value={
+                        field.value
+                          ? new Date(field.value).toLocaleDateString("pt-BR")
+                          : "" // Certificando-se de que é uma string
+                      }
+                      onChange={(event) => {
+                        const value = event.target.value;
+                        const [day, month, year] = value.split("/").map(Number);
+                        const newDate = new Date(year, month - 1, day); // Convertendo para um objeto Date
+                        field.onChange(newDate); // Chama o field.onChange com o objeto Date
+                      }}
+                      format="##/##/####"
                     />
-                  )}
+                  </FormControl>
 
                   <FormMessage />
                 </FormItem>
