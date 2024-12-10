@@ -18,6 +18,7 @@ import { getUserProfileData } from "@/services/acessar-dados-perfil-user";
 import { pegarFichas } from "@/api/fichas/pegar-fichas";
 import FichasTableRow from "./fichas-table-row";
 import { FichasTableSkeleton } from "./fichas-table-skeleton";
+import CadastrarFichaSheet from "./_components/sheet-cadastrar-ficha";
 
 export function Fichas() {
   const token = useAuthRedirect();
@@ -70,8 +71,12 @@ export function Fichas() {
   return (
     <div className="shadow-lg p-4 w-full">
       <div className="col-span-12 flex justify-between">
-        <h1 className="text-3xl font-bold tracking-tight mr-3">Fichas</h1>
-        {/* <CadastrarTransactionDialog /> */}
+        <h1 className="text-3xl font-bold tracking-tight">Fichas</h1>
+        <CadastrarFichaSheet
+          igrejaId={igrejaId}
+          idUserEquipeDirigente={idUserEquipeDirigente}
+          pasta={profileUser?.pasta ?? ""}
+        />
       </div>
       <Helmet title="Fichas" />
       {isLoading ? (
