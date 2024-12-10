@@ -21,6 +21,15 @@ const pastaNames: Record<string, string> = {
   PAROQUIA: "Paróquia",
 };
 
+// Mapeamento dos valores de pasta para os ícones correspondentes
+const pastaIcons: Record<string, React.ElementType> = {
+  FINANCAS: DollarSign,
+  FICHAS: NotepadText,
+  POS: CirclePlay,
+  MONTAGEM: Puzzle,
+  PALESTRA: Megaphone,
+};
+
 export function CanViemItemsAccountMenu(
   pasta:
     | "FINANCAS"
@@ -32,6 +41,9 @@ export function CanViemItemsAccountMenu(
     | "PAROQUIA"
 ) {
   const iconClass = "h-4 w-4 mr-1"; // Classe para o ícone com espaçamento
+
+  // Obter o ícone correspondente à pasta
+  const Icon = pastaIcons[pasta];
 
   return (
     <>
@@ -49,7 +61,7 @@ export function CanViemItemsAccountMenu(
               to={`/${pasta.toLowerCase()}`}
               className="flex items-center"
             >
-              <CirclePlay className={iconClass} />
+              {Icon && <Icon className={iconClass} />}
               {pastaNames[pasta]} {/* Usando o nome formatado */}
             </NavLink>
           </DropdownMenuItem>

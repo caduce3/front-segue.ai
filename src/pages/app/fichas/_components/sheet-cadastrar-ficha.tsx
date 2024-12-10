@@ -38,7 +38,7 @@ import {
 import { queryClient } from "@/lib/react-query";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useMutation } from "@tanstack/react-query";
-import {  StickyNote } from "lucide-react";
+import {  NotepadText } from "lucide-react";
 import { useState } from "react";
 import { FormProvider, useForm } from "react-hook-form";
 import { toast } from "sonner";
@@ -215,7 +215,7 @@ const CadastrarFichaSheet = ({
           disabled={pasta !== "FICHAS"}
         >
           <span className="text-xs sm:text-sm font-bold">Cadastrar Ficha</span>
-          <StickyNote className="h-4 w-4" />
+          <NotepadText className="h-4 w-4" />
         </Button>
       </SheetTrigger>
       <SheetContent
@@ -675,7 +675,7 @@ const CadastrarFichaSheet = ({
               <SheetClose asChild>
                 <Button variant="outline">Cancelar</Button>
               </SheetClose>
-              <Button type="submit" disabled={isSubmitting}>
+              <Button type="submit" disabled={isSubmitting} >
                 Salvar
               </Button>
             </SheetFooter>

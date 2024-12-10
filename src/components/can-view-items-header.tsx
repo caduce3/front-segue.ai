@@ -20,6 +20,15 @@ const pastaNames: Record<string, string> = {
   PAROQUIA: "Paróquia",
 };
 
+// Mapeamento dos valores de pasta para os ícones correspondentes
+const pastaIcons: Record<string, React.ElementType> = {
+  FINANCAS: DollarSign,
+  FICHAS: NotepadText,
+  POS: CirclePlay,
+  MONTAGEM: Puzzle,
+  PALESTRA: Megaphone,
+};
+
 export function canViewAll(
   pasta:
     | "FINANCAS"
@@ -32,6 +41,9 @@ export function canViewAll(
 ) {
   const iconClass = "h-4 w-4"; // Classe para o ícone com espaçamento
 
+  // Obter o ícone correspondente à pasta
+  const Icon = pastaIcons[pasta];
+
   return (
     <>
       {["FINANCAS", "FICHAS", "POS", "MONTAGEM", "PALESTRA"].includes(pasta) ? (
@@ -41,7 +53,7 @@ export function canViewAll(
             Dashboard
           </NavLink>
           <NavLink to={`/${pasta.toLowerCase()}`}>
-            <CirclePlay className={iconClass} />
+            <Icon className={iconClass} />
             {pastaNames[pasta]} {/* Usando o nome formatado */}
           </NavLink>
           <NavLink to="/assinatura">
