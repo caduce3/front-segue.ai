@@ -67,11 +67,13 @@ export interface FichasTableRowProps {
     }[];
   };
   idUserEquipeDirigente: string;
+  pasta: string;
 }
 
 const FichasTableRow = ({
   fichas,
   idUserEquipeDirigente,
+  pasta
 }: FichasTableRowProps) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
@@ -142,6 +144,7 @@ const FichasTableRow = ({
             size="sm"
             className="text-[#71717A]"
             onClick={handleDeleteClick}
+            disabled={pasta !== fichas.nomePastaFichas}
           >
             <Trash2 className="h-4 w-4" />
           </Button>
@@ -154,6 +157,7 @@ const FichasTableRow = ({
         idUserEquipeDirigente={idUserEquipeDirigente}
         isOpen={isModalOpen}
         onClose={handleCloseModal}
+        pasta={pasta}
       />
 
       <DeleteConfirmationModal

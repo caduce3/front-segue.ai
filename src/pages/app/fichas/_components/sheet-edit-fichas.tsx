@@ -120,6 +120,7 @@ interface EditarFichaSheetProps {
   igrejaId: string;
   isOpen: boolean;
   onClose: () => void;
+  pasta: string;
 }
 
 const EditarFichaSheet = ({
@@ -128,6 +129,7 @@ const EditarFichaSheet = ({
   igrejaId,
   isOpen,
   onClose,
+  pasta
 }: EditarFichaSheetProps) => {
   const { data: detalhesFicha, isLoading } = useQuery({
     queryKey: ["detalhesFicha", id, idUserEquipeDirigente, igrejaId],
@@ -858,7 +860,7 @@ const EditarFichaSheet = ({
                   Cancelar
                 </Button>
               </SheetClose>
-              <Button type="submit" disabled={isSubmitting}>
+              <Button type="submit" disabled={isSubmitting || pasta !== "FICHAS"}>
                 Salvar
               </Button>
             </SheetFooter>

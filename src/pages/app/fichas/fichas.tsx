@@ -116,6 +116,7 @@ export function Fichas() {
                     key={fichas.id}
                     fichas={fichas}
                     idUserEquipeDirigente={profileUser?.id ?? ""}
+                    pasta={profileUser?.pasta ?? ""}
                   />
                 );
               })}
