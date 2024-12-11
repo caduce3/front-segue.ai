@@ -109,6 +109,7 @@ export function Transactions() {
                     key={transactions.id}
                     transactions={transactions}
                     pasta={profileUser?.pasta ?? ""}
+                    idUserEquipeDirigente={idUserEquipeDirigente}
                   />
                 );
               })}

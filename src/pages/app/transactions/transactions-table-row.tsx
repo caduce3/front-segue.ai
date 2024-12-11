@@ -13,8 +13,6 @@ import {
 import TransactionTypeBadge from "./_components/type-badge";
 import { DeleteConfirmationModal } from "@/components/card-deletar";
 import { deletarTransaction } from "@/api/transactions/deletar-transaction";
-import { getProfileUser } from "@/api/get-profile-user";
-import { useQuery } from "@tanstack/react-query";
 import EditarTransactionSheet from "./_components/sheet-edit-transaction";
 
 export interface TransactionsTableRowProps {
@@ -50,9 +48,14 @@ export interface TransactionsTableRowProps {
     };
   };
   pasta: string;
+  idUserEquipeDirigente: string;
 }
 
-const TransactionsTableRow = ({ transactions, pasta }: TransactionsTableRowProps) => {
+const TransactionsTableRow = ({
+  transactions,
+  pasta,
+  idUserEquipeDirigente,
+}: TransactionsTableRowProps) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
 
@@ -63,17 +66,6 @@ const TransactionsTableRow = ({ transactions, pasta }: TransactionsTableRowProps
   const handleCloseModal = () => {
     setIsModalOpen(false);
   };
-
-  const { data: profileUser } = useQuery({
-    queryKey: ["profileUser"],
-    queryFn: getProfileUser,
-    staleTime: Infinity,
-  });
-
-  let idUserEquipeDirigente = "";
-  if (profileUser && "igrejaId" in profileUser) {
-    idUserEquipeDirigente = profileUser.id;
-  }
 
   const handleDeleteClick = () => {
     queryClient.invalidateQueries({
@@ -141,7 +133,12 @@ const TransactionsTableRow = ({ transactions, pasta }: TransactionsTableRowProps
           {formatCurrency(transactions.valor)}
         </TableCell>
         <TableCell>
-          <Button variant="ghost" size="sm" className="text-[#71717A]" onClick={handleDetailsClick}>
+          <Button
+            variant="ghost"
+            size="sm"
+            className="text-[#71717A]"
+            onClick={handleDetailsClick}
+          >
             <ExternalLink className="h-4 w-4" />
           </Button>
           <Button
