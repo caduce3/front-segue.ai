@@ -74,7 +74,7 @@ export function CanViemItemsAccountMenu(
           </DropdownMenuItem>
         </>
       ) : (
-        <nav className="flex items-center space-x-4 lg:space-x-6">
+        <nav className="flex flex-col space-y-1">
           <DropdownMenuItem className="cursor-pointer">
             <NavLink to="/" className="flex items-center">
               <ChartNoAxesCombined className={iconClass} />
