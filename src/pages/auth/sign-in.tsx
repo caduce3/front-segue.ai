@@ -77,8 +77,8 @@ export function SignIn() {
   }
 
   return (
-    <div className="grid grid-cols-[3fr_1.5fr] rounded-md max-h-[550px]">
-      <div className="max-h-[550px]">
+    <div className="grid grid-cols-1 md:grid-cols-[3fr_1.5fr] rounded-md max-h-[550px] w-full max-w-screen overflow-hidden mx-auto">
+      <div className="max-h-[550px] hidden md:block">
         <img
           src={fundoSgm}
           alt="Segue.ai"
@@ -88,7 +88,7 @@ export function SignIn() {
       <Form {...form}>
         <form
           onSubmit={form.handleSubmit(onSubmit)}
-          className="space-y-1 max-w-[400px] w-[400px] flex flex-col justify-center gap-6 p-10 border  h-[550px] max-h-[550px] rounded-r-lg"
+          className="space-y-1 max-w-[400px] w-full flex flex-col justify-center gap-6 p-10 border h-[550px] max-h-[550px] rounded-r-lg mx-auto"
         >
           <div>
             <h1 className="text-4xl font-medium">Olá, seguidor!</h1>
