@@ -19,6 +19,7 @@ import { pegarFichas } from "@/api/fichas/pegar-fichas";
 import FichasTableRow from "./fichas-table-row";
 import { FichasTableSkeleton } from "./fichas-table-skeleton";
 import CadastrarFichaSheet from "./_components/sheet-cadastrar-ficha";
+import FichasTableFilters from "./fichas-table-filters";
 
 export function Fichas() {
   const token = useAuthRedirect();
@@ -40,6 +41,11 @@ export function Fichas() {
   const [searchParams, setSearchParams] = useSearchParams();
   const page = searchParams.get("page") ?? 1;
 
+  const nomePastaFichas = searchParams.get("nomePastaFichas") ?? undefined;
+  const nomeJovem = searchParams.get("nomeJovem") ?? undefined;
+  const corCirculoOrigem = (searchParams.get("corCirculoOrigem") as "AMARELO" | "AZUL" | "LARANJA" | "ROSA" | "VERDE" | "VERMELHO" | undefined) ?? undefined;
+  const anoEncontro = searchParams.get("anoEncontro") ?? undefined;
+
   const { data: profileUser } = useQuery({
     queryKey: ["profileUser"],
     queryFn: getProfileUser,
@@ -51,12 +57,16 @@ export function Fichas() {
     : { igrejaId: "", idUserEquipeDirigente: "" };
 
   const { data, isLoading } = useQuery({
-    queryKey: ["fichas", page, igrejaId, idUserEquipeDirigente],
+    queryKey: ["fichas", page, igrejaId, idUserEquipeDirigente, nomePastaFichas, nomeJovem, corCirculoOrigem, anoEncontro],
     queryFn: () =>
       pegarFichas({
         page: Number(page),
         igrejaId,
         idUserEquipeDirigente,
+        nomePastaFichas,
+        nomeJovem,
+        corCirculoOrigem,
+        anoEncontro
       }),
   });
 
@@ -72,11 +82,14 @@ export function Fichas() {
     <div className="shadow-lg p-4 w-full">
       <div className="col-span-12 flex justify-between">
         <h1 className="text-3xl font-bold tracking-tight">Fichas</h1>
-        <CadastrarFichaSheet
-          igrejaId={igrejaId}
-          idUserEquipeDirigente={idUserEquipeDirigente}
-          pasta={profileUser?.pasta ?? ""}
-        />
+        <div className="flex">
+          <FichasTableFilters />
+          <CadastrarFichaSheet
+            igrejaId={igrejaId}
+            idUserEquipeDirigente={idUserEquipeDirigente}
+            pasta={profileUser?.pasta ?? ""}
+          />
+        </div>
       </div>
       <Helmet title="Fichas" />
       {isLoading ? (
