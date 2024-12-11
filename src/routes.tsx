@@ -8,6 +8,7 @@ import { NotFound } from './pages/404'
 import Apresentation from './pages/auth/apresentation'
 import { Transactions } from './pages/app/transactions/transactions'
 import { Fichas } from './pages/app/fichas/fichas'
+import { Montagem } from './pages/app/montagem/montagem'
 
 export const router = createBrowserRouter([
     {
@@ -17,7 +18,8 @@ export const router = createBrowserRouter([
         children: [
             {path: '/', element: <Dashboard />},
             {path: '/financas', element: <Transactions />},
-            {path: '/fichas', element: <Fichas />}
+            {path: '/fichas', element: <Fichas />},
+            {path: '/montagem', element: <Montagem />}
         ]
     },
     {
