@@ -144,7 +144,7 @@ const FichasTableRow = ({
             size="sm"
             className="text-[#71717A]"
             onClick={handleDeleteClick}
-            disabled={pasta !== fichas.nomePastaFichas}
+            disabled={pasta !== "FICHAS"}
           >
             <Trash2 className="h-4 w-4" />
           </Button>

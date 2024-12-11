@@ -108,6 +108,7 @@ export function Transactions() {
                   <TransactionsTableRow
                     key={transactions.id}
                     transactions={transactions}
+                    pasta={profileUser?.pasta ?? ""}
                   />
                 );
               })}

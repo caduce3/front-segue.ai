@@ -49,9 +49,10 @@ export interface TransactionsTableRowProps {
       email: string;
     };
   };
+  pasta: string;
 }
 
-const TransactionsTableRow = ({ transactions }: TransactionsTableRowProps) => {
+const TransactionsTableRow = ({ transactions, pasta }: TransactionsTableRowProps) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
 
@@ -148,6 +149,7 @@ const TransactionsTableRow = ({ transactions }: TransactionsTableRowProps) => {
             size="sm"
             className="ml-1 text-[#71717A]"
             onClick={handleDeleteClick}
+            disabled={pasta !== "FINANCAS"}
           >
             <Trash2 className="h-4 w-4" />
           </Button>
@@ -160,6 +162,7 @@ const TransactionsTableRow = ({ transactions }: TransactionsTableRowProps) => {
         idUserEquipeDirigente={idUserEquipeDirigente}
         isOpen={isModalOpen}
         onClose={handleCloseModal}
+        pasta={pasta}
       />
 
       <DeleteConfirmationModal

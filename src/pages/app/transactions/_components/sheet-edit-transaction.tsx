@@ -81,6 +81,7 @@ interface EditarTransactionSheetProps {
   igrejaId: string;
   isOpen: boolean;
   onClose: () => void;
+  pasta: string;
 }
 
 const EditarTransactionSheet = ({
@@ -89,6 +90,7 @@ const EditarTransactionSheet = ({
   igrejaId,
   isOpen,
   onClose,
+  pasta
 }: EditarTransactionSheetProps) => {
   const { data: detalhesTransaction, isLoading } = useQuery({
     queryKey: ["detalhesTransaction", id, idUserEquipeDirigente, igrejaId],
@@ -399,7 +401,7 @@ const EditarTransactionSheet = ({
                   Cancelar
                 </Button>
               </SheetClose>
-              <Button type="submit" disabled={isSubmitting}>
+              <Button type="submit" disabled={isSubmitting || pasta !== "FINANCAS"}>
                 Salvar
               </Button>
             </SheetFooter>
