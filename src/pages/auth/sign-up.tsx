@@ -104,8 +104,8 @@ export function SignUp() {
   }
 
   return (
-    <div className="grid grid-cols-[2fr_1fr] rounded-md p-10 w-full max-w-7xl">
-      <div>
+    <div className="grid grid-cols-1 md:grid-cols-[2fr_1fr] rounded-md p-4 w-full max-w-7xl mx-auto overflow-hidden">
+      <div className="hidden md:block">
         <img
           src={igrejaFundo}
           alt="Segue.ai"
@@ -115,10 +115,10 @@ export function SignUp() {
       <Form {...form}>
         <form
           onSubmit={form.handleSubmit(onSubmit)}
-          className="space-y-1 max-w-[600px] w-[600px] flex flex-col justify-center gap-6 p-10 border h-[700px] max-h-[700px] rounded-r-lg"
+          className="flex flex-col justify-between space-y-1 w-full max-w-[600px] gap-6 p-6 border rounded-r-lg mx-auto md:mx-0"
         >
           <div>
-            <h1 className="text-4xl font-medium">Cadastre sua igreja!</h1>
+            <h1 className="text-4xl font-medium">Cadastre sua paróquia!</h1>
             <p className="text-sm text-muted-foreground mt-1 font-semibold">
               Preencha os dados da sua igreja para realizar o cadastro
             </p>
@@ -146,7 +146,7 @@ export function SignUp() {
             )}
           />
 
-          <div className="grid grid-cols-2 gap-4">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <FormField
               control={form.control}
               name="cnpj"
@@ -187,7 +187,7 @@ export function SignUp() {
             />
           </div>
 
-          <div className="grid grid-cols-2 gap-4">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             {/* Email Field */}
             <FormField
               control={form.control}
@@ -254,8 +254,8 @@ export function SignUp() {
               </FormItem>
             )}
           />
-
-          <div className="grid grid-cols-3 gap-4">
+            
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
             <FormField
               control={form.control}
               name="cidade"
@@ -281,7 +281,7 @@ export function SignUp() {
                       defaultValue={field.value}
                     >
                       <SelectTrigger>
-                        <SelectValue placeholder="Selecione o estado" />
+                        <SelectValue placeholder="Estado" />
                       </SelectTrigger>
                       <SelectContent>
                         {BRAZIL_STATE_CODES.map((estado) => (
