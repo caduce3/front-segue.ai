@@ -203,7 +203,6 @@ const EditarEquipeFichaSheet = ({
 
   return (
     <Sheet open={isOpen} onOpenChange={onClose}>
-      {/* className="overflow-y-auto" */}
       <SheetContent side="right" className="overflow-y-auto ">
         <SheetHeader>
           <SheetTitle className="mb-5">Informações / Editar Equipe</SheetTitle>

@@ -12,6 +12,7 @@ import { pegarEquipesFicha } from "@/api/ficha-equipe/pegar-equipes-ficha";
 import { FichasTableSkeleton } from "../../fichas-table-skeleton";
 import EquipesFichaTableRow from "./equipe-fichas-table-row";
 import { Sheet, SheetContent } from "@/components/ui/sheet";
+import CadastrarEquipeFichaSheet from "./sheet-cadastrar-equipe";
 
 interface PegarEquipesFichaProps {
   igrejaId: string;
@@ -69,12 +70,22 @@ export function EquipesFicha({
           <div className="col-span-12 flex justify-between">
             <h1 className="text-3xl font-bold tracking-tight">Equipes </h1>
             <div className="flex">
-              {/* <FichasTableFilters />
-          <CadastrarFichaSheet
-            igrejaId={igrejaId}
-            idUserEquipeDirigente={idUserEquipeDirigente}
-            pasta={profileUser?.pasta ?? ""}
-          /> */}
+              <CadastrarEquipeFichaSheet
+                igrejaId={igrejaId}
+                idUserEquipeDirigente={idUserEquipeDirigente}
+                fichaId={fichaId}
+                pasta={
+                  pasta as
+                    | "FINANCAS"
+                    | "PADRE"
+                    | "POS"
+                    | "PALESTRA"
+                    | "PAROQUIA"
+                    | "MONTAGEM"
+                    | "FICHAS"
+                    | ""
+                }
+              />
             </div>
           </div>
           {isLoading ? (

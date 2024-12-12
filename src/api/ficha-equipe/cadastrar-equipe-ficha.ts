@@ -1,6 +1,6 @@
 import { api } from "@/lib/axios";
 
-export interface CadastrarEquipeFichaFichaBody {
+export interface CadastrarEquipeFichaBody {
   igrejaId: string;
   idUserEquipeDirigente: string;
   fichaId: string;
@@ -29,7 +29,7 @@ export interface CadastrarEquipeFichaFichaBody {
   observacoes?: string;
 }
 
-export async function cadastrarEquipeFichaFichaBody({
+export async function cadastrarEquipeFicha({
   igrejaId,
   idUserEquipeDirigente,
   fichaId,
@@ -38,7 +38,7 @@ export async function cadastrarEquipeFichaFichaBody({
   funcao,
   avaliacao,
   observacoes,
-}: CadastrarEquipeFichaFichaBody) {
+}: CadastrarEquipeFichaBody) {
   try {
     const token = localStorage.getItem("authToken");
     if (!token) throw new Error("No token found");
