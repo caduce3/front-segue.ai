@@ -137,6 +137,7 @@ const CadastrarTransactionDialog = () => {
 
       queryClient.invalidateQueries({ queryKey: ["transactions"] });
       queryClient.invalidateQueries({ queryKey: ["cards-balanco-geral"] });
+      queryClient.invalidateQueries({ queryKey: ["gastos-por-categoria"] });
 
       reset();
       setIsOpen(false);

@@ -252,7 +252,7 @@ const CadastrarFichaSheet = ({
                 name="dataRecebimento"
                 render={({ field }) => (
                   <FormItem className="w-full p-2">
-                    <FormLabel>Data Recebimento</FormLabel>
+                    <FormLabel>Data de inscrição da ficha</FormLabel>
                     <FormControl>
                       <DataInput
                         placeholder="Digite a data de recebimento..."

@@ -339,7 +339,7 @@ const EditarFichaSheet = ({
                 name="dataRecebimento"
                 render={({ field }) => (
                   <FormItem className="w-full p-2">
-                    <FormLabel>Data Recebimento</FormLabel>
+                    <FormLabel>Data de inscrição da ficha</FormLabel>
                     <FormControl>
                       {isLoading ? (
                         <Skeleton className="h-[30px] w-[300px]" />
