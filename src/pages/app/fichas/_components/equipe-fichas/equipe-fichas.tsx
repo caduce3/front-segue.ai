@@ -115,6 +115,7 @@ export function EquipesFicha({
                         equipesFichaList={equipesFichas}
                         idUserEquipeDirigente={idUserEquipeDirigente}
                         pasta={pasta}
+                        igrejaId={igrejaId}
                       />
                     );
                   })}

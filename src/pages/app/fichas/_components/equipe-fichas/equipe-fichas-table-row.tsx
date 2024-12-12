@@ -1,7 +1,12 @@
+import { deletarEquipeFicha } from "@/api/ficha-equipe/deletar-equipe-ficha";
+import { DeleteConfirmationModal } from "@/components/card-deletar";
 import { Button } from "@/components/ui/button";
 import { TableCell, TableRow } from "@/components/ui/table";
+import { queryClient } from "@/lib/react-query";
 import { capitalizeName } from "@/services/formated-captalize-name";
 import { Trash2, UserPen } from "lucide-react";
+import { useState } from "react";
+import { toast } from "sonner";
 
 export interface FichasTableRowProps {
   equipesFichaList: {
@@ -34,15 +39,17 @@ export interface FichasTableRowProps {
   };
   idUserEquipeDirigente: string;
   pasta: string;
+  igrejaId: string;
 }
 
 const EquipesFichaTableRow = ({
   equipesFichaList,
   idUserEquipeDirigente,
   pasta,
+  igrejaId,
 }: FichasTableRowProps) => {
   //   const [isModalOpen, setIsModalOpen] = useState(false);
-  //   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
+  const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
 
   //   const handleDetailsClick = () => {
   //     setIsModalOpen(true);
@@ -52,28 +59,29 @@ const EquipesFichaTableRow = ({
   //     setIsModalOpen(false);
   //   };
 
-  //   const handleDeleteClick = () => {
-  //     setIsDeleteModalOpen(true);
-  //   };
+  const handleDeleteClick = () => {
+    setIsDeleteModalOpen(true);
+  };
 
-  //   const handleCancelDelete = () => {
-  //     setIsDeleteModalOpen(false);
-  //   };
+  const handleCancelDelete = () => {
+    setIsDeleteModalOpen(false);
+  };
 
-  //   const handleConfirmDelete = async () => {
-  //     try {
-  //       await deletarFicha({
-  //         id: fichas.id,
-  //         idUserEquipeDirigente: idUserEquipeDirigente,
-  //       });
-  //       setIsDeleteModalOpen(false);
-  //       queryClient.invalidateQueries({ queryKey: ["fichas"] });
-  //       toast.success("Ficha deletada com sucesso!");
-  //     } catch (error) {
-  //       toast.error("Erro ao deletar ficha");
-  //       console.error("Erro ao deletar ficha:", error);
-  //     }
-  //   };
+  const handleConfirmDelete = async () => {
+    try {
+      await deletarEquipeFicha({
+        id: equipesFichaList.id,
+        idUserEquipeDirigente: idUserEquipeDirigente,
+        igrejaId: igrejaId,
+      });
+      setIsDeleteModalOpen(false);
+      queryClient.invalidateQueries({ queryKey: ["equipes-ficha"] });
+      toast.success("Equipe deletada da ficha com sucesso!");
+    } catch (error) {
+      toast.error("Erro ao deletar equipe da ficha");
+      console.error("Erro ao deletar equipe da ficha:", error);
+    }
+  };
 
   return (
     <>
@@ -91,7 +99,7 @@ const EquipesFichaTableRow = ({
           {capitalizeName(equipesFichaList.avaliacao)}
         </TableCell>
         <TableCell className="hidden md:table-cell">
-            {capitalizeName(equipesFichaList.observacoes)}
+          {capitalizeName(equipesFichaList.observacoes)}
         </TableCell>
 
         <TableCell className="flex justify-center space-x-2">
@@ -103,6 +111,7 @@ const EquipesFichaTableRow = ({
             size="sm"
             className="text-[#71717A]"
             disabled={pasta !== "FICHAS"}
+            onClick={handleDeleteClick}
           >
             <Trash2 className="h-4 w-4" />
           </Button>
@@ -118,11 +127,13 @@ const EquipesFichaTableRow = ({
         pasta={pasta}
       />
 
+      
+       */}
       <DeleteConfirmationModal
         isOpen={isDeleteModalOpen}
         onConfirm={handleConfirmDelete}
         onCancel={handleCancelDelete}
-      /> */}
+      />
     </>
   );
 };
