@@ -8,6 +8,7 @@ import { Trash2, UserPen } from "lucide-react";
 import { useState } from "react";
 import { toast } from "sonner";
 import EditarEquipeFichaSheet from "./sheet-edit-equipe-ficha";
+import { OPCOES_EQUIPES } from "@/components/_constants/equipe-fichas-traducoes";
 
 export interface FichasTableRowProps {
   equipesFichaList: {
@@ -88,7 +89,7 @@ const EquipesFichaTableRow = ({
     <>
       <TableRow>
         <TableCell className="font-medium">
-          {capitalizeName(equipesFichaList.equipe)}
+          {OPCOES_EQUIPES.find((e) => e.value === equipesFichaList.equipe)?.label}
         </TableCell>
         <TableCell className="hidden md:table-cell">
           {equipesFichaList.ano}
