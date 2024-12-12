@@ -7,6 +7,7 @@ import { capitalizeName } from "@/services/formated-captalize-name";
 import { Trash2, UserPen } from "lucide-react";
 import { useState } from "react";
 import { toast } from "sonner";
+import EditarEquipeFichaSheet from "./sheet-edit-equipe-ficha";
 
 export interface FichasTableRowProps {
   equipesFichaList: {
@@ -48,16 +49,16 @@ const EquipesFichaTableRow = ({
   pasta,
   igrejaId,
 }: FichasTableRowProps) => {
-  //   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(false);
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
 
-  //   const handleDetailsClick = () => {
-  //     setIsModalOpen(true);
-  //   };
+  const handleDetailsClick = () => {
+    setIsModalOpen(true);
+  };
 
-  //   const handleCloseModal = () => {
-  //     setIsModalOpen(false);
-  //   };
+  const handleCloseModal = () => {
+    setIsModalOpen(false);
+  };
 
   const handleDeleteClick = () => {
     setIsDeleteModalOpen(true);
@@ -99,11 +100,16 @@ const EquipesFichaTableRow = ({
           {capitalizeName(equipesFichaList.avaliacao)}
         </TableCell>
         <TableCell className="hidden md:table-cell">
-          {capitalizeName(equipesFichaList.observacoes)}
+          {equipesFichaList.observacoes ?? "Sem observações"}
         </TableCell>
 
         <TableCell className="flex justify-center space-x-2">
-          <Button variant="ghost" size="sm" className="text-[#71717A]">
+          <Button
+            variant="ghost"
+            size="sm"
+            className="text-[#71717A]"
+            onClick={handleDetailsClick}
+          >
             <UserPen className="h-4 w-4" />
           </Button>
           <Button
@@ -118,17 +124,15 @@ const EquipesFichaTableRow = ({
         </TableCell>
       </TableRow>
 
-      {/* <EditarFichaSheet
-        id={fichas.id}
-        igrejaId={fichas.igrejaId}
+      <EditarEquipeFichaSheet
+        id={equipesFichaList.id}
+        igrejaId={igrejaId}
         idUserEquipeDirigente={idUserEquipeDirigente}
         isOpen={isModalOpen}
         onClose={handleCloseModal}
         pasta={pasta}
       />
 
-      
-       */}
       <DeleteConfirmationModal
         isOpen={isDeleteModalOpen}
         onConfirm={handleConfirmDelete}
