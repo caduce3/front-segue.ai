@@ -1,7 +1,4 @@
-import {
-  ChevronDown,
-  LogOut,
-} from "lucide-react";
+import { ChevronDown, LogOut } from "lucide-react";
 import { Button } from "./ui/button";
 import {
   DropdownMenu,
@@ -17,7 +14,6 @@ import { useAuthRedirect } from "@/middlewares/authRedirect";
 import { useNavigate } from "react-router-dom";
 import { Skeleton } from "./ui/skeleton";
 import { Dialog } from "./ui/dialog";
-import { UserProfileDialog } from "./user-profile-dialog";
 import { Avatar, AvatarFallback } from "./ui/avatar";
 import { CanViemItemsAccountMenu } from "./can-view-items-account-menu";
 
@@ -97,8 +93,6 @@ const AccountMenu = () => {
           </DropdownMenuItem>
         </DropdownMenuContent>
       </DropdownMenu>
-
-      <UserProfileDialog />
     </Dialog>
   );
 };
