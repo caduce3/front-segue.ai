@@ -1,7 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { TableCell, TableRow } from "@/components/ui/table";
 import { capitalizeName } from "@/services/formated-captalize-name";
-import { Trash2, UserPen } from "lucide-react";
+import { Puzzle, Trash2, UserPen } from "lucide-react";
 import FichasTypeBadgeCirculos from "./_components/type-badge-circulos";
 import EditarFichaSheet from "./_components/sheet-edit-fichas";
 import { useState } from "react";
@@ -9,6 +9,7 @@ import { DeleteConfirmationModal } from "@/components/card-deletar";
 import { queryClient } from "@/lib/react-query";
 import { toast } from "sonner";
 import { deletarFicha } from "@/api/fichas/deletar-ficha";
+import { EquipesFicha } from "./_components/equipe-fichas/equipe-fichas";
 
 export interface FichasTableRowProps {
   fichas: {
@@ -73,10 +74,19 @@ export interface FichasTableRowProps {
 const FichasTableRow = ({
   fichas,
   idUserEquipeDirigente,
-  pasta
+  pasta,
 }: FichasTableRowProps) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
+  const [isSheetEquipesClose, setIsSheetEquipesClose] = useState(false);
+
+  const handleEquipesDetails = () => {
+    setIsSheetEquipesClose(true);
+  };
+
+  const handleCloseEquipesDetails = () => {
+    setIsSheetEquipesClose(false);
+  };
 
   const handleDetailsClick = () => {
     setIsModalOpen(true);
@@ -130,7 +140,15 @@ const FichasTableRow = ({
           <FichasTypeBadgeCirculos fichas={fichas} />
         </TableCell>
 
-        <TableCell className="flex justify-end space-x-2">
+        <TableCell className="flex justify-center space-x-2">
+          <Button
+            variant="ghost"
+            size="sm"
+            className="text-[#71717A]"
+            onClick={handleEquipesDetails}
+          >
+            <Puzzle className="h-4 w-4" />
+          </Button>
           <Button
             variant="ghost"
             size="sm"
@@ -150,6 +168,15 @@ const FichasTableRow = ({
           </Button>
         </TableCell>
       </TableRow>
+
+      <EquipesFicha
+        igrejaId={fichas.igrejaId}
+        idUserEquipeDirigente={idUserEquipeDirigente}
+        fichaId={fichas.id}
+        pasta={pasta}
+        isOpen={isSheetEquipesClose}
+        onClose={handleCloseEquipesDetails}
+      />
 
       <EditarFichaSheet
         id={fichas.id}

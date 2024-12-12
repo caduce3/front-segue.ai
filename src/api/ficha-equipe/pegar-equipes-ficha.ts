@@ -1,7 +1,7 @@
 import { api } from "@/lib/axios";
 
 export interface PegarEquipesFichaBody {
-  page: number;
+  pageEquipe: number;
   igrejaId: string;
   idUserEquipeDirigente: string;
   fichaId: string;
@@ -38,13 +38,11 @@ export interface PegarEquipesFichaResponse {
     observacoes: string;
     createdAt: string;
     updatedAt: string;
-    filiacaoPai: string;
-    fichaId: string;
   }[];
 }
 
 export async function pegarEquipesFicha({
-  page,
+  pageEquipe,
   igrejaId,
   idUserEquipeDirigente,
   fichaId,
@@ -56,7 +54,7 @@ export async function pegarEquipesFicha({
     const response = await api.post<PegarEquipesFichaResponse>(
       "/pegar_equipes_ficha",
       {
-        page,
+        pageEquipe,
         igrejaId,
         idUserEquipeDirigente,
         fichaId,
