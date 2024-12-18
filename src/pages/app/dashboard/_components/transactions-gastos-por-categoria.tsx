@@ -52,7 +52,7 @@ const GastosPorCategoria = ({
             <p className="text-white opacity-70">Carregando...</p>
           ) : (data?.gastosPorCategoria ?? []).length > 0 ? (
             <div className="space-y-4">
-              {data?.gastosPorCategoria.slice(0, 4).map((gasto, index) => (
+              {data?.gastosPorCategoria.slice(0, 5).map((gasto, index) => (
                 <div key={index} className="space-y-2">
                   <div className="flex justify-between items-center">
                     <p className="text-white opacity-90 mb-2">

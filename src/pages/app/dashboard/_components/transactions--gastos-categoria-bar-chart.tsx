@@ -114,7 +114,7 @@ const GastosPorCategoriaBarChart = ({
                     position="right"
                     offset={8}
                     className="fill-foreground"
-                    fontSize={14}
+                    fontSize={10}
                   />
                 </Bar>
               </BarChart>
