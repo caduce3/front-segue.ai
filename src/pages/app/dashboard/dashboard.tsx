@@ -9,6 +9,7 @@ import TransactionPieChart from "./_components/transactions-pie-chart";
 import GastosPorCategoria from "./_components/transactions-gastos-por-categoria";
 import { EquipeDirigente } from "./_components/equipe-dirigente/equipe-dirigente";
 import { getUserProfileData } from "@/services/acessar-dados-perfil-user";
+import GastosPorCategoriaBarChart from "./_components/transactions--gastos-categoria-bar-chart";
 
 export function Dashboard() {
   const token = useAuthRedirect();
@@ -66,7 +67,7 @@ export function Dashboard() {
             idUserEquipeDirigente={idUserEquipeDirigente}
             dateRange={dateRange}
           />
-          <GastosPorCategoria
+          <GastosPorCategoriaBarChart
             igrejaId={igrejaId}
             idUserEquipeDirigente={idUserEquipeDirigente}
             dateRange={dateRange}
