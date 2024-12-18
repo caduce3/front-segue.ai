@@ -23,8 +23,10 @@ export function Dashboard() {
     staleTime: Infinity,
   });
 
-  const { igrejaId, idUserEquipeDirigente } = profileUser ? getUserProfileData(profileUser) : { igrejaId: "", idUserEquipeDirigente: ""};
-  const pastaUserLogado = profileUser?.pasta
+  const { igrejaId, idUserEquipeDirigente } = profileUser
+    ? getUserProfileData(profileUser)
+    : { igrejaId: "", idUserEquipeDirigente: "" };
+  const pastaUserLogado = profileUser?.pasta;
 
   const [dateRange, setDateRange] = React.useState<{ from: Date; to: Date }>({
     from: new Date(new Date().getFullYear(), 0, 1),
@@ -48,43 +50,36 @@ export function Dashboard() {
           />
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-[2fr,1fr] gap-6 items-stretch">
-          {/* Coluna principal */}
-          <div className="flex flex-col">
-            <SummaryCards
-              igrejaId={igrejaId}
-              idUserEquipeDirigente={idUserEquipeDirigente}
-              dateRange={dateRange}
-            />
-            <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 mt-6">
-              <div className="col-span-1">
-                <TransactionPieChart
-                  igrejaId={igrejaId}
-                  idUserEquipeDirigente={idUserEquipeDirigente}
-                  dateRange={dateRange}
-                />
-              </div>
-              <div className="sm:col-span-2">
-                <GastosPorCategoria
-                  igrejaId={igrejaId}
-                  idUserEquipeDirigente={idUserEquipeDirigente}
-                  dateRange={dateRange}
-                />
-              </div>
-            </div>
-          </div>
-
-          {/* Coluna lateral (Equipe Dirigente) */}
-          <div className="flex flex-col">
-            {pastaUserLogado && (
-              <EquipeDirigente
-                igrejaId={igrejaId}
-                idUserEquipeDirigente={idUserEquipeDirigente}
-                pastaUserLogado={pastaUserLogado}
-              />
-            )}
-          </div>
+        <SummaryCards
+          igrejaId={igrejaId}
+          idUserEquipeDirigente={idUserEquipeDirigente}
+          dateRange={dateRange}
+        />
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 items-stretch mt-6 mb-6">
+          <TransactionPieChart
+            igrejaId={igrejaId}
+            idUserEquipeDirigente={idUserEquipeDirigente}
+            dateRange={dateRange}
+          />
+          <GastosPorCategoria
+            igrejaId={igrejaId}
+            idUserEquipeDirigente={idUserEquipeDirigente}
+            dateRange={dateRange}
+          />
+          <GastosPorCategoria
+            igrejaId={igrejaId}
+            idUserEquipeDirigente={idUserEquipeDirigente}
+            dateRange={dateRange}
+          />
         </div>
+
+        {pastaUserLogado && (
+          <EquipeDirigente
+            igrejaId={igrejaId}
+            idUserEquipeDirigente={idUserEquipeDirigente}
+            pastaUserLogado={pastaUserLogado}
+          />
+        )}
       </div>
     </>
   );
