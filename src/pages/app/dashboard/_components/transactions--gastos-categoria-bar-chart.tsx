@@ -74,10 +74,8 @@ const GastosPorCategoriaBarChart = ({
           {isLoading ? (
             <p className="text-white opacity-70">Carregando...</p>
           ) : chartData.length > 0 ? (
-            <ChartContainer config={{ layout: { label: "Vertical Layout" } }}>
+            <ChartContainer className="aspect-square" config={{ layout: { label: "Vertical Layout" } }}>
               <BarChart
-                width={500}
-                height={300}
                 data={chartData}
                 layout="vertical"
                 barCategoryGap="15"
