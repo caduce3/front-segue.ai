@@ -80,7 +80,7 @@ const SummaryCards = ({
         ) : (
           <SummaryCard
             icon={<TrendingUpIcon className="text-green-500" size={16} />}
-            title="Receita"
+            title="Entrada"
             amount={data?.total.totalDepositos || 0}
           />
         )}
@@ -90,7 +90,7 @@ const SummaryCards = ({
         ) : (
           <SummaryCard
             icon={<TrendingDownIcon className="text-red-500" size={16} />}
-            title="Despesas"
+            title="Saída"
             amount={data?.total.totalDespesas || 0}
           />
         )}

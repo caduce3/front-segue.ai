@@ -2,11 +2,11 @@
 export const OPCOES_TIPO_TRANSACAO = [
   {
     value: "DEPOSITO",
-    label: "Depósito",
+    label: "Entrada",
   },
   {
     value: "DESPESA",
-    label: "Despesa",
+    label: "Saída",
   },
   {
     value: "INVESTIMENTO",
