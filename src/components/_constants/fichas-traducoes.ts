@@ -129,3 +129,14 @@ export const OPCOES_CORES_CIRCULOS = [
     label: "Laranja",
   },
 ];
+
+export const OPCOES_STATUS = [
+  {
+    value: "ATIVO",
+    label: "Ativo",
+  },
+  {
+    value: "INATIVO",
+    label: "Inativo",
+  },
+]

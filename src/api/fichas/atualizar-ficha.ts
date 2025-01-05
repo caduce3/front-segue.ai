@@ -51,6 +51,7 @@ export interface AtualizarFichaBody {
     | "VERDE"
     | "LARANJA"
     | "ROSA";
+  status?: "ATIVO" | "INATIVO";
 }
 
 export async function atualizarFicha({
@@ -78,6 +79,7 @@ export async function atualizarFicha({
   observacoes,
   anoEncontro,
   corCirculoOrigem,
+  status,
 }: AtualizarFichaBody) {
   try {
     const token = localStorage.getItem("authToken");
@@ -110,6 +112,7 @@ export async function atualizarFicha({
         observacoes,
         anoEncontro,
         corCirculoOrigem,
+        status,
       },
       {
         headers: {

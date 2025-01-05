@@ -8,6 +8,7 @@ import {
   OPCOES_ESCOLARIDADE,
   OPCOES_PASTORAL,
   OPCOES_SACRAMENTOS,
+  OPCOES_STATUS,
 } from "@/components/_constants/fichas-traducoes";
 import { DataInput } from "@/components/_formatacao/data-input";
 import { PhoneInput } from "@/components/_formatacao/telefone-input";
@@ -110,6 +111,9 @@ const editarFichaSchema = z.object({
       message: "Sacramento inválido",
     }
   ),
+  status: z.enum(["ATIVO", "INATIVO"], {
+    message: "Status inválido",
+  }),
 });
 
 type EditarFichaSchema = z.infer<typeof editarFichaSchema>;
@@ -129,7 +133,7 @@ const EditarFichaSheet = ({
   igrejaId,
   isOpen,
   onClose,
-  pasta
+  pasta,
 }: EditarFichaSheetProps) => {
   const { data: detalhesFicha, isLoading } = useQuery({
     queryKey: ["detalhesFicha", id, idUserEquipeDirigente, igrejaId],
@@ -179,6 +183,7 @@ const EditarFichaSheet = ({
         observacoes: detalhesFicha.ficha.observacoes,
         anoEncontro: detalhesFicha.ficha.anoEncontro,
         corCirculoOrigem: detalhesFicha.ficha.corCirculoOrigem,
+        status: detalhesFicha.ficha.status,
       });
     }
   }, [detalhesFicha, reset, isOpen]);
@@ -212,6 +217,7 @@ const EditarFichaSheet = ({
         observacoes,
         anoEncontro,
         corCirculoOrigem,
+        status,
       }
     ) {
       const cached = queryClient.getQueryData<PegarUnicaFichaResponse>([
@@ -244,6 +250,7 @@ const EditarFichaSheet = ({
               observacoes,
               anoEncontro,
               corCirculoOrigem,
+              status,
             },
           }
         );
@@ -281,6 +288,7 @@ const EditarFichaSheet = ({
         observacoes: data.observacoes ?? undefined,
         anoEncontro: data.anoEncontro,
         corCirculoOrigem: data.corCirculoOrigem,
+        status: data.status,
       });
       toast.success("Ficha atualizada com sucesso!");
       onClose();
@@ -854,13 +862,57 @@ const EditarFichaSheet = ({
               />
             </div>
 
+            <div className="flex flex-col md:flex-row">
+              <FormField
+                control={form.control}
+                name="status"
+                render={({ field }) => (
+                  <FormItem className="w-full p-2">
+                    <FormLabel>Status de disponibilidade</FormLabel>
+                    <FormControl>
+                      {isLoading ? (
+                        <Skeleton className="h-[30px] w-[300px]" />
+                      ) : (
+                        <Select
+                          value={field.value || ""}
+                          onValueChange={(value) => field.onChange(value)}
+                        >
+                          <SelectTrigger>
+                            <SelectValue placeholder="Selecione se a ficha está ativa ou inativa" />
+                          </SelectTrigger>
+                          <SelectContent>
+                            {OPCOES_STATUS.map((option) => (
+                              <SelectItem
+                                key={option.value}
+                                value={option.value}
+                              >
+                                {option.label}
+                              </SelectItem>
+                            ))}
+                          </SelectContent>
+                        </Select>
+                      )}
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+
+              <div className="w-full p-2"></div>
+
+              <div className="w-full p-2"></div>
+            </div>
+
             <SheetFooter>
               <SheetClose asChild>
                 <Button variant="outline" onClick={onClose}>
                   Cancelar
                 </Button>
               </SheetClose>
-              <Button type="submit" disabled={isSubmitting || pasta !== "FICHAS"}>
+              <Button
+                type="submit"
+                disabled={isSubmitting || pasta !== "FICHAS"}
+              >
                 Salvar
               </Button>
             </SheetFooter>

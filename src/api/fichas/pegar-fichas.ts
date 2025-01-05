@@ -65,6 +65,7 @@ export interface PegarFichasResponse {
     createdAt: string;
     updatedAt: string;
     igrejaId: string;
+    status: "ATIVO" | "INATIVO";
     FichaEquipe: {
       id: string;
       equipe:

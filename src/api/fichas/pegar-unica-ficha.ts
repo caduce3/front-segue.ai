@@ -39,6 +39,7 @@ export interface PegarUnicaFichaResponse {
     createdAt: string;
     updatedAt: string;
     igrejaId: string;
+    status: "ATIVO" | "INATIVO";
     FichaEquipe: {
       id: string;
       equipe:
@@ -90,7 +91,7 @@ export async function pegarUnicaFicha({
       }
     );
 
-    console.log(response.data)
+    console.log(response.data);
     return response.data;
   } catch (error: any) {
     if (error.response) {
