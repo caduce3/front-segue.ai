@@ -20,6 +20,9 @@ import CadastrarFichaSheet from "../fichas/_components/sheet-cadastrar-ficha";
 import { FichasTableSkeleton } from "../fichas/fichas-table-skeleton";
 import FichasTableRow from "../fichas/fichas-table-row";
 import { pegarFichasMontagem } from "@/api/_montagem/pegar-fichas-montagem";
+import { MontagemAnimacao } from "./equipes/animacao";
+import { MontagemCanto } from "./equipes/canto";
+import { MontagemMiniMercado } from "./equipes/minimercado";
 
 export function Montagem() {
   const token = useAuthRedirect();
@@ -54,6 +57,7 @@ export function Montagem() {
       | "VERMELHO"
       | undefined) ?? undefined;
   const anoEncontro = searchParams.get("anoEncontro") ?? undefined;
+  const equipeAtual = "NENHUMA";
 
   const { data: profileUser } = useQuery({
     queryKey: ["profileUser"],
@@ -71,6 +75,7 @@ export function Montagem() {
       page,
       igrejaId,
       idUserEquipeDirigente,
+      equipeAtual,
       nomePastaFichas,
       nomeJovem,
       corCirculoOrigem,
@@ -81,6 +86,7 @@ export function Montagem() {
         page: Number(page),
         igrejaId,
         idUserEquipeDirigente,
+        equipeAtual,
         nomePastaFichas,
         nomeJovem,
         corCirculoOrigem,
@@ -168,6 +174,20 @@ export function Montagem() {
           onPageChange={handlePaginate}
         />
       )}
+      <div className="flex flex-wrap justify-center mt-5">
+        <MontagemAnimacao
+          igrejaId={igrejaId}
+          idUserEquipeDirigente={idUserEquipeDirigente}
+        />
+        <MontagemCanto
+          igrejaId={igrejaId}
+          idUserEquipeDirigente={idUserEquipeDirigente}
+        />
+        <MontagemMiniMercado
+          igrejaId={igrejaId}
+          idUserEquipeDirigente={idUserEquipeDirigente}
+        />
+      </div>
     </div>
   );
 }

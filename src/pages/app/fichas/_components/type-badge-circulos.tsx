@@ -65,17 +65,30 @@ interface FichasTypeBadgeCirculosProps {
 
 const FichasTypeBadgeCirculos = ({ fichas }: FichasTypeBadgeCirculosProps) => {
   const fichasType = fichas.corCirculoOrigem;
+  const anoEncontro = fichas.anoEncontro;
 
-  const renderBadge = (bgColor: string, textColor: string, fill: string, label: string) => (
-    <Badge className={`${bgColor} bg-opacity-10 font-bold ${textColor} hover:bg-muted`}>
+  const renderBadge = (
+    bgColor: string,
+    textColor: string,
+    fill: string,
+    label: string
+  ) => (
+    <Badge
+      className={`${bgColor} bg-opacity-10 font-bold ${textColor} hover:bg-muted`}
+    >
       <CircleIcon className="mr-2" size={10} style={{ fill }} />
-      {label}
+      {label} {anoEncontro ? `de ${anoEncontro}` : ""}
     </Badge>
   );
 
   switch (fichasType) {
     case "AMARELO":
-      return renderBadge("bg-yellow-500", "text-yellow-500", "#FFD700", "Amarelo");
+      return renderBadge(
+        "bg-yellow-500",
+        "text-yellow-500",
+        "#FFD700",
+        "Amarelo"
+      );
     case "VERDE":
       return renderBadge("bg-green-500", "text-green-500", "#55b02e", "Verde");
     case "VERMELHO":
@@ -83,11 +96,21 @@ const FichasTypeBadgeCirculos = ({ fichas }: FichasTypeBadgeCirculosProps) => {
     case "ROSA":
       return renderBadge("bg-pink-500", "text-pink-500", "#FF69B4", "Rosa");
     case "LARANJA":
-      return renderBadge("bg-orange-500", "text-orange-500", "#FFA500", "Laranja");
+      return renderBadge(
+        "bg-orange-500",
+        "text-orange-500",
+        "#FFA500",
+        "Laranja"
+      );
     case "AZUL":
       return renderBadge("bg-blue-500", "text-blue-500", "#1E90FF", "Azul");
     default:
-      return renderBadge("bg-gray-500", "text-gray-500", "#AAAAAA", "Tipo Não Definido");
+      return renderBadge(
+        "bg-gray-500",
+        "text-gray-500",
+        "#AAAAAA",
+        "Tipo Não Definido"
+      );
   }
 };
 

@@ -14,6 +14,27 @@ export interface PegarFichasMontagemBody {
     | "ROSA"
     | "VERDE"
     | "VERMELHO";
+  equipeAtual:
+    | "ANIMACAO"
+    | "VIGILIA_PAROQUIAL"
+    | "LITURGIA"
+    | "CANTO"
+    | "ESTACIONAMENTO"
+    | "TAXI"
+    | "LANCHE"
+    | "COZINHA"
+    | "SALA"
+    | "FAXINA"
+    | "ED_PALESTRA"
+    | "ED_POS"
+    | "ED_MONTAGEM"
+    | "ED_FINANCAS"
+    | "ED_FICHAS"
+    | "CIRCULO"
+    | "GRAFICA"
+    | "MINI_MERCADO"
+    | "CARAVANA"
+    | "NENHUMA";
 }
 
 export interface PegarFichasMontagemResponse {
@@ -127,6 +148,7 @@ export async function pegarFichasMontagem({
   nomeJovem,
   anoEncontro,
   corCirculoOrigem,
+  equipeAtual,
 }: PegarFichasMontagemBody) {
   try {
     const token = localStorage.getItem("authToken");
@@ -142,6 +164,7 @@ export async function pegarFichasMontagem({
         nomeJovem,
         anoEncontro,
         corCirculoOrigem,
+        equipeAtual,
       },
       {
         headers: {
