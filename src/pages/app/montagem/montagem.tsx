@@ -15,11 +15,11 @@ import {
 } from "@/components/ui/table";
 import { Pagination } from "@/components/pagination";
 import { getUserProfileData } from "@/services/acessar-dados-perfil-user";
-import { pegarFichas } from "@/api/fichas/pegar-fichas";
 import FichasTableFilters from "../fichas/fichas-table-filters";
 import CadastrarFichaSheet from "../fichas/_components/sheet-cadastrar-ficha";
 import { FichasTableSkeleton } from "../fichas/fichas-table-skeleton";
 import FichasTableRow from "../fichas/fichas-table-row";
+import { pegarFichasMontagem } from "@/api/_montagem/pegar-fichas-montagem";
 
 export function Montagem() {
   const token = useAuthRedirect();
@@ -31,7 +31,8 @@ export function Montagem() {
 
   useEffect(() => {
     if (
-      verifyAccessByJwt(token ?? "", ["MONTAGEM", "PADRE", "PAROQUIA"]) === false
+      verifyAccessByJwt(token ?? "", ["MONTAGEM", "PADRE", "PAROQUIA"]) ===
+      false
     ) {
       navigate("/");
       toast.error("Você não tem permissão para acessar essa página");
@@ -66,7 +67,7 @@ export function Montagem() {
 
   const { data, isLoading } = useQuery({
     queryKey: [
-      "fichas",
+      "fichas-montagem",
       page,
       igrejaId,
       idUserEquipeDirigente,
@@ -76,7 +77,7 @@ export function Montagem() {
       anoEncontro,
     ],
     queryFn: () =>
-      pegarFichas({
+      pegarFichasMontagem({
         page: Number(page),
         igrejaId,
         idUserEquipeDirigente,
