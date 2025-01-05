@@ -9,7 +9,7 @@ export const OPCOES_EQUIPES = [
   },
   {
     value: "LITURGIA",
-    label: "Liturgi",
+    label: "Liturgia",
   },
   {
     value: "CANTO",
@@ -71,6 +71,10 @@ export const OPCOES_EQUIPES = [
     value: "MINI_MERCADO",
     label: "Mini Mercado",
   },
+  {
+    value: "CARAVANA",
+    label: "Caravana",
+  },
 ];
 
 export const OPCOES_FUNCAO = [
@@ -104,5 +108,20 @@ export const OPCOES_AVALIACAO = [
   {
     value: "NEUTRA",
     label: "Neutra",
+  },
+];
+
+export const OPCOES_TIPO_ENCONTRO = [
+  {
+    value: "PRIMEIRA_ETAPA",
+    label: "1° Etapa",
+  },
+  {
+    value: "SEGUNDA_ETAPA",
+    label: "2° Etapa",
+  },
+  {
+    value: "CARAVANA",
+    label: "Caravana",
   },
 ];

@@ -7,6 +7,7 @@ import {
   OPCOES_AVALIACAO,
   OPCOES_EQUIPES,
   OPCOES_FUNCAO,
+  OPCOES_TIPO_ENCONTRO,
 } from "@/components/_constants/equipe-fichas-traducoes";
 import { Button } from "@/components/ui/button";
 import {
@@ -62,6 +63,7 @@ const editarEquipeFichaSchema = z.object({
       "CIRCULO",
       "GRAFICA",
       "MINI_MERCADO",
+      "CARAVANA",
     ],
     {
       message: "Equipe inválida",
@@ -79,6 +81,9 @@ const editarEquipeFichaSchema = z.object({
     message: "Função inválida",
   }),
   observacoes: z.string().nullable().optional(),
+  tipoEncontro: z.enum(["PRIMEIRA_ETAPA", "CARAVANA", "SEGUNDA_ETAPA"], {
+    message: "Tipo de encontro inválido",
+  }),
 });
 
 type EditarEquipeFichaSchema = z.infer<typeof editarEquipeFichaSchema>;
@@ -130,6 +135,7 @@ const EditarEquipeFichaSheet = ({
         funcao: detalhesEquipeFicha.fichaEquipe.funcao,
         avaliacao: detalhesEquipeFicha.fichaEquipe.avaliacao,
         observacoes: detalhesEquipeFicha.fichaEquipe.observacoes,
+        tipoEncontro: detalhesEquipeFicha.fichaEquipe.tipoEncontro,
       });
     }
   }, [detalhesEquipeFicha, reset, isOpen]);
@@ -147,6 +153,7 @@ const EditarEquipeFichaSheet = ({
         funcao,
         avaliacao,
         observacoes,
+        tipoEncontro,
       }
     ) {
       const cached = queryClient.getQueryData<PegarUnicaEquipeFichaResponse>([
@@ -163,6 +170,7 @@ const EditarEquipeFichaSheet = ({
               funcao,
               avaliacao,
               observacoes,
+              tipoEncontro,
             },
           }
         );
@@ -184,6 +192,7 @@ const EditarEquipeFichaSheet = ({
         funcao: data.funcao,
         avaliacao: data.avaliacao,
         observacoes: data.observacoes ?? undefined,
+        tipoEncontro: data.tipoEncontro,
       });
       toast.success("Equipe atualizada com sucesso!");
       onClose();
@@ -212,6 +221,38 @@ const EditarEquipeFichaSheet = ({
             onSubmit={handleSubmit(handleSubmitEquipeFichaEdit)}
             className="space-y-8 w-full"
           >
+            <FormField
+              control={form.control}
+              name="tipoEncontro"
+              render={({ field }) => (
+                <FormItem className="w-full p-2">
+                  <FormLabel>Tipo do Encontro</FormLabel>
+                  <FormControl>
+                    {isLoading ? (
+                      <Skeleton className="h-[30px] w-[300px]" />
+                    ) : (
+                      <Select
+                        value={field.value || ""}
+                        onValueChange={(value) => field.onChange(value)}
+                      >
+                        <SelectTrigger>
+                          <SelectValue placeholder="Selecione o tipo do encontro" />
+                        </SelectTrigger>
+                        <SelectContent>
+                          {OPCOES_TIPO_ENCONTRO.map((option) => (
+                            <SelectItem key={option.value} value={option.value}>
+                              {option.label}
+                            </SelectItem>
+                          ))}
+                        </SelectContent>
+                      </Select>
+                    )}
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+
             <FormField
               control={form.control}
               name="equipe"

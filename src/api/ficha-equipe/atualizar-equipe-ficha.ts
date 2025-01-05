@@ -22,11 +22,13 @@ export interface AtualizarEquipeFichaBody {
     | "ED_FICHAS"
     | "CIRCULO"
     | "GRAFICA"
-    | "MINI_MERCADO";
+    | "MINI_MERCADO"
+    | "CARAVANA";
   ano?: string;
   funcao?: "EQUIPISTA" | "COORDENADOR" | "ED" | "APOIO";
   avaliacao?: "NEGATIVA" | "POSITIVA" | "NEUTRA";
   observacoes?: string;
+  tipoEncontro?: "PRIMEIRA_ETAPA" | "CARAVANA" | "SEGUNDA_ETAPA";
 }
 
 export async function atualizarEquipeFicha({
@@ -38,6 +40,7 @@ export async function atualizarEquipeFicha({
   funcao,
   avaliacao,
   observacoes,
+  tipoEncontro,
 }: AtualizarEquipeFichaBody) {
   try {
     const token = localStorage.getItem("authToken");
@@ -54,6 +57,7 @@ export async function atualizarEquipeFicha({
         funcao,
         avaliacao,
         observacoes,
+        tipoEncontro,
       },
       {
         headers: {

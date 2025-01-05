@@ -27,11 +27,13 @@ export interface PegarUnicaEquipeFichaResponse {
       | "ED_FICHAS"
       | "CIRCULO"
       | "GRAFICA"
-      | "MINI_MERCADO";
+      | "MINI_MERCADO"
+      | "CARAVANA";
     ano: string;
     funcao: "EQUIPISTA" | "COORDENADOR" | "ED" | "APOIO";
     avaliacao: "NEGATIVA" | "POSITIVA" | "NEUTRA";
     observacoes: string;
+    tipoEncontro: "PRIMEIRA_ETAPA" | "CARAVANA" | "SEGUNDA_ETAPA";
   };
 }
 

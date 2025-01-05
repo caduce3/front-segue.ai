@@ -31,13 +31,15 @@ export interface FichasTableRowProps {
       | "ED_FICHAS"
       | "CIRCULO"
       | "GRAFICA"
-      | "MINI_MERCADO";
+      | "MINI_MERCADO"
+      | "CARAVANA";
     ano: string;
     funcao: "EQUIPISTA" | "COORDENADOR" | "ED" | "APOIO";
     avaliacao: "NEGATIVA" | "POSITIVA" | "NEUTRA";
     observacoes: string;
     createdAt: string;
     updatedAt: string;
+    tipoEncontro: "PRIMEIRA_ETAPA" | "CARAVANA" | "SEGUNDA_ETAPA";
   };
   idUserEquipeDirigente: string;
   pasta: string;
@@ -89,7 +91,10 @@ const EquipesFichaTableRow = ({
     <>
       <TableRow>
         <TableCell className="font-medium">
-          {OPCOES_EQUIPES.find((e) => e.value === equipesFichaList.equipe)?.label}
+          {
+            OPCOES_EQUIPES.find((e) => e.value === equipesFichaList.equipe)
+              ?.label
+          }
         </TableCell>
         <TableCell className="hidden md:table-cell">
           {equipesFichaList.ano}

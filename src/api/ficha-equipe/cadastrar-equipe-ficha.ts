@@ -22,10 +22,12 @@ export interface CadastrarEquipeFichaBody {
     | "ED_FICHAS"
     | "CIRCULO"
     | "GRAFICA"
-    | "MINI_MERCADO";
+    | "MINI_MERCADO"
+    | "CARAVANA";
   ano: string;
   funcao: "EQUIPISTA" | "COORDENADOR" | "ED" | "APOIO";
   avaliacao: "NEGATIVA" | "POSITIVA" | "NEUTRA";
+  tipoEncontro: "PRIMEIRA_ETAPA" | "CARAVANA" | "SEGUNDA_ETAPA";
   observacoes?: string;
 }
 
@@ -38,6 +40,7 @@ export async function cadastrarEquipeFicha({
   funcao,
   avaliacao,
   observacoes,
+  tipoEncontro,
 }: CadastrarEquipeFichaBody) {
   try {
     const token = localStorage.getItem("authToken");
@@ -54,6 +57,7 @@ export async function cadastrarEquipeFicha({
         funcao,
         avaliacao,
         observacoes,
+        tipoEncontro,
       },
       {
         headers: {

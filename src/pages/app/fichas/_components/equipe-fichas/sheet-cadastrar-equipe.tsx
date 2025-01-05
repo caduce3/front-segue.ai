@@ -6,6 +6,7 @@ import {
   OPCOES_AVALIACAO,
   OPCOES_EQUIPES,
   OPCOES_FUNCAO,
+  OPCOES_TIPO_ENCONTRO,
 } from "@/components/_constants/equipe-fichas-traducoes";
 import { Button } from "@/components/ui/button";
 import {
@@ -77,6 +78,7 @@ const cadastrarEquipeFichaSchema = z.object({
       "CIRCULO",
       "GRAFICA",
       "MINI_MERCADO",
+      "CARAVANA",
     ],
     {
       message: "Equipe inválida",
@@ -94,6 +96,9 @@ const cadastrarEquipeFichaSchema = z.object({
     message: "Função inválida",
   }),
   observacoes: z.string().nullable().optional(),
+  tipoEncontro: z.enum(["PRIMEIRA_ETAPA", "CARAVANA", "SEGUNDA_ETAPA"], {
+    message: "Tipo de encontro inválido",
+  }),
 });
 
 type CadastrarEquipeFichaFormValues = z.infer<
@@ -109,6 +114,7 @@ const CadastrarEquipeFichaSheet = ({
   const form = useForm<CadastrarEquipeFichaFormValues>({
     resolver: zodResolver(cadastrarEquipeFichaSchema),
     defaultValues: {
+      tipoEncontro: "PRIMEIRA_ETAPA",
       equipe: "ANIMACAO",
       ano: "",
       funcao: "EQUIPISTA",
@@ -169,10 +175,7 @@ const CadastrarEquipeFichaSheet = ({
           <NotepadText className="h-4 w-4" />
         </Button>
       </SheetTrigger>
-      <SheetContent
-        side="right"
-        className="overflow-y-auto "
-      >
+      <SheetContent side="right" className="overflow-y-auto ">
         <SheetHeader>
           <SheetTitle>Cadastrar Ficha</SheetTitle>
         </SheetHeader>
@@ -181,6 +184,34 @@ const CadastrarEquipeFichaSheet = ({
             onSubmit={form.handleSubmit(onSubmit)}
             className="space-y-8 w-full"
           >
+            <FormField
+              control={form.control}
+              name="tipoEncontro"
+              render={({ field }) => (
+                <FormItem className="w-full p-2">
+                  <FormLabel>Tipo Encontro</FormLabel>
+                  <FormControl>
+                    <Select
+                      value={field.value || ""}
+                      onValueChange={(value) => field.onChange(value)}
+                    >
+                      <SelectTrigger>
+                        <SelectValue placeholder="Selecione o tipo de encontro" />
+                      </SelectTrigger>
+                      <SelectContent>
+                        {OPCOES_TIPO_ENCONTRO.map((option) => (
+                          <SelectItem key={option.value} value={option.value}>
+                            {option.label}
+                          </SelectItem>
+                        ))}
+                      </SelectContent>
+                    </Select>
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+
             <FormField
               control={form.control}
               name="equipe"
