@@ -126,9 +126,15 @@ export function Montagem() {
                 Telefone
               </TableHead>
 
-              <TableHead className="hidden xl:table-cell text-white">
-                Endereço
-              </TableHead>
+              {profileUser?.pasta === "MONTAGEM" ? (
+                <TableHead className="hidden md:table-cell text-white">
+                  Equipe Atual
+                </TableHead>
+              ) : (
+                <TableHead className="hidden md:table-cell text-white">
+                  Endereço
+                </TableHead>
+              )}
 
               <TableHead className="hidden md:table-cell text-white">
                 Círculo de Origem

@@ -75,6 +75,10 @@ export const OPCOES_EQUIPES = [
     value: "CARAVANA",
     label: "Caravana",
   },
+  {
+    value: "NENHUMA",
+    label: "Nenhuma",
+  },
 ];
 
 export const OPCOES_FUNCAO = [

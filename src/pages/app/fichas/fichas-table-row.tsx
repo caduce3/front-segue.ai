@@ -10,6 +10,7 @@ import { queryClient } from "@/lib/react-query";
 import { toast } from "sonner";
 import { deletarFicha } from "@/api/fichas/deletar-ficha";
 import { EquipesFicha } from "./_components/equipe-fichas/equipe-fichas";
+import { OPCOES_EQUIPES } from "@/components/_constants/equipe-fichas-traducoes";
 
 export interface FichasTableRowProps {
   fichas: {
@@ -37,6 +38,28 @@ export interface FichasTableRowProps {
     createdAt: string;
     updatedAt: string;
     igrejaId: string;
+    status: "ATIVO" | "INATIVO";
+    equipeAtual:
+      | "ANIMACAO"
+      | "VIGILIA_PAROQUIAL"
+      | "LITURGIA"
+      | "CANTO"
+      | "ESTACIONAMENTO"
+      | "TAXI"
+      | "LANCHE"
+      | "COZINHA"
+      | "SALA"
+      | "FAXINA"
+      | "ED_PALESTRA"
+      | "ED_POS"
+      | "ED_MONTAGEM"
+      | "ED_FINANCAS"
+      | "ED_FICHAS"
+      | "CIRCULO"
+      | "GRAFICA"
+      | "MINI_MERCADO"
+      | "CARAVANA"
+      | "NENHUMA";
     FichaEquipe: {
       id: string;
       equipe:
@@ -132,9 +155,21 @@ const FichasTableRow = ({
           {fichas.telefone}
         </TableCell>
 
-        <TableCell className="hidden xl:table-cell">
-          {fichas.endereco}
-        </TableCell>
+        {pasta === "MONTAGEM" ? (
+          <TableCell className="hidden md:table-cell">
+            {
+              OPCOES_EQUIPES.map((opcao) => {
+                if (opcao.value === fichas.equipeAtual) {
+                  return opcao.label;
+                }
+              })
+            }
+          </TableCell>
+        ) : (
+          <TableCell className="hidden md:table-cell">
+            {fichas.endereco}
+          </TableCell>
+        )}
 
         <TableCell className="hidden md:table-cell">
           <FichasTypeBadgeCirculos fichas={fichas} />

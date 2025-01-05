@@ -66,6 +66,27 @@ export interface PegarFichasResponse {
     updatedAt: string;
     igrejaId: string;
     status: "ATIVO" | "INATIVO";
+    equipeAtual:
+      | "ANIMACAO"
+      | "VIGILIA_PAROQUIAL"
+      | "LITURGIA"
+      | "CANTO"
+      | "ESTACIONAMENTO"
+      | "TAXI"
+      | "LANCHE"
+      | "COZINHA"
+      | "SALA"
+      | "FAXINA"
+      | "ED_PALESTRA"
+      | "ED_POS"
+      | "ED_MONTAGEM"
+      | "ED_FINANCAS"
+      | "ED_FICHAS"
+      | "CIRCULO"
+      | "GRAFICA"
+      | "MINI_MERCADO"
+      | "CARAVANA"
+      | "NENHUMA";
     FichaEquipe: {
       id: string;
       equipe:
