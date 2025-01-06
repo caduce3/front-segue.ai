@@ -64,6 +64,7 @@ const editarEquipeFichaSchema = z.object({
       "GRAFICA",
       "MINI_MERCADO",
       "CARAVANA",
+      "CG"
     ],
     {
       message: "Equipe inválida",
