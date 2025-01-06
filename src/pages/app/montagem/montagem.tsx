@@ -178,14 +178,17 @@ export function Montagem() {
         <MontagemAnimacao
           igrejaId={igrejaId}
           idUserEquipeDirigente={idUserEquipeDirigente}
+          pasta={profileUser?.pasta ?? ""}
         />
         <MontagemCanto
           igrejaId={igrejaId}
           idUserEquipeDirigente={idUserEquipeDirigente}
+          pasta={profileUser?.pasta ?? ""}
         />
         <MontagemMiniMercado
           igrejaId={igrejaId}
           idUserEquipeDirigente={idUserEquipeDirigente}
+          pasta={profileUser?.pasta ?? ""}
         />
       </div>
     </div>

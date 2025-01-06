@@ -13,11 +13,13 @@ import FichasMontagemTableRowSkeleton from "./skeleton-equipes-montages";
 interface MontagemMiniMercadoProps {
   igrejaId: string;
   idUserEquipeDirigente: string;
+  pasta: string;
 }
 
 export function MontagemMiniMercado({
   igrejaId,
   idUserEquipeDirigente,
+  pasta,
 }: MontagemMiniMercadoProps) {
   const equipeAtual = "MINI_MERCADO";
   const page = 1;
@@ -51,16 +53,21 @@ export function MontagemMiniMercado({
               <TableRow>
                 <TableHead className="text-white">Nome</TableHead>
 
-                <TableHead className=" text-white">
-                  Círculo e Ano
-                </TableHead>
+                <TableHead className=" text-white">Identificacão</TableHead>
+
+                <TableHead className=" text-white text-center">Ações</TableHead>
               </TableRow>
             </TableHeader>
             <TableBody>
               {data &&
                 data.fichasList.map((fichas) => {
                   return (
-                    <FichasMontagemTableRow key={fichas.id} fichas={fichas} />
+                    <FichasMontagemTableRow
+                      key={fichas.id}
+                      fichas={fichas}
+                      pasta={pasta}
+                      idUserEquipeDirigente={idUserEquipeDirigente}
+                    />
                   );
                 })}
             </TableBody>
