@@ -52,6 +52,27 @@ export interface AtualizarFichaBody {
     | "LARANJA"
     | "ROSA";
   status?: "ATIVO" | "INATIVO";
+  equipeAtual?:
+    | "ANIMACAO"
+    | "VIGILIA_PAROQUIAL"
+    | "LITURGIA"
+    | "CANTO"
+    | "ESTACIONAMENTO"
+    | "TAXI"
+    | "LANCHE"
+    | "COZINHA"
+    | "SALA"
+    | "FAXINA"
+    | "ED_PALESTRA"
+    | "ED_POS"
+    | "ED_MONTAGEM"
+    | "ED_FINANCAS"
+    | "ED_FICHAS"
+    | "CIRCULO"
+    | "GRAFICA"
+    | "MINI_MERCADO"
+    | "CARAVANA"
+    | "NENHUMA";
 }
 
 export async function atualizarFicha({
@@ -80,6 +101,7 @@ export async function atualizarFicha({
   anoEncontro,
   corCirculoOrigem,
   status,
+  equipeAtual,
 }: AtualizarFichaBody) {
   try {
     const token = localStorage.getItem("authToken");
@@ -113,6 +135,7 @@ export async function atualizarFicha({
         anoEncontro,
         corCirculoOrigem,
         status,
+        equipeAtual,
       },
       {
         headers: {

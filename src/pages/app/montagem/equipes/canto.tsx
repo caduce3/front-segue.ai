@@ -51,7 +51,7 @@ export function MontagemCanto({
               <TableRow>
                 <TableHead className="text-white">Nome</TableHead>
 
-                <TableHead className="hidden md:table-cell text-white">
+                <TableHead className=" text-white">
                   Círculo e Ano
                 </TableHead>
               </TableRow>

@@ -129,3 +129,62 @@ export const OPCOES_TIPO_ENCONTRO = [
     label: "Caravana",
   },
 ];
+
+export const OPCOES_EQUIPES_MONTAGEM = [
+  {
+    value: "ANIMACAO",
+    label: "Animação",
+  },
+  {
+    value: "VIGILIA_PAROQUIAL",
+    label: "Vigília Paroquial",
+  },
+  {
+    value: "LITURGIA",
+    label: "Liturgia",
+  },
+  {
+    value: "CANTO",
+    label: "Canto",
+  },
+  {
+    value: "ESTACIONAMENTO",
+    label: "Estacionamento",
+  },
+  {
+    value: "TAXI",
+    label: "Táxi",
+  },
+  {
+    value: "LANCHE",
+    label: "Lanche",
+  },
+  {
+    value: "COZINHA",
+    label: "Cozinha",
+  },
+  {
+    value: "SALA",
+    label: "Sala",
+  },
+  {
+    value: "FAXINA",
+    label: "Faxina",
+  },
+  {
+    value: "CIRCULO",
+    label: "Círculos",
+  },
+  {
+    value: "GRAFICA",
+    label: "Gráfica",
+  },
+  {
+    value: "MINI_MERCADO",
+    label: "Mini Mercado",
+  },
+  {
+    value: "NENHUMA",
+    label: "Nenhuma",
+  },
+];

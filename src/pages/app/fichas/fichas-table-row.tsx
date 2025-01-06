@@ -1,7 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { TableCell, TableRow } from "@/components/ui/table";
 import { capitalizeName } from "@/services/formated-captalize-name";
-import { Puzzle, Trash2, UserPen } from "lucide-react";
+import { NotepadText, Puzzle, Trash2, UserPen } from "lucide-react";
 import FichasTypeBadgeCirculos from "./_components/type-badge-circulos";
 import EditarFichaSheet from "./_components/sheet-edit-fichas";
 import { useState } from "react";
@@ -11,6 +11,7 @@ import { toast } from "sonner";
 import { deletarFicha } from "@/api/fichas/deletar-ficha";
 import { EquipesFicha } from "./_components/equipe-fichas/equipe-fichas";
 import { OPCOES_EQUIPES } from "@/components/_constants/equipe-fichas-traducoes";
+import { AtualizarEquipeAnualModal } from "../montagem/equipes/card-atualizar-equipe-anual";
 
 export interface FichasTableRowProps {
   fichas: {
@@ -102,6 +103,8 @@ const FichasTableRow = ({
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
   const [isSheetEquipesClose, setIsSheetEquipesClose] = useState(false);
+  const [isModalAtualizarEquipeAnualOpen, setIsModalAtualizarEquipeAnualOpen] =
+    useState(false);
 
   const handleEquipesDetails = () => {
     setIsSheetEquipesClose(true);
@@ -142,6 +145,14 @@ const FichasTableRow = ({
     }
   };
 
+  const handleAtualizarEquipeAnualClick = () => {
+    setIsModalAtualizarEquipeAnualOpen(true);
+  };
+
+  const handleAtualizarEquipeAnualClickCloseModal = () => {
+    setIsModalAtualizarEquipeAnualOpen(false);
+  };
+
   return (
     <>
       <TableRow>
@@ -157,13 +168,11 @@ const FichasTableRow = ({
 
         {pasta === "MONTAGEM" ? (
           <TableCell className="hidden md:table-cell">
-            {
-              OPCOES_EQUIPES.map((opcao) => {
-                if (opcao.value === fichas.equipeAtual) {
-                  return opcao.label;
-                }
-              })
-            }
+            {OPCOES_EQUIPES.map((opcao) => {
+              if (opcao.value === fichas.equipeAtual) {
+                return opcao.label;
+              }
+            })}
           </TableCell>
         ) : (
           <TableCell className="hidden md:table-cell">
@@ -182,7 +191,7 @@ const FichasTableRow = ({
             className="text-[#71717A]"
             onClick={handleEquipesDetails}
           >
-            <Puzzle className="h-4 w-4" />
+            <NotepadText className="h-4 w-4" />
           </Button>
           <Button
             variant="ghost"
@@ -192,15 +201,27 @@ const FichasTableRow = ({
           >
             <UserPen className="h-4 w-4" />
           </Button>
-          <Button
-            variant="ghost"
-            size="sm"
-            className="text-[#71717A]"
-            onClick={handleDeleteClick}
-            disabled={pasta !== "FICHAS"}
-          >
-            <Trash2 className="h-4 w-4" />
-          </Button>
+          {pasta === "FICHAS" ? (
+            <Button
+              variant="ghost"
+              size="sm"
+              className="text-[#71717A]"
+              onClick={handleDeleteClick}
+              disabled={pasta !== "FICHAS"}
+            >
+              <Trash2 className="h-4 w-4" />
+            </Button>
+          ) : (
+            <Button
+              variant="ghost"
+              size="sm"
+              className="text-[#71717A]"
+              onClick={handleAtualizarEquipeAnualClick}
+              disabled={pasta !== "MONTAGEM"}
+            >
+              <Puzzle className="h-4 w-4" />
+            </Button>
+          )}
         </TableCell>
       </TableRow>
 
@@ -226,6 +247,15 @@ const FichasTableRow = ({
         isOpen={isDeleteModalOpen}
         onConfirm={handleConfirmDelete}
         onCancel={handleCancelDelete}
+      />
+
+      <AtualizarEquipeAnualModal
+        id={fichas.id}
+        idUserEquipeDirigente={idUserEquipeDirigente}
+        igrejaId={fichas.igrejaId}
+        isOpen={isModalAtualizarEquipeAnualOpen}
+        onClose={handleAtualizarEquipeAnualClickCloseModal}
+        pasta={pasta}
       />
     </>
   );
