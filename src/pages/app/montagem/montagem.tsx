@@ -23,6 +23,7 @@ import { pegarFichasMontagem } from "@/api/_montagem/pegar-fichas-montagem";
 import { MontagemAnimacao } from "./equipes/animacao";
 import { MontagemCanto } from "./equipes/canto";
 import { MontagemMiniMercado } from "./equipes/minimercado";
+import { MontagemComandoGeral } from "./equipes/comando-geral";
 
 export function Montagem() {
   const token = useAuthRedirect();
@@ -175,6 +176,11 @@ export function Montagem() {
         />
       )}
       <div className="flex flex-wrap justify-center mt-5">
+        <MontagemComandoGeral
+          igrejaId={igrejaId}
+          idUserEquipeDirigente={idUserEquipeDirigente}
+          pasta={profileUser?.pasta ?? ""}
+        />
         <MontagemAnimacao
           igrejaId={igrejaId}
           idUserEquipeDirigente={idUserEquipeDirigente}

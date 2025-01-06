@@ -60,7 +60,8 @@ export interface FichasTableRowProps {
       | "GRAFICA"
       | "MINI_MERCADO"
       | "CARAVANA"
-      | "NENHUMA";
+      | "NENHUMA"
+      | "CG";
     FichaEquipe: {
       id: string;
       equipe:
@@ -81,7 +82,8 @@ export interface FichasTableRowProps {
         | "ED_FICHAS"
         | "CIRCULO"
         | "GRAFICA"
-        | "MINI_MERCADO";
+        | "MINI_MERCADO"
+        | "CG";
       ano: string;
       funcao: "COORDENADOR" | "EQUIPISTA" | "ED";
       avaliacao: "NEGATIVO" | "POSITIVO" | "NORMAL";

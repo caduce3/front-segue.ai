@@ -34,7 +34,8 @@ export interface PegarFichasMontagemBody {
     | "GRAFICA"
     | "MINI_MERCADO"
     | "CARAVANA"
-    | "NENHUMA";
+    | "NENHUMA"
+    | "CG";
 }
 
 export interface PegarFichasMontagemResponse {
@@ -107,7 +108,8 @@ export interface PegarFichasMontagemResponse {
       | "GRAFICA"
       | "MINI_MERCADO"
       | "CARAVANA"
-      | "NENHUMA";
+      | "NENHUMA"
+      | "CG";
     FichaEquipe: {
       id: string;
       equipe:
@@ -128,7 +130,8 @@ export interface PegarFichasMontagemResponse {
         | "ED_FICHAS"
         | "CIRCULO"
         | "GRAFICA"
-        | "MINI_MERCADO";
+        | "MINI_MERCADO"
+        | "CG";
       ano: string;
       funcao: "COORDENADOR" | "EQUIPISTA" | "ED";
       avaliacao: "NEGATIVO" | "POSITIVO" | "NORMAL";

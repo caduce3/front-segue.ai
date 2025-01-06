@@ -79,6 +79,10 @@ export const OPCOES_EQUIPES = [
     value: "NENHUMA",
     label: "Nenhuma",
   },
+  {
+    value: "CG",
+    label: "Comando Geral",
+  },
 ];
 
 export const OPCOES_FUNCAO = [
@@ -186,5 +190,9 @@ export const OPCOES_EQUIPES_MONTAGEM = [
   {
     value: "NENHUMA",
     label: "Nenhuma",
+  },
+  {
+    value: "CG",
+    label: "Comando Geral",
   },
 ];

@@ -58,6 +58,7 @@ const atualizarEquipeAtualSchema = z.object({
       "ED_POS",
       "ED_FINANCAS",
       "ED_MONTAGEM",
+      "CG",
     ],
     {
       message: "Equipe inválida",

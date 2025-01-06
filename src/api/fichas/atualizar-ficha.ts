@@ -72,7 +72,8 @@ export interface AtualizarFichaBody {
     | "GRAFICA"
     | "MINI_MERCADO"
     | "CARAVANA"
-    | "NENHUMA";
+    | "NENHUMA"
+    | "CG";
 }
 
 export async function atualizarFicha({

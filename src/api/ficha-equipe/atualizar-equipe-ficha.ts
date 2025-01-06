@@ -23,7 +23,8 @@ export interface AtualizarEquipeFichaBody {
     | "CIRCULO"
     | "GRAFICA"
     | "MINI_MERCADO"
-    | "CARAVANA";
+    | "CARAVANA"
+    | "CG";
   ano?: string;
   funcao?: "EQUIPISTA" | "COORDENADOR" | "ED" | "APOIO";
   avaliacao?: "NEGATIVA" | "POSITIVA" | "NEUTRA";
