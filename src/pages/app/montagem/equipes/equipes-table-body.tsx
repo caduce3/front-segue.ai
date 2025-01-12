@@ -7,6 +7,7 @@ import { EquipesFicha } from "../../fichas/_components/equipe-fichas/equipe-fich
 import EditarFichaSheet from "../../fichas/_components/sheet-edit-fichas";
 import { AtualizarEquipeAnualModal } from "./card-atualizar-equipe-anual";
 import { useState } from "react";
+import FichasFuncaoBadge from "../../fichas/_components/type-badge-funcao-atual";
 
 export interface FichasMontagemTableRowProps {
   fichas: {
@@ -59,6 +60,7 @@ export interface FichasMontagemTableRowProps {
       | "CG"
       | "PROVER"
       | "ESPIRITUALIZADORA";
+    funcaoEquipeAtual: "COORDENADOR" | "EQUIPISTA" | "ED" | "APOIO";
     FichaEquipe: {
       id: string;
       equipe:
@@ -136,6 +138,10 @@ const FichasMontagemTableRow = ({
       <TableRow>
         <TableCell className="font-medium">
           {capitalizeName(fichas.nomeJovem)}
+        </TableCell>
+
+        <TableCell>
+          <FichasFuncaoBadge fichas={fichas} />
         </TableCell>
 
         <TableCell>

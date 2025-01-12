@@ -212,3 +212,18 @@ export const OPCOES_EQUIPES_MONTAGEM = [
     label: "Espiritualizadora",
   },
 ];
+
+export const OPCOES_FUNCAO_MONTAGEM = [
+  {
+    value: "EQUIPISTA",
+    label: "Equipista",
+  },
+  {
+    value: "COORDENADOR",
+    label: "Coordenador",
+  },
+  {
+    value: "APOIO",
+    label: "Apoio",
+  },
+];

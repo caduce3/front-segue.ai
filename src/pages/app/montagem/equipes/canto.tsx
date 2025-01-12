@@ -53,6 +53,8 @@ export function MontagemCanto({
               <TableRow>
                 <TableHead className="text-white">Nome</TableHead>
 
+                <TableHead className="text-white">Função</TableHead>
+
                 <TableHead className=" text-white">Identificacão</TableHead>
 
                 <TableHead className=" text-white text-center">Ações</TableHead>

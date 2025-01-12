@@ -92,7 +92,7 @@ export interface PegarUnicaFichaResponse {
         | "PROVER"
         | "ESPIRITUALIZADORA";
       ano: string;
-      funcao: "COORDENADOR" | "EQUIPISTA" | "ED";
+      funcao: "COORDENADOR" | "EQUIPISTA" | "ED" | "APOIO";
       avaliacao: "NEGATIVO" | "POSITIVO" | "NORMAL";
       observacoes: string;
       createdAt: string;

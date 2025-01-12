@@ -19,7 +19,10 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
-import { OPCOES_EQUIPES_MONTAGEM } from "@/components/_constants/equipe-fichas-traducoes";
+import {
+  OPCOES_EQUIPES_MONTAGEM,
+  OPCOES_FUNCAO_MONTAGEM,
+} from "@/components/_constants/equipe-fichas-traducoes";
 import {
   Select,
   SelectContent,
@@ -66,6 +69,9 @@ const atualizarEquipeAtualSchema = z.object({
       message: "Equipe inválida",
     }
   ),
+  funcaoEquipeAtual: z.enum(["COORDENADOR", "APOIO", "EQUIPISTA", "ED"], {
+    message: "Função inválida",
+  }),
 });
 
 type AtualizarEquipeAtualSchema = z.infer<typeof atualizarEquipeAtualSchema>;
@@ -113,13 +119,17 @@ export const AtualizarEquipeAnualModal = ({
     if (detalhesFicha && isOpen) {
       reset({
         equipeAtual: detalhesFicha.ficha.equipeAtual,
+        funcaoEquipeAtual: detalhesFicha.ficha.funcaoEquipeAtual,
       });
     }
   }, [detalhesFicha, reset, isOpen]);
 
   const { mutateAsync: atualizarFichaFn } = useMutation({
     mutationFn: atualizarFicha,
-    onSuccess(_, { id, idUserEquipeDirigente, igrejaId, equipeAtual }) {
+    onSuccess(
+      _,
+      { id, idUserEquipeDirigente, igrejaId, equipeAtual, funcaoEquipeAtual }
+    ) {
       const cached = queryClient.getQueryData<PegarUnicaFichaResponse>([
         "detalhesFicha",
       ]);
@@ -130,6 +140,7 @@ export const AtualizarEquipeAnualModal = ({
             ficha: {
               ...cached.ficha,
               equipeAtual,
+              funcaoEquipeAtual,
             },
           }
         );
@@ -147,6 +158,7 @@ export const AtualizarEquipeAnualModal = ({
         igrejaId,
         idUserEquipeDirigente,
         equipeAtual: data.equipeAtual,
+        funcaoEquipeAtual: data.funcaoEquipeAtual,
       });
       toast.success("Ficha montada com sucesso!");
       onClose();
@@ -205,6 +217,35 @@ export const AtualizarEquipeAnualModal = ({
                 </FormItem>
               )}
             />
+
+            <FormField
+              control={form.control}
+              name="funcaoEquipeAtual"
+              render={({ field }) => (
+                <FormItem className="w-full p-2">
+                  <FormLabel>Função</FormLabel>
+                  <FormControl>
+                    <Select
+                      value={field.value || ""}
+                      onValueChange={(value) => field.onChange(value)}
+                    >
+                      <SelectTrigger>
+                        <SelectValue placeholder="Selecione a função" />
+                      </SelectTrigger>
+                      <SelectContent>
+                        {OPCOES_FUNCAO_MONTAGEM.map((option) => (
+                          <SelectItem key={option.value} value={option.value}>
+                            {option.label}
+                          </SelectItem>
+                        ))}
+                      </SelectContent>
+                    </Select>
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+
             <SheetFooter>
               <SheetClose asChild>
                 <Button variant="outline" onClick={onClose}>
