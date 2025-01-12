@@ -65,7 +65,7 @@ const cadastrarEquipeFichaSchema = z.object({
       "LITURGIA",
       "CANTO",
       "ESTACIONAMENTO",
-      "TAXI",
+      "VISITACAO",
       "LANCHE",
       "COZINHA",
       "SALA",
@@ -79,7 +79,9 @@ const cadastrarEquipeFichaSchema = z.object({
       "GRAFICA",
       "MINI_MERCADO",
       "CARAVANA",
-      "CG"
+      "CG",
+      "PROVER",
+      "ESPIRITUALIZADORA",
     ],
     {
       message: "Equipe inválida",

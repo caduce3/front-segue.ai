@@ -10,7 +10,7 @@ export interface CadastrarEquipeFichaBody {
     | "LITURGIA"
     | "CANTO"
     | "ESTACIONAMENTO"
-    | "TAXI"
+    | "VISITACAO"
     | "LANCHE"
     | "COZINHA"
     | "SALA"
@@ -24,7 +24,10 @@ export interface CadastrarEquipeFichaBody {
     | "GRAFICA"
     | "MINI_MERCADO"
     | "CARAVANA"
-    | "CG";
+    | "NENHUMA"
+    | "CG"
+    | "PROVER"
+    | "ESPIRITUALIZADORA";
   ano: string;
   funcao: "EQUIPISTA" | "COORDENADOR" | "ED" | "APOIO";
   avaliacao: "NEGATIVA" | "POSITIVA" | "NEUTRA";

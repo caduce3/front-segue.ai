@@ -20,8 +20,8 @@ export const OPCOES_EQUIPES = [
     label: "Estacionamento",
   },
   {
-    value: "TAXI",
-    label: "Táxi",
+    value: "VISITACAO",
+    label: "Visitação",
   },
   {
     value: "LANCHE",
@@ -82,6 +82,14 @@ export const OPCOES_EQUIPES = [
   {
     value: "CG",
     label: "Comando Geral",
+  },
+  {
+    value: "PROVER",
+    label: "Prover",
+  },
+  {
+    value: "ESPIRITUALIZADORA",
+    label: "Espiritualizadora",
   },
 ];
 
@@ -156,8 +164,8 @@ export const OPCOES_EQUIPES_MONTAGEM = [
     label: "Estacionamento",
   },
   {
-    value: "TAXI",
-    label: "Táxi",
+    value: "VISITACAO",
+    label: "Visitação",
   },
   {
     value: "LANCHE",
@@ -194,5 +202,13 @@ export const OPCOES_EQUIPES_MONTAGEM = [
   {
     value: "CG",
     label: "Comando Geral",
+  },
+  {
+    value: "PROVER",
+    label: "Prover",
+  },
+  {
+    value: "ESPIRITUALIZADORA",
+    label: "Espiritualizadora",
   },
 ];

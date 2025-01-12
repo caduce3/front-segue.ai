@@ -41,7 +41,7 @@ export interface FichasMontagemTableRowProps {
       | "LITURGIA"
       | "CANTO"
       | "ESTACIONAMENTO"
-      | "TAXI"
+      | "VISITACAO"
       | "LANCHE"
       | "COZINHA"
       | "SALA"
@@ -56,7 +56,9 @@ export interface FichasMontagemTableRowProps {
       | "MINI_MERCADO"
       | "CARAVANA"
       | "NENHUMA"
-      | "CG";
+      | "CG"
+      | "PROVER"
+      | "ESPIRITUALIZADORA";
     FichaEquipe: {
       id: string;
       equipe:
@@ -65,7 +67,7 @@ export interface FichasMontagemTableRowProps {
         | "LITURGIA"
         | "CANTO"
         | "ESTACIONAMENTO"
-        | "TAXI"
+        | "VISITACAO"
         | "LANCHE"
         | "COZINHA"
         | "SALA"
@@ -78,7 +80,11 @@ export interface FichasMontagemTableRowProps {
         | "CIRCULO"
         | "GRAFICA"
         | "MINI_MERCADO"
-        | "CG";
+        | "CARAVANA"
+        | "NENHUMA"
+        | "CG"
+        | "PROVER"
+        | "ESPIRITUALIZADORA";
       ano: string;
       funcao: "COORDENADOR" | "EQUIPISTA" | "ED";
       avaliacao: "NEGATIVO" | "POSITIVO" | "NORMAL";

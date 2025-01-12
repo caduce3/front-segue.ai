@@ -46,7 +46,7 @@ export interface PegarUnicaFichaResponse {
       | "LITURGIA"
       | "CANTO"
       | "ESTACIONAMENTO"
-      | "TAXI"
+      | "VISITACAO"
       | "LANCHE"
       | "COZINHA"
       | "SALA"
@@ -61,7 +61,10 @@ export interface PegarUnicaFichaResponse {
       | "MINI_MERCADO"
       | "CARAVANA"
       | "NENHUMA"
-      | "CG";
+      | "CG"
+      | "PROVER"
+      | "ESPIRITUALIZADORA";
+    funcaoEquipeAtual: "COORDENADOR" | "EQUIPISTA" | "ED" | "APOIO";
     FichaEquipe: {
       id: string;
       equipe:
@@ -70,7 +73,7 @@ export interface PegarUnicaFichaResponse {
         | "LITURGIA"
         | "CANTO"
         | "ESTACIONAMENTO"
-        | "TAXI"
+        | "VISITACAO"
         | "LANCHE"
         | "COZINHA"
         | "SALA"
@@ -83,7 +86,11 @@ export interface PegarUnicaFichaResponse {
         | "CIRCULO"
         | "GRAFICA"
         | "MINI_MERCADO"
-        | "CG";
+        | "CARAVANA"
+        | "NENHUMA"
+        | "CG"
+        | "PROVER"
+        | "ESPIRITUALIZADORA";
       ano: string;
       funcao: "COORDENADOR" | "EQUIPISTA" | "ED";
       avaliacao: "NEGATIVO" | "POSITIVO" | "NORMAL";

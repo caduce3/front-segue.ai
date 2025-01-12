@@ -43,7 +43,7 @@ const atualizarEquipeAtualSchema = z.object({
       "LITURGIA",
       "CANTO",
       "ESTACIONAMENTO",
-      "TAXI",
+      "VISITACAO",
       "LANCHE",
       "COZINHA",
       "SALA",
@@ -59,6 +59,8 @@ const atualizarEquipeAtualSchema = z.object({
       "ED_FINANCAS",
       "ED_MONTAGEM",
       "CG",
+      "PROVER",
+      "ESPIRITUALIZADORA",
     ],
     {
       message: "Equipe inválida",

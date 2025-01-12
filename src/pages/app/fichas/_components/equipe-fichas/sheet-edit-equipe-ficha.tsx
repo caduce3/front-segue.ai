@@ -50,7 +50,7 @@ const editarEquipeFichaSchema = z.object({
       "LITURGIA",
       "CANTO",
       "ESTACIONAMENTO",
-      "TAXI",
+      "VISITACAO",
       "LANCHE",
       "COZINHA",
       "SALA",
@@ -64,7 +64,10 @@ const editarEquipeFichaSchema = z.object({
       "GRAFICA",
       "MINI_MERCADO",
       "CARAVANA",
-      "CG"
+      "CG",
+      "PROVER",
+      "ESPIRITUALIZADORA",
+      "NENHUMA",
     ],
     {
       message: "Equipe inválida",

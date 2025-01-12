@@ -53,27 +53,30 @@ export interface AtualizarFichaBody {
     | "ROSA";
   status?: "ATIVO" | "INATIVO";
   equipeAtual?:
-    | "ANIMACAO"
-    | "VIGILIA_PAROQUIAL"
-    | "LITURGIA"
-    | "CANTO"
-    | "ESTACIONAMENTO"
-    | "TAXI"
-    | "LANCHE"
-    | "COZINHA"
-    | "SALA"
-    | "FAXINA"
-    | "ED_PALESTRA"
-    | "ED_POS"
-    | "ED_MONTAGEM"
-    | "ED_FINANCAS"
-    | "ED_FICHAS"
-    | "CIRCULO"
-    | "GRAFICA"
-    | "MINI_MERCADO"
-    | "CARAVANA"
-    | "NENHUMA"
-    | "CG";
+  | "ANIMACAO"
+  | "VIGILIA_PAROQUIAL"
+  | "LITURGIA"
+  | "CANTO"
+  | "ESTACIONAMENTO"
+  | "VISITACAO"
+  | "LANCHE"
+  | "COZINHA"
+  | "SALA"
+  | "FAXINA"
+  | "ED_PALESTRA"
+  | "ED_POS"
+  | "ED_MONTAGEM"
+  | "ED_FINANCAS"
+  | "ED_FICHAS"
+  | "CIRCULO"
+  | "GRAFICA"
+  | "MINI_MERCADO"
+  | "CARAVANA"
+  | "NENHUMA"
+  | "CG"
+  | "PROVER"
+  | "ESPIRITUALIZADORA";
+funcaoEquipeAtual?: "COORDENADOR" | "EQUIPISTA" | "ED" | "APOIO";
 }
 
 export async function atualizarFicha({
@@ -103,6 +106,7 @@ export async function atualizarFicha({
   corCirculoOrigem,
   status,
   equipeAtual,
+  funcaoEquipeAtual
 }: AtualizarFichaBody) {
   try {
     const token = localStorage.getItem("authToken");
@@ -137,6 +141,7 @@ export async function atualizarFicha({
         corCirculoOrigem,
         status,
         equipeAtual,
+        funcaoEquipeAtual
       },
       {
         headers: {

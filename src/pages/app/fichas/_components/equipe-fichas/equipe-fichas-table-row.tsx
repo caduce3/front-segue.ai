@@ -19,7 +19,7 @@ export interface FichasTableRowProps {
       | "LITURGIA"
       | "CANTO"
       | "ESTACIONAMENTO"
-      | "TAXI"
+      | "VISITACAO"
       | "LANCHE"
       | "COZINHA"
       | "SALA"
@@ -33,7 +33,10 @@ export interface FichasTableRowProps {
       | "GRAFICA"
       | "MINI_MERCADO"
       | "CARAVANA"
-      | "CG";
+      | "NENHUMA"
+      | "CG"
+      | "PROVER"
+      | "ESPIRITUALIZADORA";
     ano: string;
     funcao: "EQUIPISTA" | "COORDENADOR" | "ED" | "APOIO";
     avaliacao: "NEGATIVA" | "POSITIVA" | "NEUTRA";

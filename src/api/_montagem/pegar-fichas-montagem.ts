@@ -20,7 +20,7 @@ export interface PegarFichasMontagemBody {
     | "LITURGIA"
     | "CANTO"
     | "ESTACIONAMENTO"
-    | "TAXI"
+    | "VISITACAO"
     | "LANCHE"
     | "COZINHA"
     | "SALA"
@@ -35,7 +35,9 @@ export interface PegarFichasMontagemBody {
     | "MINI_MERCADO"
     | "CARAVANA"
     | "NENHUMA"
-    | "CG";
+    | "CG"
+    | "PROVER"
+    | "ESPIRITUALIZADORA";
 }
 
 export interface PegarFichasMontagemResponse {
@@ -94,7 +96,7 @@ export interface PegarFichasMontagemResponse {
       | "LITURGIA"
       | "CANTO"
       | "ESTACIONAMENTO"
-      | "TAXI"
+      | "VISITACAO"
       | "LANCHE"
       | "COZINHA"
       | "SALA"
@@ -109,7 +111,10 @@ export interface PegarFichasMontagemResponse {
       | "MINI_MERCADO"
       | "CARAVANA"
       | "NENHUMA"
-      | "CG";
+      | "CG"
+      | "PROVER"
+      | "ESPIRITUALIZADORA";
+    funcaoEquipeAtual: "COORDENADOR" | "EQUIPISTA" | "ED" | "APOIO";
     FichaEquipe: {
       id: string;
       equipe:
@@ -118,7 +123,7 @@ export interface PegarFichasMontagemResponse {
         | "LITURGIA"
         | "CANTO"
         | "ESTACIONAMENTO"
-        | "TAXI"
+        | "VISITACAO"
         | "LANCHE"
         | "COZINHA"
         | "SALA"
@@ -131,7 +136,11 @@ export interface PegarFichasMontagemResponse {
         | "CIRCULO"
         | "GRAFICA"
         | "MINI_MERCADO"
-        | "CG";
+        | "CARAVANA"
+        | "NENHUMA"
+        | "CG"
+        | "PROVER"
+        | "ESPIRITUALIZADORA";
       ano: string;
       funcao: "COORDENADOR" | "EQUIPISTA" | "ED";
       avaliacao: "NEGATIVO" | "POSITIVO" | "NORMAL";
@@ -151,7 +160,7 @@ export async function pegarFichasMontagem({
   nomeJovem,
   anoEncontro,
   corCirculoOrigem,
-  equipeAtual,
+  equipeAtual
 }: PegarFichasMontagemBody) {
   try {
     const token = localStorage.getItem("authToken");
@@ -167,7 +176,7 @@ export async function pegarFichasMontagem({
         nomeJovem,
         anoEncontro,
         corCirculoOrigem,
-        equipeAtual,
+        equipeAtual
       },
       {
         headers: {

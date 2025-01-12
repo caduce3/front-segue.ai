@@ -9,7 +9,7 @@ interface FichasEquipe {
     | "LITURGIA"
     | "CANTO"
     | "ESTACIONAMENTO"
-    | "TAXI"
+    | "VISITACAO"
     | "LANCHE"
     | "COZINHA"
     | "SALA"
@@ -22,9 +22,13 @@ interface FichasEquipe {
     | "CIRCULO"
     | "GRAFICA"
     | "MINI_MERCADO"
-    | "CG";
+    | "CARAVANA"
+    | "NENHUMA"
+    | "CG"
+    | "PROVER"
+    | "ESPIRITUALIZADORA";
   ano: string;
-  funcao: "COORDENADOR" | "EQUIPISTA" | "ED";
+  funcao: "COORDENADOR" | "EQUIPISTA" | "ED" | "APOIO";
   avaliacao: "NEGATIVO" | "POSITIVO" | "NORMAL";
   observacoes: string;
   createdAt: string;
