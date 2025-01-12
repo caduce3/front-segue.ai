@@ -1,12 +1,5 @@
 import { useEffect } from "react";
 import { Button } from "@/components/ui/button";
-import {
-  Dialog,
-  DialogContent,
-  DialogHeader,
-  DialogFooter,
-  DialogClose,
-} from "@/components/ui/dialog";
 import { Puzzle } from "lucide-react";
 import { z } from "zod";
 import { useMutation, useQuery } from "@tanstack/react-query";
@@ -34,6 +27,13 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import {
+  Sheet,
+  SheetClose,
+  SheetContent,
+  SheetFooter,
+  SheetHeader,
+} from "@/components/ui/sheet";
 
 const atualizarEquipeAtualSchema = z.object({
   equipeAtual: z.enum(
@@ -163,14 +163,14 @@ export const AtualizarEquipeAnualModal = ({
   if (!isOpen) return null;
 
   return (
-    <Dialog open={isOpen} onOpenChange={onClose}>
-      <DialogContent>
-        <DialogHeader>
+    <Sheet open={isOpen} onOpenChange={onClose}>
+      <SheetContent side="right">
+        <SheetHeader>
           <div className="flex items-start">
             <Puzzle size={24} className="text-yellow-600 pt-1 mr-2" />
             <h3 className="text-lg font-bold text-center">Montagem</h3>
           </div>
-        </DialogHeader>
+        </SheetHeader>
         <FormProvider {...form}>
           <form
             onSubmit={handleSubmit(handleSubmitFichaEdit)}
@@ -203,22 +203,22 @@ export const AtualizarEquipeAnualModal = ({
                 </FormItem>
               )}
             />
-            <DialogFooter>
-              <DialogClose asChild>
+            <SheetFooter>
+              <SheetClose asChild>
                 <Button variant="outline" onClick={onClose}>
                   Cancelar
                 </Button>
-              </DialogClose>
+              </SheetClose>
               <Button
                 type="submit"
                 disabled={isSubmitting || pasta !== "MONTAGEM"}
               >
                 Confirmar
               </Button>
-            </DialogFooter>
+            </SheetFooter>
           </form>
         </FormProvider>
-      </DialogContent>
-    </Dialog>
+      </SheetContent>
+    </Sheet>
   );
 };

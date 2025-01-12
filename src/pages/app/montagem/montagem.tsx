@@ -16,7 +16,6 @@ import {
 import { Pagination } from "@/components/pagination";
 import { getUserProfileData } from "@/services/acessar-dados-perfil-user";
 import FichasTableFilters from "../fichas/fichas-table-filters";
-import CadastrarFichaSheet from "../fichas/_components/sheet-cadastrar-ficha";
 import { FichasTableSkeleton } from "../fichas/fichas-table-skeleton";
 import FichasTableRow from "../fichas/fichas-table-row";
 import { pegarFichasMontagem } from "@/api/_montagem/pegar-fichas-montagem";
@@ -109,11 +108,6 @@ export function Montagem() {
         <h1 className="text-3xl font-bold tracking-tight">Fichas</h1>
         <div className="flex">
           <FichasTableFilters />
-          <CadastrarFichaSheet
-            igrejaId={igrejaId}
-            idUserEquipeDirigente={idUserEquipeDirigente}
-            pasta={profileUser?.pasta ?? ""}
-          />
         </div>
       </div>
       <Helmet title="Fichas" />
